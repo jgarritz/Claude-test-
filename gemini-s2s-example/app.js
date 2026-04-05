@@ -6,7 +6,7 @@ const {createEndpoint} = require('@jambonz/node-client-ws');
 const server = createServer(app);
 const makeService = createEndpoint({server});
 const logger = require('pino')({level: process.env.LOGLEVEL || 'info'});
-const port = process.env.WS_PORT || 3000;
+const port = process.env.PORT || process.env.WS_PORT || 3000;
 const routes = require('./lib/api');
 
 app.locals = {
@@ -16,6 +16,11 @@ app.locals = {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', agent: 'Luna', lang: 'es', ws: '/google-s2s' });
+});
+
 app.use('/api', (req, res, next) => {
   next();
 },routes);
