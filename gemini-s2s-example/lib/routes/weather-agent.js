@@ -33,7 +33,7 @@ const service = ({logger: parrentLogger, makeService}) => {
         .pause({length: 1})
         .llm({
           vendor: 'google',
-          model: 'models/gemini-2.0-flash-live-001',
+          model: 'models/gemini-3.1-flash-live-preview',
           auth: {
             apiKey
           },
@@ -53,15 +53,24 @@ const service = ({logger: parrentLogger, makeService}) => {
                 speechConfig: {
                   voiceConfig: {
                     prebuiltVoiceConfig: {
-                      voiceName: 'Aoede'
+                      voiceName: 'Kore'
                     }
-                  }
+                  },
+                  languageCode: 'es'
                 }
               },
               systemInstruction: {
                 parts: [
                   {
-                    text: 'You are a helpful agent named Barbara that can only provide weather information. Help the user with their query.',
+                    text: `Eres un agente conversacional amigable llamado Luna que habla exclusivamente en español.
+Puedes ayudar con información del clima cuando el usuario lo solicite.
+Reglas:
+- Siempre responde en español, sin importar en qué idioma te hablen.
+- Sé conciso y natural, como en una conversación telefónica real.
+- Usa un tono cálido y profesional.
+- Si no entiendes algo, pide que lo repitan amablemente.
+- Cuando consultes el clima, da la temperatura en grados Celsius.
+- Si el usuario quiere terminar la conversación, despídete amablemente.`,
                   }
                 ]
               },
@@ -71,18 +80,18 @@ const service = ({logger: parrentLogger, makeService}) => {
                     functionDeclarations: [
                       {
                         name: 'get_weather',
-                        description: 'Get the weather for a location',
+                        description: 'Obtener el clima actual de una ubicación. Usa esta función cuando el usuario pregunte por el clima o temperatura de algún lugar.',
                         parameters: {
                           type: 'object',
                           properties: {
                             location: {
                               type: 'string',
-                              description: 'The location to get the weather for'
+                              description: 'La ciudad o ubicación para consultar el clima'
                             },
                             scale: {
                               type: 'string',
                               enum: ['celsius', 'fahrenheit'],
-                              description: 'The scale to use for the temperature'
+                              description: 'La escala de temperatura (por defecto celsius)'
                             }
                           },
                           required: ['location']
@@ -124,7 +133,7 @@ const onToolCall = async(session, evt) => {
         functionResponses.push( {
           response: {
             output: {
-              text: `Failed to get the weather for ${location}. Please try again later.`,
+              text: `No se pudo obtener el clima para ${location}. Por favor, intenta más tarde.`,
             },
           },
           id,
@@ -151,7 +160,7 @@ const onFinal = async(session, evt) => {
   logger.info(`got actionHook: ${JSON.stringify(evt)}`);
    
   session
-    .say({text: 'Sorry, your session has ended.'})
+    .say({text: 'Lo siento, tu sesión ha terminado. ¡Hasta luego!'})
     .hangup()
     .reply();
 };

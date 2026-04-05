@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const getWeather = async (location, scale, logger) => {
   /* first we need lat and long, then we can get the weather for that location */
-  let url = `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=1&language=en&format=json`;
+  let url = `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=1&language=es&format=json`;
   let response = await axios.get(url);
 
   if (!Array.isArray(response.data.results) || 0 == response.data.results.length) {
