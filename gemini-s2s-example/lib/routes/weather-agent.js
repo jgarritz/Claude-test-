@@ -80,10 +80,21 @@ const service = ({ logger: parentLogger, makeService }) => {
       parameters: t.parameters
     }));
 
-    session
-      .answer()
-      .pause({ length: 1 })
-      .llm({
+    const s = session.answer().pause({ length: 1 });
+
+    // Initial greeting via Google Cloud TTS (before Gemini Live takes over)
+    if (agent.initial_greeting) {
+      s.say({
+        text: agent.initial_greeting,
+        synthesizer: {
+          vendor: 'google',
+          language: agent.language_code === 'es' ? 'es-MX' : agent.language_code,
+          voice: agent.language_code === 'es' ? 'es-MX-Wavenet-A' : undefined
+        }
+      });
+    }
+
+    s.llm({
         vendor: 'google',
         model: agent.model,
         auth: { apiKey },
@@ -120,6 +131,8 @@ const service = ({ logger: parentLogger, makeService }) => {
       })
       .hangup()
       .send();
+
+    logger.info({ greeting: agent.initial_greeting || 'none' }, 'session started');
   });
 };
 
