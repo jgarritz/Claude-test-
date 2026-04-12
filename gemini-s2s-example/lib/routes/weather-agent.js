@@ -192,8 +192,6 @@ const onFinal = async (session, evt) => {
 
 const onEvent = async (session, evt) => {
   const { logger, callLogId } = session.locals;
-  // Log full event structure to diagnose transcription format
-  logger.info(`EVENT: ${JSON.stringify(evt)}`);
 
   if (!callLogId) return;
 
@@ -201,19 +199,14 @@ const onEvent = async (session, evt) => {
   let content = null;
 
   // Gemini input transcription (what the user said)
-  if (evt.input_audio_transcription) {
+  if (evt.server_content?.input_transcription?.text) {
     role = 'user';
-    content = evt.input_audio_transcription;
+    content = evt.server_content.input_transcription.text;
   }
-  // Gemini output transcription (what the agent said)
-  else if (evt.output_audio_transcription) {
+  // Gemini output transcription (what the agent said) - comes in chunks, accumulate
+  else if (evt.server_content?.output_transcription?.text) {
     role = 'model';
-    content = evt.output_audio_transcription;
-  }
-  // Generic transcript field
-  else if (evt.transcript) {
-    role = evt.role || 'user';
-    content = evt.transcript;
+    content = evt.server_content.output_transcription.text;
   }
 
   if (role && content && content.trim()) {
