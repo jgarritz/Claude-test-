@@ -80,13 +80,11 @@ const service = ({ logger: parentLogger, makeService }) => {
       parameters: t.parameters
     }));
 
-    const s = session.answer().pause({ length: 1 });
-
-    // Initial greeting via application default TTS (before Gemini Live takes over)
-    if (agent.initial_greeting) {
-      s.say({ text: agent.initial_greeting })
-       .pause({ length: 0.5 });
-    }
+    const s = session
+      .answer()
+      .pause({ length: 1 })
+      .say({ text: 'Prueba de audio.' })
+      .pause({ length: 2 });
 
     s.llm({
         vendor: 'google',
