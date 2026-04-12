@@ -105,6 +105,8 @@ const service = ({ logger: parentLogger, makeService }) => {
                 languageCode: agent.language_code
               }
             },
+            inputAudioTranscription: {},
+            outputAudioTranscription: {},
             systemInstruction: {
               parts: [{ text: agent.system_prompt }]
             },
@@ -184,17 +186,38 @@ const onFinal = async (session, evt) => {
 
 const onEvent = async (session, evt) => {
   const { logger, callLogId } = session.locals;
-  logger.info(`got eventHook: ${JSON.stringify(evt)}`);
+  logger.info({ evt }, 'got eventHook');
 
-  // Capture transcriptions
-  if (callLogId && evt.transcript) {
+  if (!callLogId) return;
+
+  let role = null;
+  let content = null;
+
+  // Gemini input transcription (what the user said)
+  if (evt.input_audio_transcription) {
+    role = 'user';
+    content = evt.input_audio_transcription;
+  }
+  // Gemini output transcription (what the agent said)
+  else if (evt.output_audio_transcription) {
+    role = 'model';
+    content = evt.output_audio_transcription;
+  }
+  // Generic transcript field
+  else if (evt.transcript) {
+    role = evt.role || 'user';
+    content = evt.transcript;
+  }
+
+  if (role && content && content.trim()) {
     session.locals.sequenceNum = (session.locals.sequenceNum || 0) + 1;
     await appendTranscription({
       callLogId,
-      role: evt.role || 'user',
-      content: evt.transcript,
+      role,
+      content: content.trim(),
       sequenceNum: session.locals.sequenceNum
     });
+    logger.info({ role, content: content.trim() }, 'transcription saved');
   }
 };
 
