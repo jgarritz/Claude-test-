@@ -110,12 +110,27 @@ const service = ({ logger: parentLogger, makeService }) => {
             systemInstruction: {
               parts: [{ text: agent.system_prompt }]
             },
+            ...(agent.initial_greeting && {
+              historyConfig: {
+                initial_history_in_client_content: true
+              }
+            }),
             ...(functionDeclarations.length > 0 && !process.env.MCP_SERVER_URL && {
               tools: [{
                 functionDeclarations
               }]
             })
-          }
+          },
+          ...(agent.initial_greeting && {
+            initialContext: {
+              clientContent: {
+                turns: [
+                  { role: 'user', parts: [{ text: agent.initial_greeting }] }
+                ],
+                turnComplete: true
+              }
+            }
+          })
         }
       })
       .hangup()
