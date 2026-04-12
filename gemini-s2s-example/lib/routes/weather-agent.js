@@ -82,16 +82,10 @@ const service = ({ logger: parentLogger, makeService }) => {
 
     const s = session.answer().pause({ length: 1 });
 
-    // Initial greeting via Google Cloud TTS (before Gemini Live takes over)
+    // Initial greeting via application default TTS (before Gemini Live takes over)
     if (agent.initial_greeting) {
-      s.say({
-        text: agent.initial_greeting,
-        synthesizer: {
-          vendor: 'google',
-          language: agent.language_code === 'es' ? 'es-MX' : agent.language_code,
-          voice: agent.language_code === 'es' ? 'es-MX-Wavenet-A' : undefined
-        }
-      });
+      s.say({ text: agent.initial_greeting })
+       .pause({ length: 0.5 });
     }
 
     s.llm({
