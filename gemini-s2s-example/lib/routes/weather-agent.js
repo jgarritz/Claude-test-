@@ -80,13 +80,10 @@ const service = ({ logger: parentLogger, makeService }) => {
       parameters: t.parameters
     }));
 
-    const s = session
+    session
       .answer()
       .pause({ length: 1 })
-      .say({ text: 'Prueba de audio.' })
-      .pause({ length: 2 });
-
-    s.llm({
+      .llm({
         vendor: 'google',
         model: agent.model,
         auth: { apiKey },
@@ -123,8 +120,6 @@ const service = ({ logger: parentLogger, makeService }) => {
       })
       .hangup()
       .send();
-
-    logger.info({ greeting: agent.initial_greeting || 'none' }, 'session started');
   });
 };
 
