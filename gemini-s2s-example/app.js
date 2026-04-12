@@ -17,6 +17,15 @@ app.locals = {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// CORS for Lovable dashboard
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  next();
+});
+
 app.get('/', (req, res) => {
   res.json({ status: 'ok', agent: 'Luna', lang: 'es', ws: '/google-s2s' });
 });
