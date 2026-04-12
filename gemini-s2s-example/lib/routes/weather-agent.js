@@ -192,7 +192,8 @@ const onFinal = async (session, evt) => {
 
 const onEvent = async (session, evt) => {
   const { logger, callLogId } = session.locals;
-  logger.info({ evt }, 'got eventHook');
+  // Log full event structure to diagnose transcription format
+  logger.info(`EVENT: ${JSON.stringify(evt)}`);
 
   if (!callLogId) return;
 
