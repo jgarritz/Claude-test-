@@ -120,6 +120,23 @@ const service = ({ logger: parentLogger, makeService }) => {
       })
       .hangup()
       .send();
+
+    // Experimental: send initial greeting via llm:update
+    if (agent.initial_greeting) {
+      setTimeout(() => {
+        try {
+          session.updateLlm({
+            clientContent: {
+              turns: [{ role: 'model', parts: [{ text: agent.initial_greeting }] }],
+              turnComplete: true
+            }
+          });
+          logger.info({ greeting: agent.initial_greeting }, 'sent initial greeting via llm:update');
+        } catch (err) {
+          logger.error({ err }, 'failed to send initial greeting (non-fatal)');
+        }
+      }, 1500);
+    }
   });
 };
 
