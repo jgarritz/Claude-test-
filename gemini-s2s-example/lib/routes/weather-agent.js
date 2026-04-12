@@ -80,10 +80,16 @@ const service = ({ logger: parentLogger, makeService }) => {
       parameters: t.parameters
     }));
 
-    session
+    const s = session
       .answer()
-      .pause({ length: 1 })
-      .llm({
+      .pause({ length: 1 });
+
+    // Play pre-generated greeting audio before Gemini Live takes over
+    if (agent.initial_greeting_url) {
+      s.play({ url: agent.initial_greeting_url });
+    }
+
+    s.llm({
         vendor: 'google',
         model: agent.model,
         auth: { apiKey },
