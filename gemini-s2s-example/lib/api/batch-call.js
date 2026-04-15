@@ -136,7 +136,10 @@ async function dialOne({ item, agent, from_number, batchId, logger }) {
       `${JAMBONZ_API}/Accounts/${ACCOUNT_SID}/Calls`,
       {
         from: from_number,
-        to: item.phone_number,
+        to: {
+          type: 'phone',
+          number: item.phone_number.startsWith('+') ? item.phone_number : `+${item.phone_number}`
+        },
         application_sid: agent.application_sid
       },
       {
