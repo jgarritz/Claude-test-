@@ -18,6 +18,58 @@ const JAMBONZ_API = process.env.JAMBONZ_API_BASE_URL || 'https://api.jambonz.clo
 const ACCOUNT_SID = process.env.JAMBONZ_ACCOUNT_SID;
 const API_KEY = process.env.JAMBONZ_API_KEY;
 
+// GET /api/batch-call/options — agents + from numbers for the UI
+router.get('/options', async (req, res) => {
+  try {
+    // Get active agents
+    const { data: agents } = await supabase
+      .from('agents')
+      .select('id, name, phone_number, application_sid')
+      .eq('active', true)
+      .order('name');
+
+    // Get phone numbers from jambonz
+    let fromNumbers = [];
+    if (ACCOUNT_SID && API_KEY) {
+      try {
+        const resp = await axios.get(
+          `${JAMBONZ_API}/Accounts/${ACCOUNT_SID}/PhoneNumbers`,
+          { headers: { Authorization: `Bearer ${API_KEY}` }, timeout: 5000 }
+        );
+        fromNumbers = (resp.data || []).map(p => ({
+          number: p.number,
+          carrier: p.voip_carrier_sid
+        }));
+      } catch (e) {
+        // If jambonz doesn't support this, fall back to agents' phone numbers
+        fromNumbers = (agents || [])
+          .filter(a => a.phone_number)
+          .map(a => ({ number: a.phone_number }));
+      }
+    }
+
+    res.json({ agents: agents || [], from_numbers: fromNumbers });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/batch-call/list — all batches for the dashboard
+router.get('/list', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('batch_calls')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(50);
+
+    if (error) return res.status(500).json({ error: error.message });
+    res.json(data || []);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST /api/batch-call — start a batch
 router.post('/', async (req, res) => {
   const { logger } = req.app.locals;
