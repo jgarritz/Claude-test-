@@ -28,7 +28,7 @@ router.get('/options', async (req, res) => {
       .eq('active', true)
       .order('name');
 
-    // Get phone numbers from jambonz
+    // Get phone numbers from jambonz, then env fallback
     let fromNumbers = [];
     if (ACCOUNT_SID && API_KEY) {
       try {
@@ -41,11 +41,23 @@ router.get('/options', async (req, res) => {
           carrier: p.voip_carrier_sid
         }));
       } catch (e) {
-        // If jambonz doesn't support this, fall back to agents' phone numbers
-        fromNumbers = (agents || [])
-          .filter(a => a.phone_number)
-          .map(a => ({ number: a.phone_number }));
+        // jambonz API failed, ignore
       }
+    }
+
+    // Fallback: env variable JAMBONZ_FROM_NUMBERS (comma-separated)
+    if (fromNumbers.length === 0 && process.env.JAMBONZ_FROM_NUMBERS) {
+      fromNumbers = process.env.JAMBONZ_FROM_NUMBERS.split(',')
+        .map(n => n.trim())
+        .filter(Boolean)
+        .map(n => ({ number: n }));
+    }
+
+    // Fallback: agents with phone numbers
+    if (fromNumbers.length === 0) {
+      fromNumbers = (agents || [])
+        .filter(a => a.phone_number && a.phone_number.trim())
+        .map(a => ({ number: a.phone_number }));
     }
 
     res.json({ agents: agents || [], from_numbers: fromNumbers });
