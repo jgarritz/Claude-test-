@@ -97,8 +97,11 @@ const service = ({ logger: parentLogger, makeService }) => {
       .answer()
       .pause({ length: 1 });
 
-    // Skip pre-generated greeting for outbound batch calls (agent will greet with variables)
-    if (!batchItem && agent.initial_greeting_url) {
+    // Play greeting: dynamic batch greeting OR pre-generated agent greeting
+    if (batchItem && batchItem.greeting_url) {
+      s.play({ url: batchItem.greeting_url });
+      logger.info({ url: batchItem.greeting_url }, 'playing dynamic batch greeting');
+    } else if (agent.initial_greeting_url) {
       s.play({ url: agent.initial_greeting_url });
     }
 

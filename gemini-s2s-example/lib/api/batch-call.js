@@ -1,8 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const { getAgentByPhoneNumber } = require('../db/agents');
 const supabase = require('../db/supabase');
+const { generateTtsUrl } = require('../utils/tts');
 const {
   createBatch,
   getBatch,
@@ -88,7 +88,7 @@ router.get('/list', async (req, res) => {
 //   contacts: [{ phone: "+52...", nombre: "X", ... }] (with variables)
 router.post('/', async (req, res) => {
   const { logger } = req.app.locals;
-  const { agent_id, phone_numbers, contacts, from_number, concurrency = 3 } = req.body;
+  const { agent_id, phone_numbers, contacts, from_number, concurrency = 3, greeting_template } = req.body;
 
   // Normalize: support both formats
   const contactList = contacts || (phone_numbers || []).map(p => typeof p === 'string' ? { phone: p } : p);
@@ -105,10 +105,10 @@ router.post('/', async (req, res) => {
     return res.status(500).json({ error: 'JAMBONZ_ACCOUNT_SID or JAMBONZ_API_KEY not configured' });
   }
 
-  // Validate agent exists and get application_sid
+  // Validate agent exists and get application_sid + voice
   const { data: agent, error: agentError } = await supabase
     .from('agents')
-    .select('id, name, application_sid')
+    .select('id, name, application_sid, voice_name')
     .eq('id', agent_id)
     .eq('active', true)
     .single();
@@ -137,7 +137,7 @@ router.post('/', async (req, res) => {
     logger.info({ batchId: batch.id, total: contactList.length, concurrency: maxConcurrency }, 'batch call started');
 
     // Run batch in background — don't await
-    runBatch({ batch, items, agent, from_number, logger }).catch(err => {
+    runBatch({ batch, items, agent, from_number, greeting_template, logger }).catch(err => {
       logger.error({ err, batchId: batch.id }, 'batch run error');
     });
 
@@ -176,7 +176,7 @@ router.delete('/:id', async (req, res) => {
 
 // --- Background batch runner ---
 
-async function runBatch({ batch, items, agent, from_number, logger }) {
+async function runBatch({ batch, items, agent, from_number, greeting_template, logger }) {
   const { id: batchId } = batch;
   const concurrency = batch.concurrency;
 
@@ -191,17 +191,35 @@ async function runBatch({ batch, items, agent, from_number, logger }) {
 
     const chunk = items.slice(i, i + concurrency);
 
-    await Promise.all(chunk.map(item => dialOne({ item, agent, from_number, batchId, logger })));
+    await Promise.all(chunk.map(item => dialOne({ item, agent, from_number, greeting_template, batchId, logger })));
   }
 
   await finishBatch(batchId);
   logger.info({ batchId }, 'batch completed');
 }
 
-async function dialOne({ item, agent, from_number, batchId, logger }) {
+async function dialOne({ item, agent, from_number, greeting_template, batchId, logger }) {
   await updateBatchItem(item.id, { status: 'calling' });
 
   try {
+    // Generate dynamic TTS greeting if there are variables and a template
+    let greetingUrl = null;
+    if (item.vars && greeting_template && agent.voice_name) {
+      const greetingText = greeting_template.replace(/\{(\w+)\}/g, (_, key) => item.vars[key] || key);
+      try {
+        greetingUrl = await generateTtsUrl({
+          text: greetingText,
+          voiceName: agent.voice_name,
+          filePrefix: `batch-${item.id}`,
+          logger
+        });
+        await updateBatchItem(item.id, { greeting_url: greetingUrl });
+        logger.info({ phone: item.phone_number, greetingText }, 'dynamic greeting generated');
+      } catch (ttsErr) {
+        logger.error({ err: ttsErr.message }, 'TTS generation failed, calling without greeting');
+      }
+    }
+
     const response = await axios.post(
       `${JAMBONZ_API}/Accounts/${ACCOUNT_SID}/Calls`,
       {
