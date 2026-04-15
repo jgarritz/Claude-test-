@@ -2,6 +2,7 @@ const { getWeather } = require('../utils');
 const { getAgentByPhoneNumber, getDefaultAgent } = require('../db/agents');
 const { getToolsByAgentId } = require('../db/tools');
 const { createCallLog, endCallLog, appendTranscription } = require('../db/call-logs');
+const { getItemByCallSid } = require('../db/batch-calls');
 
 const builtinHandlers = {
   get_weather: async (args, logger) => {
@@ -73,6 +74,18 @@ const service = ({ logger: parentLogger, makeService }) => {
       session.locals.callLogId = callLog.id;
     }
 
+    // Check if this is an outbound batch call with variables
+    let systemPrompt = agent.system_prompt;
+    const batchItem = await getItemByCallSid(session.call_sid);
+    if (batchItem && batchItem.vars) {
+      const vars = batchItem.vars;
+      const varLines = Object.entries(vars)
+        .map(([key, val]) => `- ${key}: ${val}`)
+        .join('\n');
+      systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: Usa estas variables naturalmente en la conversación. Después de que la persona conteste, salúdala usando su nombre y presenta el motivo de la llamada.`;
+      logger.info({ vars }, 'injected batch call variables into prompt');
+    }
+
     // Build tool declarations from database
     const functionDeclarations = tools.map(t => ({
       name: t.name,
@@ -84,8 +97,8 @@ const service = ({ logger: parentLogger, makeService }) => {
       .answer()
       .pause({ length: 1 });
 
-    // Play pre-generated greeting audio before Gemini Live takes over
-    if (agent.initial_greeting_url) {
+    // Skip pre-generated greeting for outbound batch calls (agent will greet with variables)
+    if (!batchItem && agent.initial_greeting_url) {
       s.play({ url: agent.initial_greeting_url });
     }
 
@@ -114,7 +127,7 @@ const service = ({ logger: parentLogger, makeService }) => {
             inputAudioTranscription: {},
             outputAudioTranscription: {},
             systemInstruction: {
-              parts: [{ text: agent.system_prompt }]
+              parts: [{ text: systemPrompt }]
             },
             ...(functionDeclarations.length > 0 && !process.env.MCP_SERVER_URL && {
               tools: [{

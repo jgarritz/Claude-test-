@@ -41,12 +41,20 @@ async function getBatchItems(batchId) {
   return data;
 }
 
-async function createBatchItems(batchId, phoneNumbers) {
-  const rows = phoneNumbers.map(phone => ({
-    batch_id: batchId,
-    phone_number: phone,
-    status: 'pending'
-  }));
+async function createBatchItems(batchId, contacts) {
+  const rows = contacts.map(c => {
+    // Support both string format and object format
+    if (typeof c === 'string') {
+      return { batch_id: batchId, phone_number: c, status: 'pending' };
+    }
+    const { phone, ...vars } = c;
+    return {
+      batch_id: batchId,
+      phone_number: phone,
+      status: 'pending',
+      vars: Object.keys(vars).length > 0 ? vars : null
+    };
+  });
 
   const { data, error } = await supabase
     .from('batch_call_items')
@@ -54,6 +62,17 @@ async function createBatchItems(batchId, phoneNumbers) {
     .select();
 
   if (error) throw error;
+  return data;
+}
+
+async function getItemByCallSid(callSid) {
+  const { data, error } = await supabase
+    .from('batch_call_items')
+    .select('*')
+    .eq('call_sid', callSid)
+    .single();
+
+  if (error) return null;
   return data;
 }
 
@@ -102,5 +121,6 @@ module.exports = {
   updateBatchItem,
   incrementBatchCounter,
   finishBatch,
-  updateBatchStatus
+  updateBatchStatus,
+  getItemByCallSid
 };

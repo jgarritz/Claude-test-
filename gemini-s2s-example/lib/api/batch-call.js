@@ -83,12 +83,18 @@ router.get('/list', async (req, res) => {
 });
 
 // POST /api/batch-call — start a batch
+// Accepts either:
+//   phone_numbers: ["+52..."]                         (simple list)
+//   contacts: [{ phone: "+52...", nombre: "X", ... }] (with variables)
 router.post('/', async (req, res) => {
   const { logger } = req.app.locals;
-  const { agent_id, phone_numbers, from_number, concurrency = 3 } = req.body;
+  const { agent_id, phone_numbers, contacts, from_number, concurrency = 3 } = req.body;
 
-  if (!agent_id || !phone_numbers || !Array.isArray(phone_numbers) || phone_numbers.length === 0) {
-    return res.status(400).json({ error: 'agent_id and phone_numbers[] are required' });
+  // Normalize: support both formats
+  const contactList = contacts || (phone_numbers || []).map(p => typeof p === 'string' ? { phone: p } : p);
+
+  if (!agent_id || !Array.isArray(contactList) || contactList.length === 0) {
+    return res.status(400).json({ error: 'agent_id and contacts[] (or phone_numbers[]) are required' });
   }
 
   if (!from_number) {
@@ -123,19 +129,19 @@ router.post('/', async (req, res) => {
       agentId: agent_id,
       fromNumber: from_number,
       concurrency: maxConcurrency,
-      total: phone_numbers.length
+      total: contactList.length
     });
 
-    const items = await createBatchItems(batch.id, phone_numbers);
+    const items = await createBatchItems(batch.id, contactList);
 
-    logger.info({ batchId: batch.id, total: phone_numbers.length, concurrency: maxConcurrency }, 'batch call started');
+    logger.info({ batchId: batch.id, total: contactList.length, concurrency: maxConcurrency }, 'batch call started');
 
     // Run batch in background — don't await
     runBatch({ batch, items, agent, from_number, logger }).catch(err => {
       logger.error({ err, batchId: batch.id }, 'batch run error');
     });
 
-    res.status(202).json({ batch_id: batch.id, total: phone_numbers.length, concurrency: maxConcurrency });
+    res.status(202).json({ batch_id: batch.id, total: contactList.length, concurrency: maxConcurrency });
   } catch (err) {
     logger.error({ err }, 'failed to create batch');
     res.status(500).json({ error: err.message });
@@ -216,7 +222,8 @@ async function dialOne({ item, agent, from_number, batchId, logger }) {
     );
 
     const callSid = response.data?.call_sid || response.data?.sid;
-    await updateBatchItem(item.id, { status: 'completed', call_sid: callSid });
+    // Save call_sid immediately so the websocket handler can look up variables
+    await updateBatchItem(item.id, { status: 'calling', call_sid: callSid });
     await incrementBatchCounter(batchId, 'completed');
     logger.info({ phone: item.phone_number, callSid }, 'outbound call initiated');
   } catch (err) {
