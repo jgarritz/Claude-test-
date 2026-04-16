@@ -76,14 +76,20 @@ const service = ({ logger: parentLogger, makeService }) => {
 
     // Check if this is an outbound batch call with variables
     let systemPrompt = agent.system_prompt;
+    let seedHistory = null;
     const batchItem = await getItemByCallSid(session.call_sid);
     if (batchItem && batchItem.vars) {
       const vars = batchItem.vars;
       const varLines = Object.entries(vars)
         .map(([key, val]) => `- ${key}: ${val}`)
         .join('\n');
-      systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: Ya se reprodujo un saludo inicial pregrabado. NO repitas el saludo. Espera a que la persona hable y continúa la conversación naturalmente usando las variables.`;
+      systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: El saludo inicial ya se reprodujo automáticamente. Continúa la conversación presentando el motivo de la llamada de forma natural.`;
       logger.info({ vars }, 'injected batch call variables into prompt');
+
+      // Seed a fake user turn so Gemini speaks immediately without waiting for user input
+      seedHistory = [
+        { role: 'user', parts: [{ text: '[llamada conectada]' }] }
+      ];
     }
 
     // Build tool declarations from database
@@ -133,6 +139,7 @@ const service = ({ logger: parentLogger, makeService }) => {
             systemInstruction: {
               parts: [{ text: systemPrompt }]
             },
+            ...(seedHistory && { history: seedHistory }),
             ...(functionDeclarations.length > 0 && !process.env.MCP_SERVER_URL && {
               tools: [{
                 functionDeclarations
