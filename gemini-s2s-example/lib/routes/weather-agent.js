@@ -97,13 +97,12 @@ const service = ({ logger: parentLogger, makeService }) => {
     const greetingUrl = (batchItem && batchItem.greeting_url) || agent.initial_greeting_url;
 
     const s = session
-      .answer();
+      .answer()
+      .pause({ length: 1 });
 
-    // dub is non-blocking: starts audio and immediately continues to llm
-    // Gemini begins connecting while greeting plays
+    // Play greeting before llm — user hears it immediately while Gemini connects
     if (greetingUrl) {
-      s.dub({ action: 'addTrack', track: 'greeting', play: greetingUrl });
-      logger.info({ greetingUrl }, 'dub greeting queued before llm');
+      s.play({ url: greetingUrl });
     }
 
     s.llm({
