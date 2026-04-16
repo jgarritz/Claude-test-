@@ -100,7 +100,13 @@ const service = ({ logger: parentLogger, makeService }) => {
       .answer()
       .pause({ length: 1 });
 
-    // Start LLM immediately so Gemini begins connecting right away
+    // dub is non-blocking: starts audio and immediately continues to llm
+    // Gemini begins connecting while greeting plays
+    if (greetingUrl) {
+      s.dub({ action: 'addTrack', track: 'greeting', play: greetingUrl });
+      logger.info({ greetingUrl }, 'dub greeting queued before llm');
+    }
+
     s.llm({
         vendor: 'google',
         model: agent.model,
@@ -138,24 +144,6 @@ const service = ({ logger: parentLogger, makeService }) => {
       })
       .hangup()
       .send();
-
-    // Play greeting on a parallel dub track while Gemini connects in the background
-    if (greetingUrl) {
-      setTimeout(() => {
-        logger.info({ greetingUrl }, 'injecting dub greeting while Gemini connects');
-        session.injectCommand('dub', {
-          action: 'addTrack',
-          track: 'greeting'
-        });
-        setTimeout(() => {
-          session.injectCommand('dub', {
-            action: 'playOnTrack',
-            track: 'greeting',
-            play: greetingUrl
-          });
-        }, 100);
-      }, 500);
-    }
   });
 };
 
