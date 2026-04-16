@@ -97,8 +97,7 @@ const service = ({ logger: parentLogger, makeService }) => {
     const greetingUrl = (batchItem && batchItem.greeting_url) || agent.initial_greeting_url;
 
     const s = session
-      .answer()
-      .pause({ length: 1 });
+      .answer();
 
     // dub is non-blocking: starts audio and immediately continues to llm
     // Gemini begins connecting while greeting plays
