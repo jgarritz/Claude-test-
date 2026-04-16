@@ -82,7 +82,7 @@ const service = ({ logger: parentLogger, makeService }) => {
       const varLines = Object.entries(vars)
         .map(([key, val]) => `- ${key}: ${val}`)
         .join('\n');
-      systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: Usa estas variables naturalmente en la conversación. Después de que la persona conteste, salúdala usando su nombre y presenta el motivo de la llamada.`;
+      systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: Ya se reprodujo un saludo inicial pregrabado. NO repitas el saludo. Espera a que la persona hable y continúa la conversación naturalmente usando las variables.`;
       logger.info({ vars }, 'injected batch call variables into prompt');
     }
 
@@ -93,18 +93,14 @@ const service = ({ logger: parentLogger, makeService }) => {
       parameters: t.parameters
     }));
 
+    // Determine which greeting URL to use
+    const greetingUrl = (batchItem && batchItem.greeting_url) || agent.initial_greeting_url;
+
     const s = session
       .answer()
       .pause({ length: 1 });
 
-    // Play greeting: dynamic batch greeting OR pre-generated agent greeting
-    if (batchItem && batchItem.greeting_url) {
-      s.play({ url: batchItem.greeting_url });
-      logger.info({ url: batchItem.greeting_url }, 'playing dynamic batch greeting');
-    } else if (agent.initial_greeting_url) {
-      s.play({ url: agent.initial_greeting_url });
-    }
-
+    // Start LLM immediately so Gemini begins connecting right away
     s.llm({
         vendor: 'google',
         model: agent.model,
@@ -142,6 +138,24 @@ const service = ({ logger: parentLogger, makeService }) => {
       })
       .hangup()
       .send();
+
+    // Play greeting on a parallel dub track while Gemini connects in the background
+    if (greetingUrl) {
+      setTimeout(() => {
+        logger.info({ greetingUrl }, 'injecting dub greeting while Gemini connects');
+        session.injectCommand('dub', {
+          action: 'addTrack',
+          track: 'greeting'
+        });
+        setTimeout(() => {
+          session.injectCommand('dub', {
+            action: 'playOnTrack',
+            track: 'greeting',
+            play: greetingUrl
+          });
+        }, 100);
+      }, 500);
+    }
   });
 };
 
