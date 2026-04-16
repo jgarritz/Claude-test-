@@ -76,7 +76,12 @@ const service = ({ logger: parentLogger, makeService }) => {
 
     // Check if this is an outbound batch call with variables
     let systemPrompt = agent.system_prompt;
-    const batchItem = await getItemByCallSid(session.call_sid);
+    let batchItem = null;
+    try {
+      batchItem = await getItemByCallSid(session.call_sid);
+    } catch (err) {
+      logger.warn({ err: err.message }, 'batch item lookup failed, ignoring');
+    }
     if (batchItem && batchItem.vars) {
       const vars = batchItem.vars;
       const varLines = Object.entries(vars)
