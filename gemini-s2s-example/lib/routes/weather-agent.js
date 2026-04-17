@@ -3,6 +3,7 @@ const { getAgentByPhoneNumber, getDefaultAgent } = require('../db/agents');
 const { getToolsByAgentId } = require('../db/tools');
 const { createCallLog, endCallLog, appendTranscription } = require('../db/call-logs');
 const { getItemByCallSid } = require('../db/batch-calls');
+const { logEvent } = require('../db/error-logs');
 
 const builtinHandlers = {
   get_weather: async (args, logger) => {
@@ -50,6 +51,7 @@ const service = ({ logger: parentLogger, makeService }) => {
 
     if (!agent) {
       logger.error('no agent found in database, hanging up');
+      logEvent({ type: 'call_flow', severity: 'error', message: 'No agent found', callSid: session.call_sid, metadata: { calledNumber } });
       session.hangup().send();
       return;
     }
@@ -249,11 +251,33 @@ const onClose = async (session, code, reason) => {
   if (callLogId) {
     await endCallLog(callLogId);
   }
+
+  if (code !== 1000 && code !== 1001) {
+    logEvent({
+      type: 'gemini',
+      severity: 'warn',
+      message: `Session closed unexpectedly: code=${code} reason=${reason}`,
+      callSid: session.call_sid,
+      agentId: session.locals.agent?.id
+    });
+  }
 };
 
 const onError = (session, err) => {
   const { logger } = session.locals;
   logger.error({ err }, `session ${session.call_sid} received error`);
+
+  const errMsg = err?.message || err?.reason || JSON.stringify(err);
+  const isRateLimit = errMsg.includes('RESOURCE_EXHAUSTED') || errMsg.includes('429') || errMsg.includes('rate');
+
+  logEvent({
+    type: isRateLimit ? 'gemini_rate_limit' : 'gemini',
+    severity: isRateLimit ? 'warn' : 'error',
+    message: errMsg,
+    callSid: session.call_sid,
+    agentId: session.locals.agent?.id,
+    metadata: { error: errMsg }
+  });
 };
 
 module.exports = service;

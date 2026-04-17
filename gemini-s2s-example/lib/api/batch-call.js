@@ -3,6 +3,7 @@ const axios = require('axios');
 const router = express.Router();
 const supabase = require('../db/supabase');
 const { generateTtsUrl } = require('../utils/tts');
+const { logEvent } = require('../db/error-logs');
 const {
   createBatch,
   getBatch,
@@ -217,6 +218,14 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
         logger.info({ phone: item.phone_number, greetingText }, 'dynamic greeting generated');
       } catch (ttsErr) {
         logger.error({ err: ttsErr.message }, 'TTS generation failed, calling without greeting');
+        logEvent({
+          type: 'tts',
+          severity: 'error',
+          message: `TTS failed: ${ttsErr.message}`,
+          batchId,
+          agentId: agent.id,
+          metadata: { phone: item.phone_number, voiceName: agent.voice_name }
+        });
       }
     }
 
@@ -244,11 +253,32 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
     await updateBatchItem(item.id, { status: 'calling', call_sid: callSid });
     await incrementBatchCounter(batchId, 'completed');
     logger.info({ phone: item.phone_number, callSid }, 'outbound call initiated');
+    logEvent({
+      type: 'batch',
+      severity: 'info',
+      message: `Call initiated to ${item.phone_number}`,
+      batchId,
+      agentId: agent.id,
+      callSid,
+      metadata: { phone: item.phone_number, hasGreeting: !!greetingUrl }
+    });
   } catch (err) {
     const errorMsg = err.response?.data?.msg || err.message;
+    const statusCode = err.response?.status;
+    const isRateLimit = statusCode === 429 || errorMsg.includes('rate') || errorMsg.includes('limit');
+
     await updateBatchItem(item.id, { status: 'failed', error: errorMsg });
     await incrementBatchCounter(batchId, 'failed');
     logger.error({ phone: item.phone_number, error: errorMsg }, 'outbound call failed');
+
+    logEvent({
+      type: isRateLimit ? 'jambonz_rate_limit' : 'jambonz',
+      severity: isRateLimit ? 'warn' : 'error',
+      message: `Call failed: ${errorMsg}`,
+      batchId,
+      agentId: agent.id,
+      metadata: { phone: item.phone_number, statusCode }
+    });
   }
 }
 
