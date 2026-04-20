@@ -113,6 +113,13 @@ async function updateBatchStatus(batchId, status) {
     .eq('id', batchId);
 }
 
+async function updateBatchItemResult(callSid, fields) {
+  await supabase
+    .from('batch_call_items')
+    .update(fields)
+    .eq('call_sid', callSid);
+}
+
 module.exports = {
   createBatch,
   getBatch,
@@ -122,5 +129,6 @@ module.exports = {
   incrementBatchCounter,
   finishBatch,
   updateBatchStatus,
-  getItemByCallSid
+  getItemByCallSid,
+  updateBatchItemResult
 };

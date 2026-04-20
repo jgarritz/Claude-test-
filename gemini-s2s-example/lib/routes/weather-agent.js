@@ -2,8 +2,10 @@ const { getWeather } = require('../utils');
 const { getAgentByPhoneNumber, getDefaultAgent } = require('../db/agents');
 const { getToolsByAgentId } = require('../db/tools');
 const { createCallLog, endCallLog, appendTranscription } = require('../db/call-logs');
-const { getItemByCallSid } = require('../db/batch-calls');
+const { getItemByCallSid, updateBatchItemResult } = require('../db/batch-calls');
 const { logEvent } = require('../db/error-logs');
+const { generateCallSummary } = require('../utils/summarize');
+const supabase = require('../db/supabase');
 
 const builtinHandlers = {
   get_weather: async (args, logger) => {
@@ -203,6 +205,12 @@ const onFinal = async (session, evt) => {
   const { logger, callLogId } = session.locals;
   logger.info(`got actionHook: ${JSON.stringify(evt)}`);
 
+  // Capture SIP cause from jambonz event
+  const sipStatus = evt?.sip_status || evt?.call_status || null;
+  const sipReason = evt?.sip_reason || evt?.call_termination_by || null;
+  session.locals.sipStatus = sipStatus;
+  session.locals.sipReason = sipReason;
+
   if (callLogId) {
     await endCallLog(callLogId);
   }
@@ -245,7 +253,7 @@ const onEvent = async (session, evt) => {
 };
 
 const onClose = async (session, code, reason) => {
-  const { logger, callLogId } = session.locals;
+  const { logger, callLogId, sipStatus, sipReason, agent } = session.locals;
   logger.info({ code, reason }, `session ${session.call_sid} closed`);
 
   if (callLogId) {
@@ -258,8 +266,33 @@ const onClose = async (session, code, reason) => {
       severity: 'warn',
       message: `Session closed unexpectedly: code=${code} reason=${reason}`,
       callSid: session.call_sid,
-      agentId: session.locals.agent?.id
+      agentId: agent?.id
     });
+  }
+
+  // Generate summary and save results for batch calls
+  try {
+    const batchItem = await getItemByCallSid(session.call_sid);
+    if (batchItem && callLogId) {
+      // Fetch transcriptions for this call
+      const { data: transcriptions } = await supabase
+        .from('transcriptions')
+        .select('role, content, sequence_num')
+        .eq('call_log_id', callLogId)
+        .order('sequence_num');
+
+      const summary = await generateCallSummary(transcriptions || []);
+      logger.info({ callSid: session.call_sid }, 'call summary generated');
+
+      await updateBatchItemResult(session.call_sid, {
+        status: 'completed',
+        sip_status: sipStatus,
+        sip_reason: sipReason,
+        summary
+      });
+    }
+  } catch (err) {
+    logger.warn({ err: err.message }, 'failed to generate call summary');
   }
 };
 
