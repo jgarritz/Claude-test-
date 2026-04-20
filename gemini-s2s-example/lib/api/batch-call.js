@@ -12,7 +12,8 @@ const {
   updateBatchItem,
   incrementBatchCounter,
   finishBatch,
-  updateBatchStatus
+  updateBatchStatus,
+  getItemByCallSid
 } = require('../db/batch-calls');
 
 const JAMBONZ_API = process.env.JAMBONZ_API_BASE_URL || 'https://api.jambonz.cloud/v1';
@@ -164,6 +165,45 @@ router.get('/:id', async (req, res) => {
   res.json({ ...batch, items });
 });
 
+// POST /api/batch-call/status-hook — jambonz calls this when outbound call status changes
+router.post('/status-hook', async (req, res) => {
+  const { logger } = req.app.locals;
+  const { call_sid, call_status, sip_status, call_termination_by } = req.body;
+
+  logger.info({ call_sid, call_status, sip_status }, 'call status hook received');
+  res.sendStatus(200);
+
+  if (!call_sid) return;
+
+  // Only handle terminal statuses for calls that weren't answered
+  const terminalStatuses = ['no-answer', 'failed', 'busy', 'canceled'];
+  if (!terminalStatuses.includes(call_status)) return;
+
+  try {
+    const item = await getItemByCallSid(call_sid);
+    if (!item || item.status === 'completed' || item.status === 'answered') return;
+
+    const statusMap = {
+      'no-answer': 'no_answer',
+      'failed': 'failed',
+      'busy': 'busy',
+      'canceled': 'canceled'
+    };
+
+    await updateBatchItem(item.id, {
+      status: statusMap[call_status] || 'failed',
+      sip_status,
+      sip_reason: call_status,
+      ended_at: new Date().toISOString()
+    });
+
+    await incrementBatchCounter(item.batch_id, 'failed');
+    logger.info({ call_sid, call_status }, 'batch item marked as not answered');
+  } catch (err) {
+    logger.error({ err: err.message, call_sid }, 'error handling status hook');
+  }
+});
+
 // DELETE /api/batch-call/:id — pause/stop
 router.delete('/:id', async (req, res) => {
   const { logger } = req.app.locals;
@@ -237,7 +277,8 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
           type: 'phone',
           number: item.phone_number.startsWith('+') ? item.phone_number : `+${item.phone_number}`
         },
-        application_sid: agent.application_sid
+        application_sid: agent.application_sid,
+        call_status_hook: `${process.env.PUBLIC_URL || 'https://claude-test-production-a148.up.railway.app'}/api/batch-call/status-hook`
       },
       {
         headers: {
