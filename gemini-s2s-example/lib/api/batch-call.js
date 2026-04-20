@@ -170,8 +170,8 @@ router.post('/status-hook', async (req, res) => {
   const { logger } = req.app.locals;
   const { call_sid, call_status, sip_status, call_termination_by } = req.body;
 
-  logger.info({ call_sid, call_status, sip_status }, 'call status hook received');
-  res.sendStatus(200);
+  logger.info({ call_sid, call_status, sip_status, call_termination_by }, 'call status hook received');
+  res.status(200).json({});
 
   if (!call_sid) return;
 
