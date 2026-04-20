@@ -126,6 +126,9 @@ router.post('/', async (req, res) => {
   // Clamp concurrency
   const maxConcurrency = Math.min(Math.max(1, concurrency), 20);
 
+  // Ensure the jambonz application has our status hook configured
+  await ensureStatusHook(agent.application_sid, logger);
+
   try {
     const batch = await createBatch({
       agentId: agent_id,
@@ -214,6 +217,22 @@ router.delete('/:id', async (req, res) => {
 
   res.json({ status: 'paused' });
 });
+
+// --- Helpers ---
+
+async function ensureStatusHook(applicationSid, logger) {
+  const hookUrl = `${process.env.PUBLIC_URL || 'https://claude-test-production-a148.up.railway.app'}/api/batch-call/status-hook`;
+  try {
+    await axios.put(
+      `${JAMBONZ_API}/Accounts/${ACCOUNT_SID}/Applications/${applicationSid}`,
+      { call_status_hook: hookUrl },
+      { headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' }, timeout: 5000 }
+    );
+    logger?.info({ applicationSid, hookUrl }, 'call_status_hook configured on jambonz application');
+  } catch (e) {
+    logger?.warn({ err: e.message, applicationSid }, 'could not set call_status_hook on application, status tracking may be incomplete');
+  }
+}
 
 // --- Background batch runner ---
 
