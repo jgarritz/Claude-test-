@@ -223,7 +223,7 @@ async function scheduleCallStatusCheck({ itemId, callSid, batchId, logger }) {
     try {
       const { data: item } = await supabase
         .from('batch_call_items')
-        .select('status')
+        .select('status, sip_status')
         .eq('id', itemId)
         .single();
 
@@ -235,13 +235,18 @@ async function scheduleCallStatusCheck({ itemId, callSid, batchId, logger }) {
       );
 
       const callStatus = resp.data?.call_status;
+      const sipStatus = resp.data?.sip_status ?? null;
+      const sipReason = resp.data?.sip_reason || resp.data?.termination_reason || null;
       const statusMap = { 'no-answer': 'no_answer', 'failed': 'failed', 'busy': 'busy', 'canceled': 'canceled' };
       const resolved = statusMap[callStatus];
 
-      if (resolved) {
-        await updateBatchItem(itemId, { status: resolved, ended_at: new Date().toISOString() });
+      if (item.status === 'calling' && resolved) {
+        await updateBatchItem(itemId, { status: resolved, sip_status: sipStatus, sip_reason: sipReason, ended_at: new Date().toISOString() });
         await incrementBatchCounter(batchId, 'failed');
-        logger.info({ callSid, callStatus, resolved }, 'unanswered call resolved via polling');
+        logger.info({ callSid, callStatus, resolved, sipStatus }, 'unanswered call resolved via polling');
+      } else if (item.status !== 'calling' && !item.sip_status && sipStatus) {
+        await updateBatchItem(itemId, { sip_status: sipStatus, sip_reason: sipReason });
+        logger.info({ callSid, sipStatus }, 'sip_status backfilled via polling');
       }
     } catch (e) {
       logger.warn({ err: e.message, callSid }, 'call status poll failed');
