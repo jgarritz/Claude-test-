@@ -204,58 +204,6 @@ router.post('/status-hook', async (req, res) => {
   }
 });
 
-// POST /api/batch-call/cleanup — mark stale 'calling' items (> 2 min) as no_answer
-router.post('/cleanup', async (req, res) => {
-  const { logger } = req.app.locals;
-  const staleMinutes = parseInt(req.query.minutes || '2', 10);
-  const cutoff = new Date(Date.now() - staleMinutes * 60 * 1000).toISOString();
-
-  try {
-    // Find stale calling items
-    const { data: staleItems, error } = await supabase
-      .from('batch_call_items')
-      .select('id, batch_id, phone_number, call_sid')
-      .eq('status', 'calling')
-      .lt('updated_at', cutoff);
-
-    if (error) return res.status(500).json({ error: error.message });
-    if (!staleItems || staleItems.length === 0) {
-      return res.json({ cleaned: 0 });
-    }
-
-    const ids = staleItems.map(i => i.id);
-    await supabase
-      .from('batch_call_items')
-      .update({ status: 'no_answer', ended_at: new Date().toISOString() })
-      .in('id', ids);
-
-    // Increment failed counter per batch
-    const batchCounts = {};
-    for (const item of staleItems) {
-      batchCounts[item.batch_id] = (batchCounts[item.batch_id] || 0) + 1;
-    }
-    for (const [batchId, count] of Object.entries(batchCounts)) {
-      const { data } = await supabase
-        .from('batch_calls')
-        .select('failed')
-        .eq('id', batchId)
-        .single();
-      if (data) {
-        await supabase
-          .from('batch_calls')
-          .update({ failed: (data.failed || 0) + count })
-          .eq('id', batchId);
-      }
-    }
-
-    logger.info({ cleaned: staleItems.length, cutoff }, 'stale calling items cleaned up');
-    res.json({ cleaned: staleItems.length, ids });
-  } catch (err) {
-    logger.error({ err }, 'cleanup error');
-    res.status(500).json({ error: err.message });
-  }
-});
-
 // DELETE /api/batch-call/:id — pause/stop
 router.delete('/:id', async (req, res) => {
   const { logger } = req.app.locals;
