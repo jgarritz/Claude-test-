@@ -126,9 +126,6 @@ router.post('/', async (req, res) => {
   // Clamp concurrency
   const maxConcurrency = Math.min(Math.max(1, concurrency), 20);
 
-  // Ensure the jambonz application has our status hook configured
-  await ensureStatusHook(agent.application_sid, logger);
-
   try {
     const batch = await createBatch({
       agentId: agent_id,
@@ -220,20 +217,36 @@ router.delete('/:id', async (req, res) => {
 
 // --- Helpers ---
 
-async function ensureStatusHook(applicationSid, logger) {
-  const hookUrl = `${process.env.PUBLIC_URL || 'https://claude-test-production-a148.up.railway.app'}/api/batch-call/status-hook`;
-  try {
-    const resp = await axios.patch(
-      `${JAMBONZ_API}/Accounts/${ACCOUNT_SID}/Applications/${applicationSid}`,
-      { call_status_hook: hookUrl },
-      { headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' }, timeout: 5000 }
-    );
-    logger?.info({ applicationSid, hookUrl, status: resp.status }, 'call_status_hook configured on jambonz application');
-  } catch (e) {
-    const detail = e.response?.data || e.message;
-    const status = e.response?.status;
-    logger?.error({ err: detail, status, applicationSid }, 'FAILED to set call_status_hook on jambonz application');
-  }
+// After 75s, poll jambonz to resolve calls still stuck in 'calling' (unanswered/busy/failed)
+async function scheduleCallStatusCheck({ itemId, callSid, batchId, logger }) {
+  setTimeout(async () => {
+    try {
+      const { data: item } = await supabase
+        .from('batch_call_items')
+        .select('status')
+        .eq('id', itemId)
+        .single();
+
+      if (!item || item.status !== 'calling') return; // already resolved by WebSocket handler
+
+      const resp = await axios.get(
+        `${JAMBONZ_API}/Accounts/${ACCOUNT_SID}/Calls/${callSid}`,
+        { headers: { Authorization: `Bearer ${API_KEY}` }, timeout: 10000 }
+      );
+
+      const callStatus = resp.data?.call_status;
+      const statusMap = { 'no-answer': 'no_answer', 'failed': 'failed', 'busy': 'busy', 'canceled': 'canceled' };
+      const resolved = statusMap[callStatus];
+
+      if (resolved) {
+        await updateBatchItem(itemId, { status: resolved, ended_at: new Date().toISOString() });
+        await incrementBatchCounter(batchId, 'failed');
+        logger.info({ callSid, callStatus, resolved }, 'unanswered call resolved via polling');
+      }
+    } catch (e) {
+      logger.warn({ err: e.message, callSid }, 'call status poll failed');
+    }
+  }, 75000);
 }
 
 // --- Background batch runner ---
@@ -298,8 +311,7 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
           type: 'phone',
           number: item.phone_number.startsWith('+') ? item.phone_number : `+${item.phone_number}`
         },
-        application_sid: agent.application_sid,
-        call_status_hook: `${process.env.PUBLIC_URL || 'https://claude-test-production-a148.up.railway.app'}/api/batch-call/status-hook`
+        application_sid: agent.application_sid
       },
       {
         headers: {
@@ -311,9 +323,11 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
     );
 
     const callSid = response.data?.call_sid || response.data?.sid;
-    // Save call_sid immediately — don't increment completed yet, that happens when call ends
     await updateBatchItem(item.id, { status: 'calling', call_sid: callSid });
     logger.info({ phone: item.phone_number, callSid }, 'outbound call initiated');
+
+    // Poll jambonz after 75s to resolve unanswered/busy/failed calls
+    scheduleCallStatusCheck({ itemId: item.id, callSid, batchId, logger });
     logEvent({
       type: 'batch',
       severity: 'info',
