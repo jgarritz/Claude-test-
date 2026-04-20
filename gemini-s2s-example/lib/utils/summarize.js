@@ -22,8 +22,11 @@ async function generateCallSummary(transcriptions) {
       { headers: { 'Content-Type': 'application/json' }, timeout: 15000 }
     );
 
-    return response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
-  } catch {
+    const summary = response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
+    console.log('[summarize] generated summary:', summary ? summary.substring(0, 80) : 'null');
+    return summary;
+  } catch (err) {
+    console.error('[summarize] generateCallSummary failed:', err.response?.data || err.message);
     return null;
   }
 }
