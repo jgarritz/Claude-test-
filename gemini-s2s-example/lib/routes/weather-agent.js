@@ -2,7 +2,7 @@ const { getWeather } = require('../utils');
 const { getAgentByPhoneNumber, getDefaultAgent } = require('../db/agents');
 const { getToolsByAgentId } = require('../db/tools');
 const { createCallLog, endCallLog, appendTranscription } = require('../db/call-logs');
-const { getItemByCallSid, updateBatchItemResult } = require('../db/batch-calls');
+const { getItemByCallSid, updateBatchItemResult, incrementBatchCounter } = require('../db/batch-calls');
 const { logEvent } = require('../db/error-logs');
 const { generateCallSummary } = require('../utils/summarize');
 const supabase = require('../db/supabase');
@@ -85,6 +85,10 @@ const service = ({ logger: parentLogger, makeService }) => {
       batchItem = await getItemByCallSid(session.call_sid);
     } catch (err) {
       logger.warn({ err: err.message }, 'batch item lookup failed, ignoring');
+    }
+    if (batchItem) {
+      session.locals.batchItem = batchItem;
+      await updateBatchItemResult(session.call_sid, { status: 'answered', started_at: new Date().toISOString() });
     }
     if (batchItem && batchItem.vars) {
       const vars = batchItem.vars;
@@ -271,28 +275,33 @@ const onClose = async (session, code, reason) => {
   }
 
   // Generate summary and save results for batch calls
-  try {
-    const batchItem = await getItemByCallSid(session.call_sid);
-    if (batchItem && callLogId) {
-      // Fetch transcriptions for this call
-      const { data: transcriptions } = await supabase
-        .from('transcriptions')
-        .select('role, content, sequence_num')
-        .eq('call_log_id', callLogId)
-        .order('sequence_num');
+  const batchItem = session.locals.batchItem;
+  if (batchItem) {
+    try {
+      let summary = null;
+      if (callLogId) {
+        const { data: transcriptions } = await supabase
+          .from('transcriptions')
+          .select('role, content, sequence_num')
+          .eq('call_log_id', callLogId)
+          .order('sequence_num');
 
-      const summary = await generateCallSummary(transcriptions || []);
-      logger.info({ callSid: session.call_sid }, 'call summary generated');
+        summary = await generateCallSummary(transcriptions || []);
+      }
 
       await updateBatchItemResult(session.call_sid, {
         status: 'completed',
         sip_status: sipStatus,
         sip_reason: sipReason,
-        summary
+        summary,
+        ended_at: new Date().toISOString()
       });
+
+      await incrementBatchCounter(batchItem.batch_id, 'completed');
+      logger.info({ callSid: session.call_sid, summary }, 'batch call result saved');
+    } catch (err) {
+      logger.warn({ err: err.message }, 'failed to save batch call result');
     }
-  } catch (err) {
-    logger.warn({ err: err.message }, 'failed to generate call summary');
   }
 };
 

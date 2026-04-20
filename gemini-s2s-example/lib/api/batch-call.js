@@ -249,9 +249,8 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
     );
 
     const callSid = response.data?.call_sid || response.data?.sid;
-    // Save call_sid immediately so the websocket handler can look up variables
+    // Save call_sid immediately — don't increment completed yet, that happens when call ends
     await updateBatchItem(item.id, { status: 'calling', call_sid: callSid });
-    await incrementBatchCounter(batchId, 'completed');
     logger.info({ phone: item.phone_number, callSid }, 'outbound call initiated');
     logEvent({
       type: 'batch',
