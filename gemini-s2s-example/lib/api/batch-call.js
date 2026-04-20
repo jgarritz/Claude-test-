@@ -204,6 +204,21 @@ router.post('/status-hook', async (req, res) => {
   }
 });
 
+// POST /api/batch-call/amd-hook/:itemId — jambonz AMD result
+router.post('/amd-hook/:itemId', async (req, res) => {
+  const { logger } = req.app.locals;
+  const { itemId } = req.params;
+  const { amd_result, call_sid } = req.body;
+
+  // amd_result: 'human' | 'machine' | 'no-answer' | 'unknown'
+  logger.info({ itemId, amd_result, call_sid }, 'AMD result received');
+  res.status(200).json({});
+
+  if (amd_result === 'machine') {
+    await updateBatchItem(itemId, { tipificacion: 'buzon_de_voz' });
+  }
+});
+
 // DELETE /api/batch-call/:id — pause/stop
 router.delete('/:id', async (req, res) => {
   const { logger } = req.app.locals;
@@ -316,7 +331,10 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
           type: 'phone',
           number: item.phone_number.startsWith('+') ? item.phone_number : `+${item.phone_number}`
         },
-        application_sid: agent.application_sid
+        application_sid: agent.application_sid,
+        amd: {
+          actionHook: `${process.env.PUBLIC_URL || 'https://claude-test-production-a148.up.railway.app'}/api/batch-call/amd-hook/${item.id}`
+        }
       },
       {
         headers: {

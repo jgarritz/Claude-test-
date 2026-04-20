@@ -2,32 +2,46 @@ const axios = require('axios');
 
 async function generateCallSummary(transcriptions) {
   const apiKey = process.env.GOOGLE_API_KEY;
-  if (!apiKey || !transcriptions || transcriptions.length === 0) return null;
+  if (!apiKey || !transcriptions || transcriptions.length === 0) return { summary: null, tipificacion: null };
 
   const transcript = transcriptions
     .sort((a, b) => a.sequence_num - b.sequence_num)
     .map(t => `${t.role === 'user' ? 'Cliente' : 'Agente'}: ${t.content}`)
     .join('\n');
 
+  const prompt = `Analiza esta transcripción de una llamada de cobro y responde SOLO con JSON válido, sin markdown, sin explicaciones.
+
+Transcripción:
+${transcript}
+
+Responde exactamente con este formato JSON:
+{
+  "tipificacion": "<uno de: contacto_exitoso | contacto_no_exitoso | contacto_parcial>",
+  "resumen": "<resumen en máximo 3 oraciones: qué dijo el cliente y cuál fue el resultado>"
+}
+
+Criterios de tipificación:
+- contacto_exitoso: el cliente prometió pagar, dio fecha de pago, o realizó un compromiso concreto
+- contacto_parcial: hubo contacto pero el cliente pidió llamar después, no tenía información, o la llamada fue muy breve
+- contacto_no_exitoso: el cliente se negó a pagar, colgó, o no hubo acuerdo`;
+
   try {
     const response = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
       {
-        contents: [{
-          parts: [{
-            text: `Resume esta llamada de cobro en máximo 3 oraciones. Indica: si contestó, qué dijo el cliente, y el resultado de la llamada.\n\nTranscripción:\n${transcript}\n\nResumen:`
-          }]
-        }]
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { responseMimeType: 'application/json' }
       },
       { headers: { 'Content-Type': 'application/json' }, timeout: 15000 }
     );
 
-    const summary = response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
-    console.log('[summarize] generated summary:', summary ? summary.substring(0, 80) : 'null');
-    return summary;
+    const raw = response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    const parsed = JSON.parse(raw);
+    console.log('[summarize] tipificacion:', parsed.tipificacion, '| summary:', parsed.resumen?.substring(0, 60));
+    return { summary: parsed.resumen || null, tipificacion: parsed.tipificacion || null };
   } catch (err) {
-    console.error('[summarize] generateCallSummary failed:', err.response?.data || err.message);
-    return null;
+    console.error('[summarize] failed:', err.response?.data || err.message);
+    return { summary: null, tipificacion: null };
   }
 }
 

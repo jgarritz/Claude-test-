@@ -279,6 +279,7 @@ const onClose = async (session, code, reason) => {
   if (batchItem) {
     try {
       let summary = null;
+      let tipificacion = null;
       if (callLogId) {
         const { data: transcriptions } = await supabase
           .from('transcriptions')
@@ -286,7 +287,7 @@ const onClose = async (session, code, reason) => {
           .eq('call_log_id', callLogId)
           .order('sequence_num');
 
-        summary = await generateCallSummary(transcriptions || []);
+        ({ summary, tipificacion } = await generateCallSummary(transcriptions || []));
       }
 
       await updateBatchItemResult(session.call_sid, {
@@ -294,11 +295,12 @@ const onClose = async (session, code, reason) => {
         sip_status: sipStatus,
         sip_reason: sipReason,
         summary,
+        tipificacion,
         ended_at: new Date().toISOString()
       });
 
       await incrementBatchCounter(batchItem.batch_id, 'completed');
-      logger.info({ callSid: session.call_sid, summary }, 'batch call result saved');
+      logger.info({ callSid: session.call_sid, tipificacion, summary }, 'batch call result saved');
     } catch (err) {
       logger.warn({ err: err.message }, 'failed to save batch call result');
     }
