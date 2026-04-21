@@ -216,7 +216,15 @@ router.post('/amd-hook/:itemId', async (req, res) => {
   res.status(200).json({});
 
   if (amd_result === 'machine') {
-    await updateBatchItem(itemId, { tipificacion: 'buzon_de_voz' });
+    await updateBatchItem(itemId, {
+      tipificacion: 'buzon_de_voz',
+      status: 'no_answer',
+      ended_at: new Date().toISOString()
+    });
+    // Find batch_id to increment failed counter
+    const { data: itm } = await supabase.from('batch_call_items').select('batch_id').eq('id', itemId).single();
+    if (itm) await incrementBatchCounter(itm.batch_id, 'failed');
+    logger.info({ itemId, amd_result }, 'AMD detected machine — marked buzon_de_voz');
   }
 });
 
@@ -239,7 +247,7 @@ async function scheduleCallStatusCheck({ itemId, callSid, batchId, logger }) {
     try {
       const { data: item } = await supabase
         .from('batch_call_items')
-        .select('status, sip_status')
+        .select('status, sip_status, tipificacion')
         .eq('id', itemId)
         .single();
 
