@@ -16,14 +16,15 @@ ${transcript}
 
 Responde exactamente con este formato JSON:
 {
-  "tipificacion": "<uno de: contacto_exitoso | contacto_no_exitoso | contacto_parcial>",
+  "tipificacion": "<uno de: buzon_de_voz | contacto_exitoso | contacto_no_exitoso | contacto_parcial>",
   "resumen": "<resumen en máximo 3 oraciones: qué dijo el cliente y cuál fue el resultado>"
 }
 
 Criterios de tipificación:
-- contacto_exitoso: el cliente prometió pagar, dio fecha de pago, o realizó un compromiso concreto
-- contacto_parcial: hubo contacto pero el cliente pidió llamar después, no tenía información, o la llamada fue muy breve
-- contacto_no_exitoso: el cliente se negó a pagar, colgó, o no hubo acuerdo`;
+- buzon_de_voz: la llamada fue contestada por un buzón de voz o sistema automático. Señales: "deja tu mensaje después del tono", "grabe su mensaje", "marque uno para escuchar", menús de opciones numéricas del buzón, el cliente nunca habla directamente, el agente repite el mismo mensaje varias veces
+- contacto_exitoso: el cliente (persona real) prometió pagar, dio fecha de pago, o realizó un compromiso concreto
+- contacto_parcial: hubo contacto con persona real pero pidió llamar después, no tenía información, o la llamada fue muy breve
+- contacto_no_exitoso: el cliente (persona real) se negó a pagar, colgó, o no hubo acuerdo`;
 
   try {
     const response = await axios.post(

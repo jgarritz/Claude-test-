@@ -95,7 +95,9 @@ const service = ({ logger: parentLogger, makeService }) => {
       const varLines = Object.entries(vars)
         .map(([key, val]) => `- ${key}: ${val}`)
         .join('\n');
-      systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: Esta es una llamada saliente. Ya se reprodujo un saludo pregrabado que presentó el motivo de la llamada. Cuando la persona hable por primera vez, responde de inmediato continuando la conversación de forma natural usando las variables.`;
+      systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: Esta es una llamada saliente. Ya se reprodujo un saludo pregrabado que presentó el motivo de la llamada. Cuando la persona hable por primera vez, responde de inmediato continuando la conversación de forma natural usando las variables.
+
+DETECCIÓN DE BUZÓN DE VOZ: Si escuchas frases como "deja tu mensaje después del tono", "grabe su mensaje", "marque uno para escuchar", "marque el signo de número", "Para escuchar el mensaje marca uno", o cualquier menú automático de buzón de voz, di el mensaje de cobro UNA SOLA VEZ de forma breve (nombre, banco, monto, teléfono de contacto) y DETENTE. No repitas el mensaje, no interactúes con el menú del buzón, no marques ninguna opción.`;
       logger.info({ vars }, 'injected batch call variables into prompt');
     }
 
