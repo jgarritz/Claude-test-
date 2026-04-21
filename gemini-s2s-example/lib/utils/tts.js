@@ -4,6 +4,7 @@ const supabase = require('../db/supabase');
 /**
  * Generate TTS audio via Gemini, build WAV, upload to Supabase Storage.
  * Returns the public URL of the uploaded WAV file.
+ * Retries up to 3 times on 429 rate limit errors with exponential backoff.
  */
 async function generateTtsUrl({ text, voiceName, filePrefix = 'tts', logger }) {
   const apiKey = process.env.GOOGLE_API_KEY;
@@ -11,44 +12,63 @@ async function generateTtsUrl({ text, voiceName, filePrefix = 'tts', logger }) {
 
   if (logger) logger.info({ text, voiceName }, 'generating TTS audio');
 
-  const ttsResponse = await axios.post(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`,
-    {
-      contents: [{ parts: [{ text }] }],
-      generationConfig: {
-        response_modalities: ['AUDIO'],
-        speech_config: {
-          voice_config: {
-            prebuilt_voice_config: { voice_name: voiceName }
+  const maxRetries = 3;
+  let lastError;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const ttsResponse = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`,
+        {
+          contents: [{ parts: [{ text }] }],
+          generationConfig: {
+            response_modalities: ['AUDIO'],
+            speech_config: {
+              voice_config: {
+                prebuilt_voice_config: { voice_name: voiceName }
+              }
+            }
           }
-        }
+        },
+        { headers: { 'Content-Type': 'application/json' }, timeout: 15000 }
+      );
+
+      const audioBase64 = ttsResponse.data.candidates[0].content.parts[0].inlineData.data;
+      const pcmBuffer = Buffer.from(audioBase64, 'base64');
+      const wavBuffer = buildWav(pcmBuffer);
+
+      const fileName = `${filePrefix}-${Date.now()}.wav`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('greetings')
+        .upload(fileName, wavBuffer, {
+          contentType: 'audio/wav',
+          upsert: true
+        });
+
+      if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
+
+      const { data: urlData } = supabase.storage
+        .from('greetings')
+        .getPublicUrl(fileName);
+
+      if (logger) logger.info({ url: urlData.publicUrl }, 'TTS audio uploaded');
+
+      return urlData.publicUrl;
+    } catch (err) {
+      lastError = err;
+      const is429 = err.response?.status === 429 || err.message?.includes('429');
+      if (is429 && attempt < maxRetries) {
+        const delay = Math.pow(2, attempt + 1) * 1000; // 2s, 4s, 8s
+        if (logger) logger.warn({ attempt: attempt + 1, delayMs: delay }, 'TTS rate limited, retrying');
+        await new Promise(r => setTimeout(r, delay));
+        continue;
       }
-    },
-    { headers: { 'Content-Type': 'application/json' }, timeout: 15000 }
-  );
+      throw err;
+    }
+  }
 
-  const audioBase64 = ttsResponse.data.candidates[0].content.parts[0].inlineData.data;
-  const pcmBuffer = Buffer.from(audioBase64, 'base64');
-  const wavBuffer = buildWav(pcmBuffer);
-
-  const fileName = `${filePrefix}-${Date.now()}.wav`;
-
-  const { error: uploadError } = await supabase.storage
-    .from('greetings')
-    .upload(fileName, wavBuffer, {
-      contentType: 'audio/wav',
-      upsert: true
-    });
-
-  if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
-
-  const { data: urlData } = supabase.storage
-    .from('greetings')
-    .getPublicUrl(fileName);
-
-  if (logger) logger.info({ url: urlData.publicUrl }, 'TTS audio uploaded');
-
-  return urlData.publicUrl;
+  throw lastError;
 }
 
 function buildWav(pcmBuffer) {
