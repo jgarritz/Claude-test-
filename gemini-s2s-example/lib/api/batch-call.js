@@ -315,6 +315,7 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
     let greetingUrl = null;
     if (item.vars && greeting_template && agent.voice_name) {
       const greetingText = greeting_template.replace(/\{(\w+)\}/g, (_, key) => item.vars[key] || key);
+      logger.info({ phone: item.phone_number, greetingText, template: greeting_template }, 'greeting text resolved');
       try {
         greetingUrl = await generateTtsUrl({
           text: greetingText,
