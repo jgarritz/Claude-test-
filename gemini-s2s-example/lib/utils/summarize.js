@@ -4,6 +4,13 @@ async function generateCallSummary(transcriptions) {
   const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey || !transcriptions || transcriptions.length === 0) return { summary: null, tipificacion: null };
 
+  // If the agent spoke but the caller never responded, it's voicemail
+  const userTurns = transcriptions.filter(t => t.role === 'user');
+  const modelTurns = transcriptions.filter(t => t.role === 'model');
+  if (modelTurns.length > 0 && userTurns.length === 0) {
+    return { summary: 'Llamada contestada por buzón de voz, sin respuesta humana.', tipificacion: 'buzon_de_voz' };
+  }
+
   const transcript = transcriptions
     .sort((a, b) => a.sequence_num - b.sequence_num)
     .map(t => `${t.role === 'user' ? 'Cliente' : 'Agente'}: ${t.content}`)
