@@ -192,6 +192,7 @@ router.post('/status-hook', async (req, res) => {
 
     await updateBatchItem(item.id, {
       status: statusMap[call_status] || 'failed',
+      tipificacion: item.tipificacion || 'no_contesto',
       sip_status,
       sip_reason: call_status,
       ended_at: new Date().toISOString()
@@ -256,7 +257,7 @@ async function scheduleCallStatusCheck({ itemId, callSid, batchId, logger }) {
       const resolved = statusMap[callStatus];
 
       if (item.status === 'calling' && resolved) {
-        await updateBatchItem(itemId, { status: resolved, sip_status: sipStatus, sip_reason: sipReason, ended_at: new Date().toISOString() });
+        await updateBatchItem(itemId, { status: resolved, tipificacion: item.tipificacion || 'no_contesto', sip_status: sipStatus, sip_reason: sipReason, ended_at: new Date().toISOString() });
         await incrementBatchCounter(batchId, 'failed');
         logger.info({ callSid, callStatus, resolved, sipStatus }, 'unanswered call resolved via polling');
       } else if (item.status !== 'calling' && !item.sip_status && sipStatus) {
