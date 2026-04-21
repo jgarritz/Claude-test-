@@ -260,9 +260,14 @@ async function scheduleCallStatusCheck({ itemId, callSid, batchId, logger }) {
         await updateBatchItem(itemId, { status: resolved, tipificacion: item.tipificacion || 'no_contesto', sip_status: sipStatus, sip_reason: sipReason, ended_at: new Date().toISOString() });
         await incrementBatchCounter(batchId, 'failed');
         logger.info({ callSid, callStatus, resolved, sipStatus }, 'unanswered call resolved via polling');
-      } else if (item.status !== 'calling' && !item.sip_status && sipStatus) {
-        await updateBatchItem(itemId, { sip_status: sipStatus, sip_reason: sipReason });
-        logger.info({ callSid, sipStatus }, 'sip_status backfilled via polling');
+      } else if (item.status !== 'calling' && (!item.sip_status || !item.tipificacion) && sipStatus) {
+        const backfill = { sip_status: sipStatus, sip_reason: sipReason };
+        // SIP 504 on answered calls = voicemail timeout
+        if (!item.tipificacion && sipStatus === 504) {
+          backfill.tipificacion = 'buzon_de_voz';
+        }
+        await updateBatchItem(itemId, backfill);
+        logger.info({ callSid, sipStatus, tipificacion: backfill.tipificacion }, 'sip_status backfilled via polling');
       }
     } catch (e) {
       logger.warn({ err: e.message, callSid }, 'call status poll failed');

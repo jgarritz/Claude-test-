@@ -316,6 +316,11 @@ const onClose = async (session, code, reason) => {
         ({ summary, tipificacion } = await generateCallSummary(transcriptions || []));
       }
 
+      // Fallback: SIP 504 on answered calls = voicemail timeout
+      if (!tipificacion && sipStatus === 504) {
+        tipificacion = 'buzon_de_voz';
+      }
+
       const update = {
         status: 'completed',
         sip_status: sipStatus,
