@@ -300,44 +300,47 @@ async function runBatch({ batch, items, agent, from_number, greeting_template, l
 
     const chunk = items.slice(i, i + concurrency);
 
-    await Promise.all(chunk.map(item => dialOne({ item, agent, from_number, greeting_template, batchId, logger })));
+    // Generate TTS greetings in series to avoid rate limits
+    for (const item of chunk) {
+      if (item.vars && greeting_template && agent.voice_name) {
+        const greetingText = greeting_template.replace(/\{(\w+)\}/g, (_, key) => item.vars[key] || key);
+        logger.info({ phone: item.phone_number, greetingText, template: greeting_template }, 'greeting text resolved');
+        try {
+          const greetingUrl = await generateTtsUrl({
+            text: greetingText,
+            voiceName: agent.voice_name,
+            filePrefix: `batch-${item.id}`,
+            logger
+          });
+          item._greetingUrl = greetingUrl;
+          await updateBatchItem(item.id, { greeting_url: greetingUrl });
+          logger.info({ phone: item.phone_number, greetingText }, 'dynamic greeting generated');
+        } catch (ttsErr) {
+          logger.error({ err: ttsErr.message }, 'TTS generation failed, calling without greeting');
+          logEvent({
+            type: 'tts',
+            severity: 'error',
+            message: `TTS failed: ${ttsErr.message}`,
+            batchId,
+            agentId: agent.id,
+            metadata: { phone: item.phone_number, voiceName: agent.voice_name }
+          });
+        }
+      }
+    }
+
+    // Dial all calls in parallel (TTS already generated)
+    await Promise.all(chunk.map(item => dialOne({ item, agent, from_number, batchId, logger })));
   }
 
   await finishBatch(batchId);
   logger.info({ batchId }, 'batch completed');
 }
 
-async function dialOne({ item, agent, from_number, greeting_template, batchId, logger }) {
+async function dialOne({ item, agent, from_number, batchId, logger }) {
   await updateBatchItem(item.id, { status: 'calling' });
 
   try {
-    // Generate dynamic TTS greeting if there are variables and a template
-    let greetingUrl = null;
-    if (item.vars && greeting_template && agent.voice_name) {
-      const greetingText = greeting_template.replace(/\{(\w+)\}/g, (_, key) => item.vars[key] || key);
-      logger.info({ phone: item.phone_number, greetingText, template: greeting_template }, 'greeting text resolved');
-      try {
-        greetingUrl = await generateTtsUrl({
-          text: greetingText,
-          voiceName: agent.voice_name,
-          filePrefix: `batch-${item.id}`,
-          logger
-        });
-        await updateBatchItem(item.id, { greeting_url: greetingUrl });
-        logger.info({ phone: item.phone_number, greetingText }, 'dynamic greeting generated');
-      } catch (ttsErr) {
-        logger.error({ err: ttsErr.message }, 'TTS generation failed, calling without greeting');
-        logEvent({
-          type: 'tts',
-          severity: 'error',
-          message: `TTS failed: ${ttsErr.message}`,
-          batchId,
-          agentId: agent.id,
-          metadata: { phone: item.phone_number, voiceName: agent.voice_name }
-        });
-      }
-    }
-
     const response = await axios.post(
       `${JAMBONZ_API}/Accounts/${ACCOUNT_SID}/Calls`,
       {
@@ -373,7 +376,7 @@ async function dialOne({ item, agent, from_number, greeting_template, batchId, l
       batchId,
       agentId: agent.id,
       callSid,
-      metadata: { phone: item.phone_number, hasGreeting: !!greetingUrl }
+      metadata: { phone: item.phone_number, hasGreeting: !!item._greetingUrl }
     });
   } catch (err) {
     const errorMsg = err.response?.data?.msg || err.message;
