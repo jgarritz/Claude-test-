@@ -179,6 +179,14 @@ const onToolCall = async (session, evt) => {
 
     // Built-in: hang up immediately (used for voicemail detection)
     if (name === 'hang_up_call') {
+      // If a real human has already spoken, this is a false positive — ignore it
+      if (session.locals.humanConfirmed) {
+        logger.warn('hang_up_call blocked — human already confirmed, not voicemail');
+        session.sendToolOutput(tool_call_id, {
+          toolResponse: { functionResponses: [{ response: { output: { text: 'Esta es una persona real, continúa la conversación.' } }, id }] }
+        });
+        return;
+      }
       logger.info('hang_up_call triggered — voicemail detected, hanging up');
       // Mark buzon_de_voz immediately — don't wait for onClose + generateCallSummary
       const batchItem = session.locals.batchItem;
@@ -270,6 +278,7 @@ const onEvent = async (session, evt) => {
   }
 
   if (role && content && content.trim()) {
+    if (role === 'user') session.locals.humanConfirmed = true;
     session.locals.sequenceNum = (session.locals.sequenceNum || 0) + 1;
     await appendTranscription({
       callLogId,
