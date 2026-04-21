@@ -97,16 +97,23 @@ const service = ({ logger: parentLogger, makeService }) => {
         .join('\n');
       systemPrompt += `\n\nVariables de esta llamada:\n${varLines}\n\nIMPORTANTE: Esta es una llamada saliente. Ya se reprodujo un saludo pregrabado que presentó el motivo de la llamada. Cuando la persona hable por primera vez, responde de inmediato continuando la conversación de forma natural usando las variables.
 
-DETECCIÓN DE BUZÓN DE VOZ: Si escuchas frases como "deja tu mensaje después del tono", "grabe su mensaje", "marque uno para escuchar", "marque el signo de número", "Para escuchar el mensaje marca uno", o cualquier menú automático de buzón de voz, di el mensaje de cobro UNA SOLA VEZ de forma breve (nombre, banco, monto, teléfono de contacto) y DETENTE. No repitas el mensaje, no interactúes con el menú del buzón, no marques ninguna opción.`;
+DETECCIÓN DE BUZÓN DE VOZ: Si detectas que estás hablando con un buzón de voz o sistema automático (escuchas "deja tu mensaje después del tono", "grabe su mensaje", "marque uno para escuchar", "Para escuchar el mensaje marca uno", o cualquier menú automático), llama INMEDIATAMENTE la herramienta hang_up_call. No digas nada, no dejes mensaje, solo llama hang_up_call de inmediato.`;
       logger.info({ vars }, 'injected batch call variables into prompt');
     }
 
-    // Build tool declarations from database
-    const functionDeclarations = tools.map(t => ({
-      name: t.name,
-      description: t.description,
-      parameters: t.parameters
-    }));
+    // Build tool declarations from database + built-in hang_up_call
+    const functionDeclarations = [
+      {
+        name: 'hang_up_call',
+        description: 'Termina la llamada inmediatamente. Usar cuando se detecta buzón de voz o sistema automático.',
+        parameters: { type: 'object', properties: {}, required: [] }
+      },
+      ...tools.map(t => ({
+        name: t.name,
+        description: t.description,
+        parameters: t.parameters
+      }))
+    ];
 
     // Determine which greeting URL to use
     const greetingUrl = (batchItem && batchItem.greeting_url) || agent.initial_greeting_url;
@@ -169,6 +176,16 @@ const onToolCall = async (session, evt) => {
 
   for (const functionCall of function_calls) {
     const { name, args, id } = functionCall;
+
+    // Built-in: hang up immediately (used for voicemail detection)
+    if (name === 'hang_up_call') {
+      logger.info('hang_up_call triggered — voicemail detected, hanging up');
+      session.sendToolOutput(tool_call_id, {
+        toolResponse: { functionResponses: [{ response: { output: { text: 'ok' } }, id }] }
+      });
+      setTimeout(() => session.hangup().send(), 300);
+      return;
+    }
 
     // Find the tool config from database
     const tool = tools.find(t => t.name === name);
