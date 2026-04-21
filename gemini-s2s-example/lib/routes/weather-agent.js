@@ -180,6 +180,12 @@ const onToolCall = async (session, evt) => {
     // Built-in: hang up immediately (used for voicemail detection)
     if (name === 'hang_up_call') {
       logger.info('hang_up_call triggered — voicemail detected, hanging up');
+      // Mark buzon_de_voz immediately — don't wait for onClose + generateCallSummary
+      const batchItem = session.locals.batchItem;
+      if (batchItem) {
+        session.locals.tipificacionOverride = 'buzon_de_voz';
+        await updateBatchItemResult(session.call_sid, { tipificacion: 'buzon_de_voz' });
+      }
       session.sendToolOutput(tool_call_id, {
         toolResponse: { functionResponses: [{ response: { output: { text: 'ok' } }, id }] }
       });
@@ -298,8 +304,9 @@ const onClose = async (session, code, reason) => {
   if (batchItem) {
     try {
       let summary = null;
-      let tipificacion = null;
-      if (callLogId) {
+      let tipificacion = session.locals.tipificacionOverride || null;
+
+      if (callLogId && !tipificacion) {
         const { data: transcriptions } = await supabase
           .from('transcriptions')
           .select('role, content, sequence_num')
@@ -309,14 +316,16 @@ const onClose = async (session, code, reason) => {
         ({ summary, tipificacion } = await generateCallSummary(transcriptions || []));
       }
 
-      await updateBatchItemResult(session.call_sid, {
+      const update = {
         status: 'completed',
         sip_status: sipStatus,
         sip_reason: sipReason,
-        summary,
-        tipificacion,
-        ended_at: new Date().toISOString()
-      });
+        ended_at: new Date().toISOString(),
+        ...(summary && { summary }),
+        ...(tipificacion && { tipificacion })
+      };
+
+      await updateBatchItemResult(session.call_sid, update);
 
       await incrementBatchCounter(batchItem.batch_id, 'completed');
       logger.info({ callSid: session.call_sid, tipificacion, summary }, 'batch call result saved');
