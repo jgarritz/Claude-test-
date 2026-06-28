@@ -1,0 +1,137 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Mundial 2026//Dieciseisavos de Final//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Mundial 2026 - Dieciseisavos de Final
+X-WR-CALDESC:Todos los partidos de los dieciseisavos de final del Mundial 2026 (28 jun - 3 jul)
+X-WR-TIMEZONE:UTC
+BEGIN:VEVENT
+UID:wc2026-r32-01@mundial2026
+DTSTART:20260628T190000Z
+DTEND:20260628T210000Z
+SUMMARY:🏆 Sudáfrica vs Canadá - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nSudáfrica vs Canadá\nEstadio: SoFi Stadium\nCiudad: Los Ángeles\n\n3:00 PM ET / 9:00 PM España
+LOCATION:SoFi Stadium\, Los Ángeles\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-02@mundial2026
+DTSTART:20260629T170000Z
+DTEND:20260629T190000Z
+SUMMARY:🏆 Brasil vs Japón - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nBrasil vs Japón\nEstadio: NRG Stadium\nCiudad: Houston\n\n1:00 PM ET / 7:00 PM España
+LOCATION:NRG Stadium\, Houston\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-03@mundial2026
+DTSTART:20260629T203000Z
+DTEND:20260629T223000Z
+SUMMARY:🏆 Alemania vs Paraguay - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nAlemania vs Paraguay\nEstadio: Gillette Stadium\nCiudad: Boston\n\n4:30 PM ET / 10:30 PM España
+LOCATION:Gillette Stadium\, Boston\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-04@mundial2026
+DTSTART:20260630T010000Z
+DTEND:20260630T030000Z
+SUMMARY:🏆 Países Bajos vs Marruecos - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nPaíses Bajos vs Marruecos\nEstadio: Estadio BBVA\nCiudad: Monterrey\n\n9:00 PM ET (lun 29) / 3:00 AM España (mar 30)
+LOCATION:Estadio BBVA\, Monterrey\, México
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-05@mundial2026
+DTSTART:20260630T170000Z
+DTEND:20260630T190000Z
+SUMMARY:🏆 Costa de Marfil vs Noruega - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nCosta de Marfil vs Noruega\nEstadio: AT&T Stadium\nCiudad: Dallas\n\n1:00 PM ET / 7:00 PM España
+LOCATION:AT&T Stadium\, Dallas\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-06@mundial2026
+DTSTART:20260630T210000Z
+DTEND:20260630T230000Z
+SUMMARY:🏆 Francia vs Suecia - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nFrancia vs Suecia\nEstadio: MetLife Stadium\nCiudad: East Rutherford (Nueva Jersey)\n\n5:00 PM ET / 11:00 PM España
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-07@mundial2026
+DTSTART:20260701T010000Z
+DTEND:20260701T030000Z
+SUMMARY:🏆 México vs Ecuador - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nMéxico vs Ecuador\nEstadio: Estadio Azteca\nCiudad: Ciudad de México\n\n9:00 PM ET (mar 30) / 3:00 AM España (mié 1)
+LOCATION:Estadio Azteca\, Ciudad de México\, México
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-08@mundial2026
+DTSTART:20260701T160000Z
+DTEND:20260701T180000Z
+SUMMARY:🏆 Inglaterra vs R.D. Congo - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nInglaterra vs República Democrática del Congo\nEstadio: Mercedes-Benz Stadium\nCiudad: Atlanta\n\n12:00 PM ET / 6:00 PM España
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-09@mundial2026
+DTSTART:20260701T200000Z
+DTEND:20260701T220000Z
+SUMMARY:🏆 Bélgica vs Senegal - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nBélgica vs Senegal\nEstadio: Lumen Field\nCiudad: Seattle\n\n4:00 PM ET / 10:00 PM España
+LOCATION:Lumen Field\, Seattle\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-10@mundial2026
+DTSTART:20260702T000000Z
+DTEND:20260702T020000Z
+SUMMARY:🏆 EE.UU. vs Bosnia-Herzegovina - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nEstados Unidos vs Bosnia-Herzegovina\nEstadio: Levi's Stadium\nCiudad: San Francisco Bay Area\n\n8:00 PM ET (mié 1) / 2:00 AM España (jue 2)
+LOCATION:Levi's Stadium\, Santa Clara\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-11@mundial2026
+DTSTART:20260702T190000Z
+DTEND:20260702T210000Z
+SUMMARY:🏆 España vs Austria - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nEspaña vs Austria\nEstadio: SoFi Stadium\nCiudad: Los Ángeles\n\n3:00 PM ET / 9:00 PM España
+LOCATION:SoFi Stadium\, Los Ángeles\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-12@mundial2026
+DTSTART:20260702T230000Z
+DTEND:20260703T010000Z
+SUMMARY:🏆 Portugal vs Croacia - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nPortugal vs Croacia\nEstadio: BMO Field\nCiudad: Toronto\n\n7:00 PM ET / 1:00 AM España (vie 3)
+LOCATION:BMO Field\, Toronto\, Canadá
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-13@mundial2026
+DTSTART:20260703T030000Z
+DTEND:20260703T050000Z
+SUMMARY:🏆 Suiza vs Argelia - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nSuiza vs Argelia\nEstadio: BC Place\nCiudad: Vancouver\n\n11:00 PM ET (jue 2) / 5:00 AM España (vie 3)
+LOCATION:BC Place\, Vancouver\, Canadá
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-14@mundial2026
+DTSTART:20260703T180000Z
+DTEND:20260703T200000Z
+SUMMARY:🏆 Australia vs Egipto - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nAustralia vs Egipto\nEstadio: AT&T Stadium\nCiudad: Dallas\n\n2:00 PM ET / 8:00 PM España
+LOCATION:AT&T Stadium\, Dallas\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-15@mundial2026
+DTSTART:20260703T220000Z
+DTEND:20260704T000000Z
+SUMMARY:🏆 Argentina vs Cabo Verde - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nArgentina vs Cabo Verde\nEstadio: Hard Rock Stadium\nCiudad: Miami\n\n6:00 PM ET / 12:00 AM España (sáb 4)
+LOCATION:Hard Rock Stadium\, Miami\, USA
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-r32-16@mundial2026
+DTSTART:20260704T013000Z
+DTEND:20260704T033000Z
+SUMMARY:🏆 Colombia vs Ghana - Mundial 2026 1/32
+DESCRIPTION:Dieciseisavos de Final - Copa Mundial FIFA 2026\nColombia vs Ghana\nEstadio: Arrowhead Stadium\nCiudad: Kansas City\n\n9:30 PM ET (vie 3) / 3:30 AM España (sáb 4)
+LOCATION:Arrowhead Stadium\, Kansas City\, USA
+END:VEVENT
+END:VCALENDAR
