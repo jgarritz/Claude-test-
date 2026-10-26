@@ -37,3 +37,17 @@ Workspace: `22222222-2222-4222-8222-222222222222`. Campañas: `jubilee-v2` (Jubi
 5. Alertas falsas o viejas por limpiar ("N días sin actividad").
 6. Línea en el correo diario y gráfica semanal del carril (no construidas).
 7. Bug del validador `validar_plantilla_sms`: el mensaje de error se rompe ("malformed array literal") cuando rechaza un texto.
+
+## 2026-10-26 — Marco de autonomía y decisiones del CAIO
+
+Decisiones tomadas por el CAIO en la conversación:
+1. **Marco de autonomía: aprobado.**
+   - El analista puede, sin preguntar y avisando después (con cómo revertir): desactivar un texto que contradiga la fuente oficial; apagar el carril si hay envíos claramente erróneos; limpiar alertas falsas; resumir cada revisión.
+   - El analista debe preguntar antes de: publicar código o migraciones; cambiar ritmo, horario o volumen; pausar o reanudar campañas; cargar listas o textos nuevos; contactar a Wintown o al proveedor.
+2. **Volumen: opción A.** Seguir igual hasta el miércoles 28-oct-2026 (costo estimado de seguir: ~$1,150/día de pérdida neta; ~$2,800 hasta el miércoles). Las alternativas B (pausar seguimientos de la base anterior, ahorro estimado ~$440/día) y C (pausar todo salvo calientes) quedaron descartadas por ahora y se reevalúan el miércoles.
+3. **Despertadores programados:** dos rutinas ligadas a la sesión del analista, a las 10:45 y 17:55 CDMX (ids `trig_01KHGfRNsRhwdBtBYuQ5wNLV` y `trig_011jszw8ketvsExaTJj96dty`). Leen el reporte de las rutinas de lectura (10:30 y 17:40), verifican con consultas ligeras, actúan dentro del marco y envían una notificación push al CAIO. Limitación: dependen de que la sesión siga viva; si el sistema la cierra por inactividad, dejan de funcionar.
+   - Para cancelarlos: eliminar las rutinas desde claude.ai o pedirlo en la conversación.
+
+Medición acordada para el miércoles 28-oct: tanda 1. Con 4 o más adquisiciones pagables de la carga nueva → liberar la tanda 2 en bloques de 10,000–15,000; con 2 o 3 → esperar y arreglar el embudo; con menos de 2 → no liberar.
+
+Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones pagables en el mes, ~$6,400; utilidad estimada −$9,600 o peor); 12–14% de SMS en estado "ambigua" (4,415 acumulados); informe diario del 25-oct trabado desde las 07:30. Las plantillas `DEP_*` son los textos deportivos diarios generados por el sistema; no tienen relación con "depósito parcial".
