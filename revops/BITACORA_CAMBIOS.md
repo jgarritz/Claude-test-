@@ -132,3 +132,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck: 503, 13.2 / 20.3 / 12.2 s.
 - Alertas abiertas (3, origen monitor, activas y actualizándose a las 10:40): "Informe diario sin ejecutarse", "Correo del resumen no enviado" (resumen del 26-oct pendiente; el del 25-oct sí salió el 26-oct 13:08 CDMX) y "Cola de SMS vacía con pendientes". No son falsas ni viejas: no se cerró ninguna.
 - Nada que revertir. Pendiente de decisión del CAIO: ver conversación (proveedor: ambiguas y aviso de entrega; Wintown: respuesta; evaluación formal de la tanda 1 el miércoles 28-oct).
+
+## 2026-10-27 17:55 CDMX — Despertador de la tarde (solo lectura; NO se cambió nada)
+- Rutina vespertina (17:41, 2.3 min): estado ROJO, formato correcto, sin escrituras ni permisos denegados. Reporta CTR cohorte nueva 0.96% (Jubilee) / 0.98% (Vivento), utilidad del mes ≈ −$12,300 (aprox., con hueco de datos), 9 adquisiciones pagables en el mes (Jubilee 5, Vivento 4), ambiguas acumuladas 19,502.
+- Verificado por mí (hasta 17:55 CDMX): enviadas hoy Jubilee 37,806 / Vivento 11,723; ambiguas 2,655 / 794 (≈6.5% del total); fallidas 116 / 27 (0.3%). Gasto del día ≈ $1,589 (aprox.); adquisiciones pagables del día: 0 (ingreso CPA $0). Ritmo estable de 5,300–7,300 SMS por hora de 10:00 a 17:59. 0 envíos antes de las 10:00; aún no son las 20:00. 0 SMS a clientes en etapa convertido en las últimas 2 h.
+- CTR por texto en Jubilee (26-oct 04:00Z hasta hace 2 h, ≥800 SMS): FRIO_R6_5 0.71%, R6_7 0.69%, R6_3 0.71%, R6_4 0.64%, R6_2 0.65%, R6_8 0.57%, R6_6 0.42% (5,188 SMS), R6_1 0.27% (4,142 SMS); DEP_…_V2 0.89%, V3 0.94%, V1 0.64%. Propuesta (requiere autorización): desactivar R6_1 y R6_6.
+- Carril caliente de Vivento: la alarma de la rutina no se confirma; hoy 13 aprobado y 15 solicitud_enviada enviados. Se interpreta como cadencia.
+- Informe diario del 26-oct: "en_curso" (creado 13:30Z, actualizado 23:30Z), correo pendiente; el del 25-oct sí salió. Alerta real abierta del monitor. Revisión programada a las ~20:30 CDMX.
+- Healthcheck: 503; 21.4 / 4.6 / 11.3 s. Nada que revertir.
