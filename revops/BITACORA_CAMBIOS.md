@@ -140,3 +140,14 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Carril caliente de Vivento: la alarma de la rutina no se confirma; hoy 13 aprobado y 15 solicitud_enviada enviados. Se interpreta como cadencia.
 - Informe diario del 26-oct: "en_curso" (creado 13:30Z, actualizado 23:30Z), correo pendiente; el del 25-oct sí salió. Alerta real abierta del monitor. Revisión programada a las ~20:30 CDMX.
 - Healthcheck: 503; 21.4 / 4.6 / 11.3 s. Nada que revertir.
+
+## 2026-10-28 10:45 CDMX — Evaluación formal de la tanda 1 y revisión de la mañana (solo lectura; NO se cambió nada)
+- Carga nueva = leads creados desde el 23-oct 12:00 CDMX (≈50,000 por marca). SMS a la cohorte: Jubilee 122,033 enviados + 10,870 ambiguos (49,977 personas); Vivento 75,434 + 5,298 (49,989 personas). Total ≈213,635 SMS, ≈2.1 por persona, costo ≈ $6,409 (enviados + ambiguos × $0.03).
+- Resultado (dato observado, consulta validada + cruce por persona): clientes con depósito de la carga nueva: Jubilee 0; Vivento 1 ($100 el 23-oct 23:09, etapa deposito_parcial, 1 SMS). Adquisiciones pagables de la carga nueva: 0. Equilibrio de la cohorte ≈ 8 adquisiciones pagables.
+- Corrección: la adquisición pagable de Vivento del 25-oct ($200, primer depósito 04:01 CDMX) y las 5 de Jubilee son de la base ANTERIOR (lead creado el 2-oct, 7 SMS, etc.). La rutina matutina las atribuyó a la tanda 1 por error.
+- Embudo de la cohorte (etapas actuales): Jubilee intento_contacto 47,865; interesado 1,235; elegible 884; aprobado 11; solicitud_enviada 5. Vivento intento_contacto 46,345; elegible 2,835; interesado 813; aprobado 3; solicitud_enviada 3; deposito_parcial 1. Avanzados (aprobado, solicitud, parcial, convertido): Jubilee 16, Vivento 7 = 23.
+- Regla acordada: menos de 2 adquisiciones pagables → NO liberar tanda 2. Recomendación al CAIO además: pausar el envío frío repetido y mantener solo etapas calientes (decisión de volumen, requiere su autorización).
+- Verificado hoy hasta 10:46 CDMX: enviadas Jubilee 2,560 / Vivento 1,083; ambiguas 395 / 145; fallidas 11 / 3; 0 SMS a clientes convertidos; 0 envíos fuera de horario (solo 71 SMS entre 20:00:37 y 20:01:40 del 27-oct, desborde de reservas). Healthcheck 503: 12.8 / 12.8 / 16.4 s.
+- Informes diarios del 26-oct y del 27-oct siguen "en_curso" con correo pendiente; el último correo enviado es el del 25-oct (26-oct 13:08 CDMX).
+- Rutina matutina (10:32): ROJO, sin escrituras; CTR cohorte ≈1.00% en ambas marcas; ambiguas acumuladas 20,328.
+- Nada que revertir. Commit local sin push (el push fue bloqueado por permisos; pendiente de que el CAIO lo habilite).
