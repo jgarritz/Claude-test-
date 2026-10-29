@@ -158,3 +158,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Regla de liberación (la ejecuto en cada revisión de las 10:45 y 17:55): leads pausados que ya avanzaron de etapa (por ejemplo un clic los pasa a interesado) se reactivan: `update campana_leads set pendiente_activacion=false where workspace_id='22222222-2222-4222-8222-222222222222' and campana_id in ('jubilee-v2','vivento') and pendiente_activacion=true and primer_contacto_en is not null and etapa not in ('intento_contacto','elegible','contactado');`
 - REVERTIR la pausa completa (no toca los 1,694 de Vivento que ya estaban en espera, porque no tienen primer contacto): `update campana_leads set pendiente_activacion=false where workspace_id='22222222-2222-4222-8222-222222222222' and campana_id in ('jubilee-v2','vivento') and pendiente_activacion=true and etapa in ('intento_contacto','elegible','contactado') and (primer_contacto_en is not null or campana_id='jubilee-v2');` Hacerlo en lotes de ≤9,000 (por ejemplo con `ctid in (select ctid ... limit 9000)`).
 - Verificación posterior: pendientes por etapa confirmados con consulta (pausados con contacto previo 144,660; sin contacto previo 2,109 = 1,694 previos + 415 nuevos de Jubilee). Los envíos empiezan a las 10:00; primera comprobación a las 10:20.
+
+## 2026-10-29 10:22 CDMX — Verificación de la pausa del frío (solo lectura)
+- Últimos 25 min tras el arranque de las 10:00: solo etapas calientes. Jubilee: interesado 2,296, calificado 67, aprobado 16, solicitud_enviada 8; Vivento: interesado 1,118, calificado 19, aprobado 9, solicitud_enviada 8. Frío: 1 SMS en intento_contacto (el lead sin import_job_id de Jubilee, que no pudo pausarse) y 0 en Vivento.
+- Primera hora (10:00–10:21): 3,542 SMS enviados, casi todos a "interesado" (el primer barrido del día; se espera que baje: ≈6,000 al día en total). Fallidas 1; ambiguas 0.
+- Leads pausados por liberar (avanzaron de etapa): 0.
+- Sin cambios; nada que revertir.
