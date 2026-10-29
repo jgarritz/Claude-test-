@@ -164,3 +164,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Primera hora (10:00–10:21): 3,542 SMS enviados, casi todos a "interesado" (el primer barrido del día; se espera que baje: ≈6,000 al día en total). Fallidas 1; ambiguas 0.
 - Leads pausados por liberar (avanzaron de etapa): 0.
 - Sin cambios; nada que revertir.
+
+## 2026-10-29 10:45 CDMX — Despertador de la mañana (pausa del frío vigente)
+- Pausa del frío verificada: última hora (≈9:45–10:45): Vivento 2,719 interesado, 64 calificado, 9 aprobado, 8 solicitud_enviada; Jubilee 2,448 interesado, 68 calificado, 16 aprobado, 8 solicitud_enviada, 1 intento_contacto (lead sin import_job_id). Total ≈5,340 en la hora 10:00 (primer barrido de interesados); fallidas 1, ambiguas 1. 0 SMS a clientes convertidos.
+- Regla de liberación ejecutada: 1 lead (Jubilee, ahora en interesado) reactivado. Revertir: `update campana_leads set pendiente_activacion=true where id in (<ids>)` no es necesario; es el comportamiento previsto.
+- Informes diarios: el del 27-oct se completó y el correo salió el 28-oct 21:01 CDMX (email_estado=enviado); el del 28-oct está pendiente (recién iniciado); el del 26-oct sigue "en_curso" sin correo (quedó saltado).
+- Rutina matutina (10:37): ROJO; su reporte final llegó solo como resumen push (formato incompleto); no conoce la pausa del frío (su texto no la incluye). CTR cohorte nueva 0.92% / 0.99%; ambiguas 23,275 acumuladas; utilidad del mes ≈ −$15,100 (aprox.).
+- Healthcheck 503: 14.8 / 10.0 / 2.6 s.

@@ -11,3 +11,9 @@ FORMATO DE SALIDA: Resumen ejecutivo (máx. 5 conclusiones) · Indicadores (tabl
 
 REGLA DE CAMBIOS: solo lectura. No modifiques nada; propón y espera autorización del CAIO.
 ```
+
+---
+## Actualización 2026-10-29 (pegar también al final de ambas rutinas)
+```
+CAMBIO EN PRODUCCIÓN (8) desde el 29-oct-2026: PAUSA DEL ENVÍO FRÍO por decisión del CAIO. Los leads fríos de Jubilee y Vivento (etapas intento_contacto, elegible y contactado; ≈145,000) están pausados con campana_leads.pendiente_activacion=true. Solo deben salir SMS de etapas calientes: interesado, calificado, solicitud_enviada, aprobado y deposito_parcial (≈6,000 SMS al día). No recomiendes reanudar el frío ni liberar la tanda 2 sin evidencia de depositantes nuevos; reporta cuántos SMS fríos salen por hora (más de 300 por hora = alerta). La evaluación formal de la tanda 1 del 28-oct dio 0 adquisiciones pagables de la carga nueva (1 depósito de $100 en Vivento); las adquisiciones pagables del mes (Jubilee 5, Vivento 4) son de la base anterior.
+```
