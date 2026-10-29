@@ -46,3 +46,7 @@ Nota: Vivento y Jubilee los opera la misma empresa legal (New Ads S.A. de C.V., 
 - Gasto en SMS del mes: al menos ~$15,000 (aproximado; sin datos de SMS del 14 al 22-oct en el sistema).
 - NGR según Wintown: −$15,063 acumulado al 24-oct (ambas marcas), por lo que rev share de octubre = $0.
 - Del 1 al 21-oct, los depósitos de Jubilee fueron de 10 clientes distintos y los de Vivento de 11.
+
+## Estado de confirmaciones (actualizado 2026-10-29)
+- Wintown: no respondió de forma clara a las preguntas (acumulación del bono de Vivento, mínimo de depósito $200 vs $300, "desafío de $500" de Jubilee, rechazos por INE); solo remitió a sus páginas. Decisión del CAIO: operar con la información oficial ya verificada (sitios de Vivento y Jubilee). Todo lo anterior sigue "sin confirmar por escrito"; no usar esas condiciones como hechos en textos ni cálculos.
+- Proveedor de SMS: sin confirmación de entrega (sin aviso de entrega ni respuesta sobre los SMS "ambiguos"). "SMS entregado" sigue NO medible; los ambiguos (≈23,000 acumulados) se tratan como desconocidos y no se reenvían.

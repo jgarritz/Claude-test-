@@ -171,3 +171,8 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Informes diarios: el del 27-oct se completó y el correo salió el 28-oct 21:01 CDMX (email_estado=enviado); el del 28-oct está pendiente (recién iniciado); el del 26-oct sigue "en_curso" sin correo (quedó saltado).
 - Rutina matutina (10:37): ROJO; su reporte final llegó solo como resumen push (formato incompleto); no conoce la pausa del frío (su texto no la incluye). CTR cohorte nueva 0.92% / 0.99%; ambiguas 23,275 acumuladas; utilidad del mes ≈ −$15,100 (aprox.).
 - Healthcheck 503: 14.8 / 10.0 / 2.6 s.
+
+## 2026-10-29 — Decisiones del CAIO sobre confirmaciones (sin cambios en producción)
+- Wintown no respondió con claridad (remitió a sus páginas): "dejémoslo con la información que tenemos". Se opera con lo verificado en los sitios oficiales; las condiciones no confirmadas siguen fuera de los textos. Ficha económica actualizada.
+- Proveedor de SMS: sin confirmación de entrega. "Entregado" sigue no medible.
+- Siguiente evaluación formal: lunes 2-nov-2026 (resultados de la pausa del frío y maduración de los leads calientes y de la tanda 1).
