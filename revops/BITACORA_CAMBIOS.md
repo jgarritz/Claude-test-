@@ -176,3 +176,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Wintown no respondió con claridad (remitió a sus páginas): "dejémoslo con la información que tenemos". Se opera con lo verificado en los sitios oficiales; las condiciones no confirmadas siguen fuera de los textos. Ficha económica actualizada.
 - Proveedor de SMS: sin confirmación de entrega. "Entregado" sigue no medible.
 - Siguiente evaluación formal: lunes 2-nov-2026 (resultados de la pausa del frío y maduración de los leads calientes y de la tanda 1).
+
+## 2026-10-29 17:55 CDMX — Despertador de la tarde (pausa del frío vigente)
+- Envíos de hoy (10:00–17:56): Jubilee 2,960 enviadas / 25 ambiguas / 0 fallidas; Vivento 3,834 / 147 / 2. Primera hora 5,514 (barrido de interesados), después 100–560 por hora. Frío: 1 SMS (el lead sin import_job_id). 0 SMS a clientes convertidos. Gasto del día ≈ $209 (aprox.) frente a ≈ $1,900–2,000 de los días anteriores (≈ −89%).
+- Regla de liberación ejecutada: 7 leads reactivados (Jubilee 4, Vivento 3; todos ahora en interesado).
+- Adquisiciones pagables del día: 0 (Jubilee: 3 depósitos de $900 de 1 cliente existente el 29-oct; Vivento: 2 depósitos de $400 el 28-oct, cliente existente).
+- Informes diarios: del 27-oct (correo 28-oct 21:01 CDMX) y del 28-oct (correo 29-oct 14:01 CDMX) enviados; el del 26-oct sigue "en_curso" sin correo (saltado).
+- Rutina vespertina (17:41): formato completo, sin escrituras; no conoce la pausa del frío y repite recomendaciones ya ejecutadas (reducir fríos) o cerradas por el CAIO (proveedor). CTR carga nueva 0.93% / 1.01%; ambiguas acumuladas 23,447; utilidad del mes ≈ −$15,200 (aprox.).
+- Healthcheck 503: 11.3 / 7.5 / 2.7 s. Nada que revertir.
