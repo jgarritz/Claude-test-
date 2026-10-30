@@ -184,3 +184,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Informes diarios: del 27-oct (correo 28-oct 21:01 CDMX) y del 28-oct (correo 29-oct 14:01 CDMX) enviados; el del 26-oct sigue "en_curso" sin correo (saltado).
 - Rutina vespertina (17:41): formato completo, sin escrituras; no conoce la pausa del frío y repite recomendaciones ya ejecutadas (reducir fríos) o cerradas por el CAIO (proveedor). CTR carga nueva 0.93% / 1.01%; ambiguas acumuladas 23,447; utilidad del mes ≈ −$15,200 (aprox.).
 - Healthcheck 503: 11.3 / 7.5 / 2.7 s. Nada que revertir.
+
+## 2026-10-30 10:45 CDMX — Despertador de la mañana (pausa del frío vigente)
+- Envíos de hoy (10:00–10:47): Jubilee 2,059 enviadas / 230 ambiguas (10%) / 0 fallidas; Vivento 96 / 3 / 0. Todos de etapas calientes (interesado, calificado, solicitud_enviada, aprobado); frío: 0. 0 SMS a clientes convertidos; 0 envíos fuera de horario. Volumen bajo por diseño: el barrido de interesados del día se hizo en la primera hora (cadencia ~20 h) y Vivento barrió su pool el 29-oct.
+- Regla de liberación: 17 leads reactivados (Jubilee 9, Vivento 8; todos en interesado).
+- Adquisiciones pagables nuevas: 0 (30-oct: Jubilee 1 depósito de $100, Vivento 1 de $200, ambos de clientes con depósitos previos). Informe diario del 29-oct "en_curso", el del 28-oct enviado; el del 26-oct sigue saltado.
+- Rutina matutina (10:35): reportó ROJO por "envío detenido desde las 10:18"; es FALSA ALARMA: la rutina no conoce la pausa del frío (su texto no la incluye) y dice que la evaluación del 28-oct no se hizo (sí se hizo; ver entrada del 28-oct). Pendiente que el CAIO pegue el bloque de `ADENDA_RUTINAS.md`.
+- Healthcheck 503: 16.0 / 12.0 / 13.4 s. Nada que revertir.
