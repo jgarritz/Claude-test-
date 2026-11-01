@@ -211,3 +211,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Regla de liberación: 3 leads reactivados (Jubilee, interesado).
 - Adquisiciones pagables del día: 0 (Vivento: 1 depósito de $200 de un cliente con depósitos previos). Informes: el del 30-oct se envió el 31-oct 11:01 CDMX; el del 26-oct sigue saltado.
 - Healthcheck 503: 8.2 / 4.7 / 5.1 s. No revisé en detalle el reporte de la rutina vespertina (alarmas previas fueron falsas por no conocer la pausa). Nada que revertir.
+
+## 2026-11-01 (domingo) 10:45 CDMX — Despertador de la mañana (pausa del frío vigente)
+- Envíos de hoy (10:00–10:46): Jubilee 1,049 enviadas / 0 ambiguas / 0 fallidas (1,044 interesado, 2 solicitud_enviada, 1 calificado, 1 aprobado, 1 intento_contacto = el lead sin import_job_id); Vivento 9 / 0 / 0. 0 SMS a clientes convertidos; 0 fuera de horario.
+- Regla de liberación: 5 leads reactivados (Vivento, interesado).
+- Adquisiciones pagables: 0; 31-oct: 1 depósito de $200 en Vivento (cliente previo). Informe del 30-oct enviado; el del 31-oct pendiente.
+- Healthcheck 503: 13.6 / 6.3 / 4.9 s. No revisé en detalle el reporte de la rutina matutina. Nada que revertir. Evaluación formal: lunes 2-nov 10:50.
