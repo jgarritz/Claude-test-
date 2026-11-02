@@ -223,3 +223,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Regla de liberación: 2 leads reactivados (Jubilee, interesado).
 - Adquisiciones pagables: 0. Depósitos de Jubilee y Vivento el 1-nov: ninguno (el último fue $200 en Vivento el 31-oct, cliente previo). Informe del 31-oct enviado el 1-nov 13:31 CDMX.
 - Healthcheck 503: 9.4 / 9.2 / 3.0 s. No revisé en detalle el reporte de la rutina vespertina. Nada que revertir. Próxima evaluación formal: lunes 2-nov 10:50.
+
+## 2026-11-02 (lunes) 11:25 CDMX — EVALUACIÓN FORMAL tras la pausa + despertador de la mañana (solo lectura; sin cambios salvo regla de liberación)
+- Periodo: 29-oct 00:00 a 2-nov 11:25 CDMX. SMS enviados desde la pausa: Jubilee 8,359; Vivento 5,459 (13,818). Gasto ≈ $447 (enviadas+ambiguas × $0.03), promedio ≈ $90 al día, frente a ≈ $2,000 al día antes.
+- Adquisiciones pagables nuevas desde la pausa: 0 en ambas marcas. Pagables del mes: 9 (Jubilee 5, Vivento 4), todas de la base anterior. Depositantes con primer depósito desde la pausa: Jubilee 2 (ambos $100, leads de la base anterior de sept/oct, etapa deposito_parcial); Vivento 0.
+- Tanda 1 (carga del 23-oct): 1 cliente con depósito ($100, Vivento, parcial), 0 pagables. Embudo actual de la cohorte: Jubilee aprobado 15, solicitud_enviada 7, interesado 1,443, convertido 0; Vivento aprobado 3, solicitud_enviada 4, deposito_parcial 1, interesado 936, convertido 0. Avanzados 30 (el 28-oct eran 23).
+- Regla acordada (menos de 2 adquisiciones pagables de la carga nueva → no liberar tanda 2): resultado NO LIBERAR.
+- CTR desde la pausa (clics únicos / SMS aceptados, SMS de hace más de 3 h): interesado Jubilee 2.76% (7,234 SMS), Vivento 3.34% (5,175); calificado 5.31% / 9.79% (113 / 143 SMS). Frío (referencia anterior): ≈0.9–1.0%.
+- Partial depositors (≤$180 acumulado): Jubilee 7 + 1 de la tanda... (base anterior 7), Vivento 8 + 1 de la cohorte. Cada uno que cruce $180 vale $800 de CPA; sin textos para ellos en Vivento (desactivados por regla del bono sin confirmar).
+- Despertador de la mañana (hoy hasta 11:25): Jubilee 957 / Vivento 108 enviadas; todo de etapas calientes; 0 fríos; 0 a convertidos; 0 fuera de horario. Liberados por la regla: 8 (Jubilee 5, Vivento 3). Informe del 31-oct enviado; el del 1-nov pendiente. Healthcheck 503: 12.5 / 3.2 / 10.0 s. Rutina matutina no revisada en detalle. El despertador y la evaluación llegaron con ≈40 min de retraso (la evaluación se ejecutó aquí junto con el despertador).
+- Decisiones propuestas al CAIO: cerrar tanda 2 (no liberar), mantener la pausa del frío, y autorizar un recorrido de solo lectura del flujo posterior al clic en los sitios públicos de Vivento y Jubilee. Nada que revertir.
