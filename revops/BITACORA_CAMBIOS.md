@@ -238,3 +238,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Decisiones del CAIO: (1) cerrar la tanda 2 (no liberar) — "sí"; (2) seguir con la pausa del frío — "ok"; (3) autorizar el recorrido de solo lectura del flujo después del clic — "sí".
 - Recorrido ejecutado en los sitios públicos (sin registrarse, sin seguir enlaces de rastreo). Resultado completo en `revops/RECORRIDO_EMBUDO_POST_CLIC.md`. Hallazgo principal: ambos sitios tienen la ruta directa `/registro` que abre el formulario; los enlaces de rastreo (`.../ts/96144|96145/tsc?typ=r&amc=atp.wintown...`) probablemente caen en la página de inicio (no verificado). Otros: el mínimo de depósito de Vivento es $100 (preguntas frecuentes), $200 (promoción) y $300 (términos); el CPA exige > $180; SPEI en Vivento es manual (hasta 24 h); verificación (INE, domicilio, rostro) obligatoria para retirar.
 - Propuesta pendiente: revisar en el portal de Wintown el destino de los enlaces y, si es posible, apuntarlos a `/registro`; luego una prueba de ≈5,000 primeros contactos (requiere autorización).
+
+## 2026-11-02 (lunes) 17:55 CDMX — Despertador de la tarde (pausa del frío vigente)
+- Envíos de hoy: Jubilee 1,244 enviadas / 138 ambiguas / 1 fallida; Vivento 229 / 16 / 0. Por hora: 1,030 (10:00), 94, 79, 30, 68, 164, 5, 3. Frío 0; 0 SMS a clientes convertidos; aún no son las 20:00. Gasto del día ≈ $49 (aprox.).
+- Regla de liberación: 1 lead reactivado (Jubilee, interesado).
+- Adquisiciones pagables del día: 0. Depósitos de hoy en Jubilee: 3 depósitos de 3 clientes por $460 (ninguno cruza aún $180 acumulados según la consulta validada). Informe del 1-nov enviado (2-nov 12:01 CDMX).
+- Healthcheck 503: 6.9 / 4.3 / 8.7 s. Rutina vespertina no revisada en detalle. Nada que revertir. Pendiente del CAIO: revisar en el portal de Wintown el destino de los enlaces (¿/registro?).
