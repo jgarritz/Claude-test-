@@ -250,3 +250,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Regla de liberación: 2 leads reactivados (Jubilee 1, Vivento 1; interesado).
 - Adquisiciones pagables: 0. Depósitos del 2-nov: Jubilee 5 depósitos de 3 clientes por $1,210 (clientes que ya habían cruzado el umbral antes; no son adquisiciones nuevas). Informe del 2-nov enviado hoy 10:31 CDMX.
 - Healthcheck 503: 12.3 / 6.5 / 10.1 s. Rutina matutina no revisada en detalle. Nada que revertir. Pendiente del CAIO: destino de los enlaces en el portal de Wintown.
+
+## 2026-11-03 (martes) 17:55 CDMX — Despertador de la tarde (pausa del frío vigente)
+- Envíos de hoy: Jubilee 951 enviadas / 74 ambiguas / 0 fallidas; Vivento 27 / 2 / 0. Por hora: 650 (10:00), 183, 30, 5, 4, 88, 6, 12. Frío 0; 0 SMS a clientes convertidos; aún no son las 20:00. Gasto del día ≈ $32 (aprox.).
+- Regla de liberación: 2 leads reactivados (Jubilee 1, Vivento 1; interesado).
+- Adquisiciones pagables: 0; sin depósitos hoy. Informe del 2-nov enviado (3-nov 10:31 CDMX).
+- Consultas del CAIO hoy (sin cambios en producción): CTR de octubre 1.47% (Jubilee 1.35%, Vivento 1.59%); registros de octubre 192 (1.6% de los clics únicos); el SMS "Deposita $250… ot.gt" NO es nuestro (confirmado por el CAIO por el URL); repetición de texto por persona ≈0.1% desde el 23-oct; interesados de Vivento rotan solo 6 textos (propuesta de variantes pendiente de decisión).
+- Healthcheck 503: 11.6 / 4.8 / 7.0 s. Rutina vespertina no revisada en detalle. Nada que revertir.
