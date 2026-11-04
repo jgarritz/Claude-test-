@@ -9,6 +9,9 @@ Fecha: 2026-11-04. Estado: **plan; nada configurado ni enviado.** Fuente de los 
 - **Código DIRBON:** el CAIO envía la descripción de la promoción de bienvenida (bono por cada uno de los primeros 4 depósitos); se interpreta que el código da acceso a ese paquete. Pendiente confirmar si además es solo atribución.
 - **Medición:** el portal de afiliados no ofrece exportación, postback ni sub-id (según el CAIO). Medición manual: registros diarios del portal y clics/CTR de nuestro lado; las variantes se comparan por ventanas de envío distintas.
 
+- **Rev share 25%: NO resta** (confirmado por el CAIO el 2026-11-04): un mes negativo no se descuenta; el piso es cero. Solo puede sumar.
+- **CAMPAÑA CREADA EN BORRADOR el 2026-11-04** (autorizado por el CAIO: "1 sí"): id `1xbet`, solo SMS, `estado=borrador` (no envía), sin lista (0 leads), 6 textos activos (`FRIO_X1`–`FRIO_X6`) y 1 inactivo (`FRIO_X7`, el del código DIRBON, hasta confirmar qué otorga). Ventana 10:00–20:00, 1 SMS por día y por persona como máximo y 2 en 7 días durante el piloto. Para activarla hace falta: lista cargada con consentimiento, aprobación explícita del CAIO y el tope de la etapa 1.
+
 ### Economía con CPA por registro (reemplaza lo dicho en §2)
 - Punto de equilibrio: **1 registro por cada ≈9,250 SMS** (≈ $278 de SMS).
 - Octubre (Vivento + Jubilee): 1 registro por ≈4,260 SMS → ≈ $128 por registro → margen ≈ +$150 por registro (ESTIMACIÓN; depende de que el programa apruebe los registros).

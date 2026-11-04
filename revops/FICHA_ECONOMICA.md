@@ -50,3 +50,15 @@ Nota: Vivento y Jubilee los opera la misma empresa legal (New Ads S.A. de C.V., 
 ## Estado de confirmaciones (actualizado 2026-10-29)
 - Wintown: no respondió de forma clara a las preguntas (acumulación del bono de Vivento, mínimo de depósito $200 vs $300, "desafío de $500" de Jubilee, rechazos por INE); solo remitió a sus páginas. Decisión del CAIO: operar con la información oficial ya verificada (sitios de Vivento y Jubilee). Todo lo anterior sigue "sin confirmar por escrito"; no usar esas condiciones como hechos en textos ni cálculos.
 - Proveedor de SMS: sin confirmación de entrega (sin aviso de entrega ni respuesta sobre los SMS "ambiguos"). "SMS entregado" sigue NO medible; los ambiguos (≈23,000 acumulados) se tratan como desconocidos y no se reenvían.
+
+## 1xBet (nueva campaña, 2026-11-04) — datos dados por el CAIO
+| Variable | Valor | Estado |
+|---|---|---|
+| Sitio y enlace de la promoción | 1-x.mx, `/mx/promotions/1st` | Verificado en la página oficial |
+| CPA | 15 USD por **registro** (sin primer depósito) ≈ $278 MXN (tipo de cambio implícito ≈ 18.5) | Dado por el CAIO; tipo de cambio y aprobación de registros por confirmar |
+| Rev share | 25%; un mes negativo NO resta (piso cero) | Dado por el CAIO |
+| Punto de equilibrio | ≈ 9,250 SMS por registro | Estimación |
+| Medición | Portal de afiliados sin API, exportación, postback ni sub-id | Medición manual |
+| Permiso de operación en México | Confirmado por el CAIO | Sin copia del permiso archivada |
+| Código promocional | DIRBON | Qué otorga: por confirmar |
+| Ventana de atribución, validación de registros, plazo de pago | — | Falta |
