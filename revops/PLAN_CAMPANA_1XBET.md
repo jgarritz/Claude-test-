@@ -2,6 +2,20 @@
 
 Fecha: 2026-11-04. Estado: **plan; nada configurado ni enviado.** Fuente de los datos: lo que dio el CAIO en el chat + lectura de las páginas públicas de 1xBet (sin seguir el enlace de afiliado, para no crear clics falsos).
 
+## ACTUALIZACIÓN 2026-11-04 (respuestas del CAIO)
+- **Evento que paga el CPA: el REGISTRO, sin necesidad de primer depósito** (15 USD ≈ $278 MXN). "Sin piso" del rev share sigue sin aclararse: no se cuenta.
+- **Permiso de 1xBet en México:** el CAIO confirma que está formalizado y que tiene permiso. Registrado como confirmación del CAIO; recomendado archivar el número y copia del permiso junto a este plan.
+- **Lista:** "de momento, vacía": la campaña puede crearse sin contactos; no se envía nada hasta cargar una lista con consentimiento.
+- **Código DIRBON:** el CAIO envía la descripción de la promoción de bienvenida (bono por cada uno de los primeros 4 depósitos); se interpreta que el código da acceso a ese paquete. Pendiente confirmar si además es solo atribución.
+- **Medición:** el portal de afiliados no ofrece exportación, postback ni sub-id (según el CAIO). Medición manual: registros diarios del portal y clics/CTR de nuestro lado; las variantes se comparan por ventanas de envío distintas.
+
+### Economía con CPA por registro (reemplaza lo dicho en §2)
+- Punto de equilibrio: **1 registro por cada ≈9,250 SMS** (≈ $278 de SMS).
+- Octubre (Vivento + Jubilee): 1 registro por ≈4,260 SMS → ≈ $128 por registro → margen ≈ +$150 por registro (ESTIMACIÓN; depende de que el programa apruebe los registros).
+- Carga nueva (22–31 oct): 1 registro por ≈11,200 SMS → ≈ $336 por registro → pérdida ≈ $58 por registro.
+- Riesgos: calidad/aprobación de registros por el programa (desconocida), plazo de pago, rechazos por duplicados o fraude.
+- Con ≈0.9 a 2.3 registros esperados por cada 10,000 SMS, un piloto de 5,000 SMS casi no produce registros. **Etapas revisadas:** 1,000 SMS (técnica) → hasta 10,000 SMS (≈ $300) → hasta 30,000 SMS (≈ $900; equilibrio ≈ 3.2 registros; verde si ≥ 5, es decir ≤ $180 por registro). Cada salto requiere aprobación explícita del CAIO.
+
 ## 0. Puertas que deben cumplirse antes de enviar un solo SMS
 1. **Autorización para operar y promocionarse en México (puerta legal).** En las páginas públicas que pude leer de `1-x.mx` no aparece operador, razón social ni permiso de la Secretaría de Gobernación (Vivento y Jubilee sí muestran el suyo en el pie de página). No pude verificar que 1xBet tenga permiso para operar y anunciarse en México. Requisito: confirmación por escrito del programa de afiliados (o de 1xBet) de que cuenta con permiso/autorización vigente para México, y revisión del área legal de Directo. Sin eso, **no se envía**.
 2. **Evento que paga el CPA de $15 USD.** Hay que saber exactamente qué lo dispara (registro, primer depósito, depósito mínimo, verificación). Cambia por completo la economía (ver §2).
