@@ -262,3 +262,8 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Desactivados 5 textos de Vivento que ligaban el bono 100% con Tacomania (video bingo), fuera de la categoría oficial "Juega con tu bono" (mismo criterio que el cambio 12 del 25-oct): `INT_R3_8, CAL_R3_5, APR_R3_4, SENV_R3_5, SINI_R3_7`. Revertir: `update campana_plantillas_sms set activa=true where campana_id='vivento' and codigo in ('INT_R3_8','CAL_R3_5','APR_R3_4','SENV_R3_5','SINI_R3_7');`
 - Observación: los textos `DEP_AAAAMMDD_*` son variantes diarias para eventos deportivos (no de depósito parcial) y se generan solos; la repetición de un mismo texto a la misma persona es ≈0.1% desde el 23-oct.
 - Propuestos 10 textos nuevos para interesados de Vivento en `revops/TEXTOS_VIVENTO_PROPUESTOS_2026-11-04.md`. NO cargados; esperan la aprobación del CAIO.
+
+## 2026-11-04 — 10 textos nuevos de Vivento ACTIVADOS (autorizado por el CAIO: "Actívalos todos")
+- Insertados en `campana_plantillas_sms` (campaña `vivento`, etapa `interesado`, activa=true) como `INT_R7_1` … `INT_R7_10`; todos pasaron el validador de la base (largo 102–117 caracteres). Texto en `revops/TEXTOS_VIVENTO_PROPUESTOS_2026-11-04.md`.
+- Revertir: `update campana_plantillas_sms set activa=false where campana_id='vivento' and codigo like 'INT\_R7\_%';` (o borrarlos con `delete ... where codigo like 'INT\_R7\_%'`).
+- Seguimiento: en las revisiones de las 10:45 y 17:55 comprobar que se usan los textos nuevos y comparar su CTR contra los anteriores (INT_R3_*) cuando maduren los clics. Interesados activos de Vivento: 5 (INT_R3_1,2,4,5,7) + 10 nuevos = 15.

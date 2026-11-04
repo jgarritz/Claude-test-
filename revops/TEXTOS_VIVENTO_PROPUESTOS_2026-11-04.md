@@ -1,4 +1,4 @@
-# Textos nuevos propuestos para interesados de Vivento (2026-11-04) — PENDIENTES DE APROBACIÓN
+# Textos nuevos para interesados de Vivento (2026-11-04) — ACTIVADOS por el CAIO ("Actívalos todos") como INT_R7_1 a INT_R7_10
 
 Etapa: interesado (campaña `vivento`). Base oficial: bono 100% en el primer depósito, mínimo $200, máximo bonificable $5,000, categoría "Juega con tu bono" (tragamonedas), sujeto a TyC. Validados fuera de línea con las reglas del validador (≤140 caracteres sin enlace, marca, beneficio, acción, +18, sin dirección web) y con nuestras reglas (sin urgencia, sin ruleta/bingo/casino en vivo, sin "$500/desafío", sin promesas de ganar). NO están cargados en la base.
 
