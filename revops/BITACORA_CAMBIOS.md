@@ -257,3 +257,8 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Adquisiciones pagables: 0; sin depósitos hoy. Informe del 2-nov enviado (3-nov 10:31 CDMX).
 - Consultas del CAIO hoy (sin cambios en producción): CTR de octubre 1.47% (Jubilee 1.35%, Vivento 1.59%); registros de octubre 192 (1.6% de los clics únicos); el SMS "Deposita $250… ot.gt" NO es nuestro (confirmado por el CAIO por el URL); repetición de texto por persona ≈0.1% desde el 23-oct; interesados de Vivento rotan solo 6 textos (propuesta de variantes pendiente de decisión).
 - Healthcheck 503: 11.6 / 4.8 / 7.0 s. Rutina vespertina no revisada en detalle. Nada que revertir.
+
+## 2026-11-04 — Textos de Vivento: 5 desactivados (dentro del marco) y 10 propuestos (pendientes de aprobación)
+- Desactivados 5 textos de Vivento que ligaban el bono 100% con Tacomania (video bingo), fuera de la categoría oficial "Juega con tu bono" (mismo criterio que el cambio 12 del 25-oct): `INT_R3_8, CAL_R3_5, APR_R3_4, SENV_R3_5, SINI_R3_7`. Revertir: `update campana_plantillas_sms set activa=true where campana_id='vivento' and codigo in ('INT_R3_8','CAL_R3_5','APR_R3_4','SENV_R3_5','SINI_R3_7');`
+- Observación: los textos `DEP_AAAAMMDD_*` son variantes diarias para eventos deportivos (no de depósito parcial) y se generan solos; la repetición de un mismo texto a la misma persona es ≈0.1% desde el 23-oct.
+- Propuestos 10 textos nuevos para interesados de Vivento en `revops/TEXTOS_VIVENTO_PROPUESTOS_2026-11-04.md`. NO cargados; esperan la aprobación del CAIO.
