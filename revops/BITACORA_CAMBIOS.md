@@ -288,3 +288,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 ## 2026-11-04 — Campaña 1xBet EN HOLD (decisión del CAIO)
 - El CAIO pide dejar 1xBet en hold por un tiempo. Queda en `estado='borrador'`, sin lista y sin envíos; no se borra nada ni se activa. Para retomarla: lista con consentimiento, aprobación explícita y tope de la etapa 1 (ver `revops/PLAN_CAMPANA_1XBET.md`).
 - El CAIO inicia una nueva campaña; se repite el proceso: primero datos y plan, luego aprobación, luego configuración en borrador.
+
+## 2026-11-04 (miércoles) 17:55 CDMX — Despertador de la tarde (pausa del frío vigente)
+- Envíos de hoy: Jubilee 700 enviadas / 101 ambiguas / 0 fallidas; Vivento 4,035 / 316 (≈7%) / 2. Por hora: 4,494 (10:00; barrido de interesados de Vivento con los textos nuevos), 72, 16, 52, 83, 16, 2. Frío: 1 SMS (lead sin import_job_id). 0 SMS a convertidos. Gasto del día ≈ $155 (aprox.). Campaña 1xBet: 0 despachos (borrador).
+- Regla de liberación: 1 lead reactivado (Jubilee, interesado).
+- Adquisiciones pagables: 0; depósito de $100 en Vivento (cliente existente).
+- Primer CTR de los textos nuevos de Vivento (mismo día, clics aún llegando): INT_R7_* 13 clics / 3,447 SMS (0.38%): R7_9 1.97%, R7_4 1.07% y 8 textos con 0 clics; INT_R3_* (viejos) 26 clics / 995 SMS (2.6%). Comparación sesgada: por la rotación, los textos nuevos fueron a personas que ya habían recibido todos los viejos (71% con 10–12 contactos). Sin conclusión sobre el texto; sí un rendimiento bajo del envío a gente muy saturada. Costo de ese barrido ≈ $104 para 13 clics.
+- Bajas ("BAJA"): la base no registra ninguna (0 entrantes en mensajes_canal y 0 motivo_salida='baja' desde el 20-oct); no se puede medir si hubo bajas.
+- Informe del 3-nov enviado (4-nov 12:01 CDMX). Healthcheck 503: 3.9 / 3.3 / 8.4 s. Rutina vespertina no revisada en detalle. Nada que revertir.
