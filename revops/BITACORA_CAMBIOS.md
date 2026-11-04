@@ -284,3 +284,7 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - NADA se envía: la campaña está en borrador, sin lista. Para activarla: lista con consentimiento, aprobación explícita del CAIO y tope de la etapa 1 (1,000 SMS).
 - Revertir (borra todo lo creado): `delete from campana_plantillas_sms where campana_id='1xbet'; delete from campanas where id='1xbet';`
 - Plan y ficha actualizados (`revops/PLAN_CAMPANA_1XBET.md`, `revops/FICHA_ECONOMICA.md`).
+
+## 2026-11-04 — Campaña 1xBet EN HOLD (decisión del CAIO)
+- El CAIO pide dejar 1xBet en hold por un tiempo. Queda en `estado='borrador'`, sin lista y sin envíos; no se borra nada ni se activa. Para retomarla: lista con consentimiento, aprobación explícita y tope de la etapa 1 (ver `revops/PLAN_CAMPANA_1XBET.md`).
+- El CAIO inicia una nueva campaña; se repite el proceso: primero datos y plan, luego aprobación, luego configuración en borrador.
