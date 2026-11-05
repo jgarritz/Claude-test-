@@ -303,3 +303,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Adquisiciones pagables: 0; 4-nov: 1 depósito de $100 en Vivento (cliente existente). Informe del 3-nov enviado; el del 4-nov pendiente (se envía hacia las 12:00).
 - Capacidad restante de interesados de Vivento hasta el tope de 12 contactos: 1,749 leads ya en tope; 1,893 con 10–11 (2,301 SMS ≈ $69); 601 con 7–9 (1,946 SMS ≈ $58); 937 con 0–6 (6,518 SMS ≈ $196). Máximo ≈ $323 en total. Pausar a los de 10+ ahorraría solo ≈ $69; la decisión es de fatiga, no de costo. Pendiente de respuesta del CAIO (si no responde, siguen hasta el tope).
 - Healthcheck 503: 13.3 / 2.8 / 6.7 s. Rutina matutina no revisada en detalle. Commit local pendiente de subir (el push fue bloqueado ayer; esperando autorización del CAIO).
+
+## 2026-11-05 (jueves) 17:55 CDMX — Despertador de la tarde (pausa del frío vigente)
+- Envíos de hoy: Jubilee 521 enviadas / 3 ambiguas / 0 fallidas; Vivento 3,922 / 47 / 2. Por hora: 4,208 (10:00), 113, 10, 18, 55, 39. Frío 0; 0 SMS a convertidos; aún no son las 20:00; campaña 1xBet: 0 despachos (borrador). Gasto del día ≈ $135 (aprox.).
+- Regla de liberación: 1 lead reactivado (Vivento, aprobado).
+- Adquisiciones pagables: 0; sin depósitos hoy. Informe del 4-nov enviado (5-nov 12:01 CDMX).
+- Healthcheck 503: 13.5 / 11.8 / 3.1 s. Rutina vespertina no revisada en detalle. Nada que revertir. Pendientes del CAIO: decisión sobre interesados de Vivento con 10+ contactos (si no responde, siguen hasta el tope de 12) y datos de la campaña nueva.
