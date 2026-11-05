@@ -296,3 +296,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Primer CTR de los textos nuevos de Vivento (mismo día, clics aún llegando): INT_R7_* 13 clics / 3,447 SMS (0.38%): R7_9 1.97%, R7_4 1.07% y 8 textos con 0 clics; INT_R3_* (viejos) 26 clics / 995 SMS (2.6%). Comparación sesgada: por la rotación, los textos nuevos fueron a personas que ya habían recibido todos los viejos (71% con 10–12 contactos). Sin conclusión sobre el texto; sí un rendimiento bajo del envío a gente muy saturada. Costo de ese barrido ≈ $104 para 13 clics.
 - Bajas ("BAJA"): la base no registra ninguna (0 entrantes en mensajes_canal y 0 motivo_salida='baja' desde el 20-oct); no se puede medir si hubo bajas.
 - Informe del 3-nov enviado (4-nov 12:01 CDMX). Healthcheck 503: 3.9 / 3.3 / 8.4 s. Rutina vespertina no revisada en detalle. Nada que revertir.
+
+## 2026-11-05 (jueves) 10:45 CDMX — Despertador de la mañana (pausa del frío vigente)
+- Envíos de hoy (10:00–10:46): Jubilee 424 enviadas / 0 ambiguas / 0 fallidas; Vivento 3,739 / 41 / 2 (3,659 a interesados: segundo barrido diario con los textos nuevos INT_R7_*). Frío 0; 0 SMS a convertidos; 0 fuera de horario; campaña 1xBet: 0 despachos (borrador). Gasto de la mañana ≈ $125 (aprox.).
+- Regla de liberación: 2 leads reactivados (Jubilee: 1 solicitud_enviada, 1 interesado).
+- Adquisiciones pagables: 0; 4-nov: 1 depósito de $100 en Vivento (cliente existente). Informe del 3-nov enviado; el del 4-nov pendiente (se envía hacia las 12:00).
+- Capacidad restante de interesados de Vivento hasta el tope de 12 contactos: 1,749 leads ya en tope; 1,893 con 10–11 (2,301 SMS ≈ $69); 601 con 7–9 (1,946 SMS ≈ $58); 937 con 0–6 (6,518 SMS ≈ $196). Máximo ≈ $323 en total. Pausar a los de 10+ ahorraría solo ≈ $69; la decisión es de fatiga, no de costo. Pendiente de respuesta del CAIO (si no responde, siguen hasta el tope).
+- Healthcheck 503: 13.3 / 2.8 / 6.7 s. Rutina matutina no revisada en detalle. Commit local pendiente de subir (el push fue bloqueado ayer; esperando autorización del CAIO).
