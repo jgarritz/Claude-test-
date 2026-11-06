@@ -309,3 +309,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Regla de liberación: 1 lead reactivado (Vivento, aprobado).
 - Adquisiciones pagables: 0; sin depósitos hoy. Informe del 4-nov enviado (5-nov 12:01 CDMX).
 - Healthcheck 503: 13.5 / 11.8 / 3.1 s. Rutina vespertina no revisada en detalle. Nada que revertir. Pendientes del CAIO: decisión sobre interesados de Vivento con 10+ contactos (si no responde, siguen hasta el tope de 12) y datos de la campaña nueva.
+
+## 2026-11-06 (viernes) 10:45 CDMX — Despertador de la mañana (pausa del frío vigente)
+- Envíos de hoy (10:00–10:46): Jubilee 328 enviadas / 75 ambiguas / 4 fallidas; Vivento 2,242 / 326 / 0 (2,200 a interesados; el barrido baja día a día: 3,739 el 5-nov, 2,242 hoy). Frío 0; 0 SMS a convertidos; 0 fuera de horario; campaña 1xBet: 0 despachos (borrador). Gasto de la mañana ≈ $85 (aprox.).
+- Regla de liberación: 8 leads reactivados (Jubilee 7 interesado, Vivento 1 interesado).
+- Adquisiciones pagables: 0; sin depósitos el 5-nov ni hoy hasta ahora. Informe del 4-nov enviado; el del 5-nov en curso (normal a esta hora).
+- Healthcheck 503: 15.3 / 10.3 / 8.0 s. Rutina matutina no revisada en detalle. Nada que revertir. Pendientes del CAIO: decisión sobre interesados de Vivento con 10+ contactos (sin respuesta: siguen hasta el tope de 12), datos de la campaña nueva y permiso para subir los commits locales (el último push fue bloqueado).
