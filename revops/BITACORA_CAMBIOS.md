@@ -322,3 +322,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Adquisiciones pagables: 0. Depósitos de hoy: Jubilee 1 de $300 y Vivento 1 de $200 (clientes que ya habían cruzado el umbral o con depósitos previos; no cuentan como adquisiciones nuevas). Informe del 5-nov enviado (6-nov 12:31 CDMX).
 - Semana 2–6 nov (pausa del frío): gasto aproximado ≈ $473 (49 + 32 + 155 + 135 + 102); 0 adquisiciones pagables nuevas; última adquisición pagable: Jubilee 26-oct.
 - Healthcheck 503: 9.8 / 4.9 / 9.0 s. Rutina vespertina no revisada en detalle. Nada que revertir. Pendientes del CAIO: datos de la campaña nueva y decisión sobre interesados de Vivento con 10+ contactos (sin respuesta: siguen hasta el tope).
+
+## 2026-11-07 (sábado) 10:47 CDMX — Despertador de la mañana (pausa del frío vigente)
+- Envíos de hoy (10:00–10:47, aprox.): Jubilee 295 enviadas / 49 ambiguas / 0 fallidas (14% ambiguas); Vivento 1,133 / 139 / 1 (11% ambiguas). Casi todo a interesados (Jubilee 281, Vivento 1,111); calientes restantes: calificado, aprobado, solicitud_enviada. Frío: 1 SMS de intento_contacto en Jubilee (muy por debajo del umbral de 300 por hora). 0 SMS enviados después de que el cliente quedara pagable. Campaña 1xBet: sin despachos (borrador). Gasto de la mañana ≈ $48 (aprox.).
+- Regla de liberación: 3 leads reactivados (Jubilee 1 interesado, Vivento 2 interesado).
+- Adquisiciones pagables: última, Jubilee 26-oct 13:11 (cliente 571940); ninguna nueva desde entonces (Jubilee 5 y Vivento 4 en total desde el 1-oct).
+- Healthcheck 503: 14.8 s. Rutina matutina (corrida 10:31): solo pude leer su resumen final, no el reporte completo; dice ROJO, sin adquisiciones desde el 26-oct, ~85,000 SMS por adquisición y tanda 1 con 0 convertidos tras ≈ $7,838; coincide con mis datos. Recomienda recortar el frío, que ya está pausado desde el 29-oct (no conoce la pausa). No escribió nada.
+- Nada que revertir (solo la regla de liberación). Pendientes del CAIO: datos de la campaña nueva y decisión sobre interesados de Vivento con 10+ contactos (sin respuesta: siguen hasta el tope).
