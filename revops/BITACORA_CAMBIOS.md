@@ -371,3 +371,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Cómo revertir (reanudar; requiere autorización explícita del CAIO): `update campanas set estado='activa' where workspace_id='22222222-2222-4222-8222-222222222222' and id in ('jubilee-v2','vivento');`
 - Efecto en las rutinas: con las campañas pausadas, las alertas de "envío detenido" de las rutinas de claude.ai y de los despertadores son esperadas. La regla de liberación sigue aplicándose en cada revisión, sin enviar nada.
 - Pendientes del CAIO: datos de las campañas nuevas; permiso de push (4 commits locales: 91f420a, 78e8d2e, bae4f7c y el de esta entrada); respuesta de Wintown y del proveedor sobre las ambiguas.
+
+## 2026-11-09 (lunes) 17:58 CDMX — Despertador de la tarde (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada` desde ≈16:40 (orden del CAIO); 1xBet en `borrador`. Último despacho de hoy: Jubilee 15:04 (3 ambiguas); Vivento 14:15. 0 despachos desde la pausa. Aún no son las 20:00.
+- Envíos del día (10:00–17:58): Jubilee 276 enviadas / 50 ambiguas (15%) / 0 fallidas; Vivento 499 / 76 (13%) / 0. Frío: 0. 0 SMS a clientes ya pagables. Gasto del día ≈ $27 (901 enviadas+ambiguas × $0.03, aprox.).
+- Regla de liberación: 1 lead reactivado (Jubilee, interesado). Sigue aplicándose mientras las campañas estén pausadas; no envía nada por sí sola.
+- Adquisiciones pagables: 0 hoy (1 depósito hoy). Total desde el 1-oct: Jubilee 5, Vivento 5; la última, Vivento 8-nov 02:01.
+- Healthcheck 503: 10.9 s.
+- Rutina vespertina (17:40): solo lectura, sin escribir nada; sus cifras de hoy coinciden con las mías (276/499 enviadas, 50/76 ambiguas). Errores a corregir: atribuye el "envío casi detenido" a falta de cola, cuando las campañas están pausadas por orden del CAIO desde ≈16:40 (y el frío sigue pausado desde el 29-oct); no medió SMS a clientes pagables (yo sí: 0). Su estado ROJO por costo por adquisición (≈75,000–79,000 SMS por adquisición, pérdida acumulada ≥ $15,000) es estimación con hueco de datos del 22-oct.
+- Nada que revertir hoy aparte de la pausa de las campañas (ver entrada anterior). Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); permiso de push (1 commit local: el de esta entrada); respuesta de Wintown y del proveedor sobre las ambiguas.
