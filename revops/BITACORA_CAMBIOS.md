@@ -389,3 +389,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck 503: 9.9 s.
 - Rutina matutina (10:31): revisión parcial, solo lectura, sin escribir nada (no corrió la parte económica ni el CTR). Errores a corregir: dice que no ha salido ningún SMS por "cola vacía, sin confirmar" (las campañas están pausadas por orden del CAIO); reporta fallos en `analista-diario` (es el efecto de la pausa descrito arriba) y 3,105 alertas viejas abiertas (no lo verifiqué). No usé su recomendación de reactivar el primer contacto de Vivento: requiere autorización del CAIO.
 - Nada que revertir hoy aparte de la regla de liberación. Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; permiso de push (1 commit local: el de esta entrada).
+
+## 2026-11-10 (martes) 17:58 CDMX — Despertador de la tarde (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada`; 1xBet en `borrador`. 0 despachos hoy (último: Jubilee 9-nov 15:04, Vivento 9-nov 14:15). Gasto del día $0. Frío: 0. 0 envíos fuera de horario hoy.
+- Regla de liberación: 0 leads reactivados.
+- Adquisiciones pagables: 1 hoy (Jubilee, cliente 686073, $500, 04:24; ya registrada en la entrada de la mañana). Total desde el 1-oct: Jubilee 6, Vivento 5 (11). Depósitos hoy: 1.
+- Informe diario: el del 9-nov sigue en `parcial` (0 campañas analizadas, correo omitido por "sin campañas activas"), efecto de la pausa. El del 10-nov correrá mañana 07:30 y tampoco se enviará mientras las campañas estén pausadas.
+- Healthcheck 503: 9.5 s.
+- Rutina vespertina (17:40): solo lectura, sin escribir nada. Errores a corregir: atribuye el "0 candidatos" a cola vacía/base saturada (las campañas están pausadas por orden del CAIO); reporta "21 ejecuciones fallidas" de `analista-diario` en 24 h y "envíos fuera de horario" por 1,384 (Jubilee) y 2,989 (Vivento) sin precisar fechas: no lo verifiqué; mis revisiones desde el 29-oct no han encontrado envíos fuera de horario; no midió SMS a clientes pagables. Su fallo de `primer-contacto-sms` (10:12, "Network connection lost") no lo verifiqué.
+- Nada que revertir. Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras haya pausa. Sin commits pendientes de push antes de esta entrada.
