@@ -407,3 +407,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck 503: 13.8 s.
 - Rutina matutina (10:31): solo lectura, sin escribir nada. Error a corregir: afirma que las campañas están `pausada` "sin cambios desde el 23-oct" y pide confirmar si la pausa es intencional; la pausa se aplicó el 9-nov por orden expresa del CAIO (ver entrada correspondiente). El resto de sus cifras (6 y 5 adquisiciones, 0 envíos, CTR de la carga nueva 1.06% y 1.15%) es consistente con las mías; no verifiqué su CTR.
 - Nada que revertir. Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras dure la pausa.
+
+## 2026-11-11 (miércoles) 17:58 CDMX — Despertador de la tarde (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada`; 1xBet en `borrador`. 0 despachos hoy (último: Jubilee 9-nov 15:04, Vivento 9-nov 14:15). Gasto del día $0. Frío: 0. 0 envíos fuera de horario hoy.
+- Regla de liberación: 0 leads.
+- Adquisiciones pagables: 0 hoy y 0 depósitos hoy. La última: Jubilee 10-nov 04:24. Total desde el 1-oct: Jubilee 6, Vivento 5 (11).
+- Informe diario: los del 9 y 10-nov siguen en `parcial` (0 campañas analizadas, correo omitido) por la pausa.
+- Healthcheck 503: 5.7 s.
+- Rutina vespertina (17:40): no revisé su reporte en detalle hoy (las campañas están pausadas y sus hallazgos repiten los de días previos).
+- Nada que revertir. Sin commits pendientes de push antes de esta entrada. Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras dure la pausa.
