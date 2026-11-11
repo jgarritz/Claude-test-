@@ -398,3 +398,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck 503: 9.5 s.
 - Rutina vespertina (17:40): solo lectura, sin escribir nada. Errores a corregir: atribuye el "0 candidatos" a cola vacía/base saturada (las campañas están pausadas por orden del CAIO); reporta "21 ejecuciones fallidas" de `analista-diario` en 24 h y "envíos fuera de horario" por 1,384 (Jubilee) y 2,989 (Vivento) sin precisar fechas: no lo verifiqué; mis revisiones desde el 29-oct no han encontrado envíos fuera de horario; no midió SMS a clientes pagables. Su fallo de `primer-contacto-sms` (10:12, "Network connection lost") no lo verifiqué.
 - Nada que revertir. Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras haya pausa. Sin commits pendientes de push antes de esta entrada.
+
+## 2026-11-11 (miércoles) 10:48 CDMX — Despertador de la mañana (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada` (desde el 9-nov ≈16:40, orden del CAIO); 1xBet en `borrador`. 0 despachos hoy y ayer. Gasto $0. Frío: 0. 0 SMS a clientes pagables.
+- Regla de liberación: 0 leads.
+- Adquisiciones pagables: ninguna nueva hoy; la última fue Jubilee 10-nov 04:24 (cliente 686073). Total desde el 1-oct: Jubilee 6, Vivento 5 (11). Depósitos del 10 y 11-nov: 1.
+- Informe diario: los del 9 y 10-nov quedaron `parcial` (0 campañas analizadas, correo omitido "sin campañas activas que reportar"), efecto de la pausa.
+- Healthcheck 503: 13.8 s.
+- Rutina matutina (10:31): solo lectura, sin escribir nada. Error a corregir: afirma que las campañas están `pausada` "sin cambios desde el 23-oct" y pide confirmar si la pausa es intencional; la pausa se aplicó el 9-nov por orden expresa del CAIO (ver entrada correspondiente). El resto de sus cifras (6 y 5 adquisiciones, 0 envíos, CTR de la carga nueva 1.06% y 1.15%) es consistente con las mías; no verifiqué su CTR.
+- Nada que revertir. Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras dure la pausa.
