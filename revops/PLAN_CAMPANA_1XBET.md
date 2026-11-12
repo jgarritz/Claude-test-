@@ -2,6 +2,57 @@
 
 Fecha: 2026-11-04. Estado: **plan; nada configurado ni enviado.** Fuente de los datos: lo que dio el CAIO en el chat + lectura de las páginas públicas de 1xBet (sin seguir el enlace de afiliado, para no crear clics falsos).
 
+## ACTUALIZACIÓN 2026-11-12 (nuevos datos del CAIO) — BORRADOR PARA APROBACIÓN; nada configurado ni enviado
+**Reemplaza lo dicho en 2026-11-04 donde haya contradicción.**
+
+### Condiciones del programa (ficha de estructuras del portal, vigente desde 01/11/2026)
+- Estructura "CPA 15$ + RS 25%" en USD. **El CPA de 15 USD (≈ $278 MXN) NO se paga por el solo registro:** exige registro + depósitos ≥ 5 USD (≈ $92 MXN) + apuestas ≥ 15 USD (≈ $278 MXN) ("mínimo por mes"), con **retención de 7 días**.
+- Rev share 25% sobre ingreso neto; "Negative commission carryover: Yes" (el negativo se arrastra). **Contradice la respuesta anterior ("no resta"): por confirmar con el programa; mientras tanto el rev share NO se cuenta.**
+- Referido nivel 1 (3%): sub-afiliados, no aplica.
+- **Código promocional (DIRBON):** solo atribución; el jugador lo escribe al registrarse y queda ligado a nosotros aunque no use el enlace. No otorga beneficio adicional al jugador. El portal permite generar varios códigos por moneda y campaña.
+- **Ventana de atribución: 30 días** (dato del CAIO; por confirmar si cuenta desde el clic o desde el registro, y si otro afiliado puede desplazarnos).
+- **Resultado completo tarda ≈ 37 días** (30 de ventana + 7 de retención): las etapas se deciden con señales tempranas (clics, registros, depósitos).
+
+### Puertas
+1. **Permiso (puerta legal):** el CAIO revisó los oficios DGJS/0939/2024 y DGJS/0002/2020 (razón social Entretenimientos Naturales) y lo da por OK (2026-11-12). Referencias tal como las dio la marca; no pude verificarlas en fuentes públicas. Recomendado: archivar copia de los oficios y la revisión junto a este plan.
+2. **Lista (confirmación del CAIO):** 100,000 registros, todos con consentimiento, origen: campañas de marketing, todos autorizados. Pendiente: archivo, formato, fecha y evidencia del consentimiento (archivarla), y cruce con las listas de Vivento/Jubilee y con bajas previas.
+3. **Baja:** el CAIO confirma que la palabra "BAJA" funciona igual que en las otras campañas (en la base no hay bajas registradas: no es medible desde aquí; verificar con una prueba controlada en la etapa 1).
+4. **Enlace:** el CAIO indica que ahora lleva **directo a la página de registro** ("mucho mejor que las otras"). Pendiente: recibir el enlace exacto (sin abrirlo, para no crear clics falsos) y cambiar el destino de la campaña (hoy apunta al enlace de la promoción).
+5. **Tope:** el CAIO indica "unos $5,000 al día". Por aclarar si es gasto máximo diario y cuál es el tope total del piloto.
+
+### Economía actualizada (ESTIMACIÓN; tipo de cambio 18.5 MXN/USD)
+- Equilibrio: 1 jugador que califica por cada ≈ 9,250 SMS (≈ $278 de SMS).
+- Referencia de octubre (Vivento + Jubilee, otros umbrales): 1 primer depósito por ≈ 32,700 SMS, ≈ 3.5 veces peor que el equilibrio. El mínimo de 1xBet es más bajo, así que puede mejorar; no hay base para asumir que llega al equilibrio.
+- Lista completa, un solo mensaje: 100,000 SMS ≈ $3,000. Al ritmo de octubre ≈ 3 jugadores que califican (≈ $835) → pérdida ≈ $2,200. Para no perder hacen falta ≈ 11 por cada 100,000 SMS.
+- Un segundo mensaje solo a quien no hizo clic agrega ≈ $1,500.
+- **El tope diario de $5,000 permitiría enviar toda la lista en un día, antes de saber si funciona. Recomendación: mantener etapas con aprobación explícita en cada salto.**
+
+### Etapas propuestas (cada salto requiere aprobación del CAIO)
+| Etapa | SMS | Costo | Qué se revisa |
+|---|---|---|---|
+| 1 | 1,000 | ≈ $30 | Fallidas ≤ 5%, ambiguas ≤ 10%, entrega, baja funciona, primeros clics |
+| 2 | hasta 10,000 | ≈ $300 | CTR, clics → registros (portal), primeros depósitos, bajas |
+| 3 | hasta 30,000 | ≈ $900 | Depósitos y costo por jugador que califica; seguir si ≥ 3 jugadores o costo ≤ $278 con tendencia |
+| 4 | resto de la lista (≈ 70,000) | ≈ $2,100 | Solo si la etapa 3 supera los umbrales |
+(Las cifras de SMS de las etapas 2 y 3 son acumuladas: 1,000 → hasta 10,000 → hasta 30,000 → resto.)
+Segundo contacto (solo a quien no hizo clic, 2 días después, otro texto): máx. 2 SMS en 7 días por persona. Envío escalonado, no en ráfaga (en Vivento/Jubilee, ráfagas de > 1,000 SMS en minutos dieron hasta 39% de ambiguas). Ritmo de la campaña: 1 (el más lento), ventana 10:00–20:00 CDMX.
+Reglas de parada: fallidas > 5%, ambiguas > 10% sostenidas, bajas/quejas > 1%, o cualquier cambio de la oferta oficial no reflejado en los textos.
+
+### Textos propuestos v2 (validados fuera de línea; NO cargados; mismo estilo sin acentos)
+Reparto aleatorio y parejo de la lista entre A, B, C, D; E y R aparte.
+- **A1 (bono del primer depósito):** 1xBet: bono 100% en tu primer deposito desde $100, hasta $8,000, para apuestas deportivas. Registrate. TyC +18. BAJA para salir
+- **A2:** Registrate en 1xBet, deposita desde $100 y recibe bono 100% para apuestas deportivas. Aplican TyC +18. Responde BAJA para salir
+- **B1 (cuatro depósitos):** 1xBet tiene bono en tus primeros 4 depositos para apuestas deportivas. Registrate y lee los TyC. +18. BAJA para salir
+- **C1 (contexto deportivo):** Futbol y mas en 1xBet: crea tu cuenta, deposita desde $100 y activa tu bono de primer deposito. TyC +18. BAJA para salir
+- **D1 (sobrio):** Antes de depositar en 1xBet, revisa el bono de primer deposito y sus requisitos de apuesta. Registrate. TyC +18. BAJA para salir
+- **E1 (con código, solo atribución):** Registrate en 1xBet con el codigo DIRBON, deposita desde $100 y recibe bono 100% en deportes. TyC +18. BAJA para salir
+- **R1 (segundo contacto):** Sigue el bono de primer deposito de 1xBet para apuestas deportivas. Registrate, deposita desde $100 y lee TyC. +18. BAJA para salir
+Todos ≤ 140 caracteres, con marca, beneficio, acción, +18 y sin dirección web. Sin urgencia, sin promesas de ganar, sin "340%". Los seis textos FRIO_X1–X6 ya cargados (sin la baja) se reemplazarían por estos solo con aprobación.
+Medición por variante: clics por texto (nuestro lado); registros y depósitos por día en el portal; E1 permite atribuir por código.
+
+### Pendiente antes de configurar
+Archivo de la lista y cómo cargarlo; enlace de registro exacto; aclarar el tope ($5,000 al día: ¿gasto diario máximo? ¿tope total del piloto?); aprobación del plan, de las etapas y de los textos; fecha de arranque.
+
 ## ACTUALIZACIÓN 2026-11-04 (respuestas del CAIO)
 - **Evento que paga el CPA: el REGISTRO, sin necesidad de primer depósito** (15 USD ≈ $278 MXN). "Sin piso" del rev share sigue sin aclararse: no se cuenta.
 - **Permiso de 1xBet en México:** el CAIO confirma que está formalizado y que tiene permiso. Registrado como confirmación del CAIO; recomendado archivar el número y copia del permiso junto a este plan.

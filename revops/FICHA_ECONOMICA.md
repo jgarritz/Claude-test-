@@ -62,3 +62,11 @@ Nota: Vivento y Jubilee los opera la misma empresa legal (New Ads S.A. de C.V., 
 | Permiso de operación en México | Confirmado por el CAIO | Sin copia del permiso archivada |
 | Código promocional | DIRBON | Qué otorga: por confirmar |
 | Ventana de atribución, validación de registros, plazo de pago | — | Falta |
+
+### 1xBet — actualización 2026-11-12 (ficha de estructuras del portal, vigente desde 01/11/2026)
+- Estructura "CPA 15$ + RS 25%" (USD). **CPA 15 USD (≈ $278 MXN, estimación a 18.5) solo si hay registro + depósitos ≥ 5 USD + apuestas ≥ 15 USD (mínimos por mes), con retención de 7 días.** Ya no es "por registro".
+- Rev share 25% con "Negative commission carryover: Yes": el negativo se arrastra. Contradice lo dicho el 2026-11-04 ("no resta"); por confirmar con el programa. Mientras tanto no se cuenta.
+- Código promocional (DIRBON): solo atribución, sin beneficio adicional al jugador. Ventana de atribución: 30 días (por confirmar desde cuándo cuenta).
+- Equilibrio: 1 jugador que califica por ≈ 9,250 SMS. Referencia de octubre (otras marcas): 1 primer depósito por ≈ 32,700 SMS (≈ 3.5 veces peor).
+- Permiso: oficios DGJS/0939/2024 y DGJS/0002/2020 (Entretenimientos Naturales), revisados y dados por OK por el CAIO el 2026-11-12; no verificados en fuentes públicas.
+- Pendiente: tope de pérdida total del piloto, tipo de cambio de pago y fecha de pago.

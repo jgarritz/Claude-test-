@@ -425,3 +425,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck 503: 6.9 s.
 - Rutina matutina (10:31): no revisé su reporte en detalle hoy (las campañas están pausadas y sus hallazgos repiten los de días previos). Pendiente verificar que no atribuya la adquisición nueva a la tanda 1.
 - Nada que revertir (solo la regla de liberación). Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras dure la pausa.
+
+## 2026-11-12 (jueves) tarde — Plan de 1xBet actualizado (solo documentación; sin cambios en producción)
+- Actualicé `revops/PLAN_CAMPANA_1XBET.md` (nueva sección 2026-11-12) y `revops/FICHA_ECONOMICA.md` con: condiciones del programa (CPA exige depósito y apuestas, retención de 7 días, rev share con arrastre de negativos por confirmar), código DIRBON como atribución, ventana de 30 días, permiso revisado por el CAIO, lista de 100,000 con consentimiento (confirmación del CAIO), baja "BAJA", enlace directo al registro (pendiente de recibir), tope "unos $5,000 al día" (por aclarar) y 7 textos v2 con baja validados fuera de línea.
+- Producción sin cambios: la campaña `1xbet` sigue en `borrador`, 0 leads, 0 despachos; los 6 textos FRIO_X1–X6 siguen como estaban; Jubilee y Vivento siguen `pausada`.
+- Cómo revertir: `git checkout -- revops/PLAN_CAMPANA_1XBET.md revops/FICHA_ECONOMICA.md` antes del commit, o revertir el commit después.
+- Pendiente del CAIO: archivo de la lista y cómo cargarlo; enlace de registro exacto; aclarar el tope; aprobar plan, etapas y textos; fecha de arranque.
