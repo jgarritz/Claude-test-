@@ -431,3 +431,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Producción sin cambios: la campaña `1xbet` sigue en `borrador`, 0 leads, 0 despachos; los 6 textos FRIO_X1–X6 siguen como estaban; Jubilee y Vivento siguen `pausada`.
 - Cómo revertir: `git checkout -- revops/PLAN_CAMPANA_1XBET.md revops/FICHA_ECONOMICA.md` antes del commit, o revertir el commit después.
 - Pendiente del CAIO: archivo de la lista y cómo cargarlo; enlace de registro exacto; aclarar el tope; aprobar plan, etapas y textos; fecha de arranque.
+
+## 2026-11-12 (jueves) tarde — Revisión de lo hecho desde otro hilo (solo lectura; sin cambios míos)
+- A petición del CAIO revisé qué se hizo fuera de esta sesión. Hallazgo: el 12-nov a las 16:16 CDMX se envió, desde otro hilo, una tarea a la consola de Lovable sobre la campaña `1xbet`. Resultado verificado en la base:
+  1. `campanas.objetivo` de `1xbet` ahora dice: "Adquisición (CPA 15 USD, retención 7 días): la persona debe registrarse, depositar al menos 5 USD acumulados y apostar al menos 15 USD en el mes. Además 25% de revenue share. El registro solo NO paga." (antes: "Registro (el CPA se paga por registro, sin primer depósito)", que era falso). Coincide con la ficha del programa; no se recomienda revertir.
+  2. `destino.parametroClickId = "click_id"` agregado; `destino.detalle` (enlace de afiliado a la página de la promoción) y `destino.tipo` ("utm") sin cambio. El destino NO apunta aún al enlace directo de registro mencionado por el CAIO.
+  3. Playbook (guion y preguntas frecuentes): NO se generó (0 filas). El generador también crea 18 plantillas SMS activas por etapa y base de conocimiento; se detuvo a esperar la decisión del CAIO: (1) solo guion, (2) completo. Recomendación: no ejecutar ninguna hasta aprobar los textos v2 del plan.
+  4. Lovable agregó automáticamente `.lovable/north-star/north-star.md` (commit 1afb0a7 "Add project north star"): documento de norte, inocuo; Lovable pide conservarlo.
+- Sin otros cambios: 1xbet sigue `borrador`, 0 leads, 0 importaciones, 0 despachos, 7 plantillas (6 activas), ritmo 1, 1 SMS por día. Jubilee y Vivento siguen `pausada`. En git no hay otras ramas con trabajo de RevOps; todo lo de esta sesión está subido hasta e09ba44.
+- Nota: `campanas.actualizado_en` no se actualiza con estos cambios (1xbet marca 4-nov); no usarlo para detectar cambios.
+- Cómo revertir (solo si el CAIO lo pide): `update campanas set objetivo='Registro (el CPA se paga por registro, sin primer depósito)', destino = destino - 'parametroClickId' where id='1xbet';`
