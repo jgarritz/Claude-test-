@@ -16,7 +16,7 @@ Fecha: 2026-11-04. Estado: **plan; nada configurado ni enviado.** Fuente de los 
 ### Puertas
 1. **Permiso (puerta legal):** el CAIO revisó los oficios DGJS/0939/2024 y DGJS/0002/2020 (razón social Entretenimientos Naturales) y lo da por OK (2026-11-12). Referencias tal como las dio la marca; no pude verificarlas en fuentes públicas. Recomendado: archivar copia de los oficios y la revisión junto a este plan.
 2. **Lista (confirmación del CAIO):** 100,000 registros, todos con consentimiento, origen: campañas de marketing, todos autorizados. Pendiente: archivo, formato, fecha y evidencia del consentimiento (archivarla), y cruce con las listas de Vivento/Jubilee y con bajas previas.
-3. **Baja:** el CAIO confirma que la palabra "BAJA" funciona igual que en las otras campañas (en la base no hay bajas registradas: no es medible desde aquí; verificar con una prueba controlada en la etapa 1).
+3. **Baja:** el CAIO confirma que la palabra "BAJA" funciona igual que en las otras campañas. **Hallazgo 2026-11-12 (bloqueante):** el sistema agrega solo la leyenda "Responde BAJA para no recibir mas." al final de todo SMS (por eso los textos v2 ya NO la llevan a mano), pero en toda la base hay 0 SMS entrantes registrados, 0 bajas por SMS y 0 personas con opt_out por SMS, a pesar de ≈ 800,000 SMS enviados con la leyenda. No hay evidencia de que las respuestas "BAJA" lleguen al sistema. **Antes de enviar a la lista hay que hacer una prueba controlada con un teléfono propio** (recibir el SMS, responder BAJA y comprobar que queda el opt_out y se cancelan los envíos) y confirmar con el proveedor a dónde llegan las respuestas.
 4. **Enlace:** el CAIO indica que ahora lleva **directo a la página de registro** ("mucho mejor que las otras"). Pendiente: recibir el enlace exacto (sin abrirlo, para no crear clics falsos) y cambiar el destino de la campaña (hoy apunta al enlace de la promoción).
 5. **Tope:** el CAIO indica "unos $5,000 al día". Por aclarar si es gasto máximo diario y cuál es el tope total del piloto.
 
@@ -40,14 +40,14 @@ Reglas de parada: fallidas > 5%, ambiguas > 10% sostenidas, bajas/quejas > 1%, o
 
 ### Textos propuestos v2 (validados fuera de línea; NO cargados; mismo estilo sin acentos)
 Reparto aleatorio y parejo de la lista entre A, B, C, D; E y R aparte.
-- **A1 (bono del primer depósito):** 1xBet: bono 100% en tu primer deposito desde $100, hasta $8,000, para apuestas deportivas. Registrate. TyC +18. BAJA para salir
-- **A2:** Registrate en 1xBet, deposita desde $100 y recibe bono 100% para apuestas deportivas. Aplican TyC +18. Responde BAJA para salir
-- **B1 (cuatro depósitos):** 1xBet tiene bono en tus primeros 4 depositos para apuestas deportivas. Registrate y lee los TyC. +18. BAJA para salir
-- **C1 (contexto deportivo):** Futbol y mas en 1xBet: crea tu cuenta, deposita desde $100 y activa tu bono de primer deposito. TyC +18. BAJA para salir
-- **D1 (sobrio):** Antes de depositar en 1xBet, revisa el bono de primer deposito y sus requisitos de apuesta. Registrate. TyC +18. BAJA para salir
-- **E1 (con código, solo atribución):** Registrate en 1xBet con el codigo DIRBON, deposita desde $100 y recibe bono 100% en deportes. TyC +18. BAJA para salir
-- **R1 (segundo contacto):** Sigue el bono de primer deposito de 1xBet para apuestas deportivas. Registrate, deposita desde $100 y lee TyC. +18. BAJA para salir
-Todos ≤ 140 caracteres, con marca, beneficio, acción, +18 y sin dirección web. Sin urgencia, sin promesas de ganar, sin "340%". Los seis textos FRIO_X1–X6 ya cargados (sin la baja) se reemplazarían por estos solo con aprobación.
+- **A1 (bono del primer depósito):** 1xBet: bono 100% en tu primer deposito desde $100, hasta $8,000, para apuestas deportivas. Registrate. TyC +18
+- **A2:** Registrate en 1xBet, deposita desde $100 y recibe bono 100% para apuestas deportivas. Aplican TyC +18
+- **B1 (cuatro depósitos):** 1xBet tiene bono en tus primeros 4 depositos para apuestas deportivas. Registrate y lee los TyC. +18
+- **C1 (contexto deportivo):** Futbol y mas en 1xBet: crea tu cuenta, deposita desde $100 y activa tu bono de primer deposito. TyC +18
+- **D1 (sobrio):** Antes de depositar en 1xBet, revisa el bono de primer deposito y sus requisitos de apuesta. Registrate. TyC +18
+- **E1 (con código, solo atribución):** Registrate en 1xBet con el codigo DIRBON, deposita desde $100 y recibe bono 100% en deportes. TyC +18
+- **R1 (segundo contacto):** Sigue el bono de primer deposito de 1xBet para apuestas deportivas. Registrate, deposita desde $100 y lee TyC. +18
+Todos ≤ 140 caracteres, con marca, beneficio, acción, +18 y sin dirección web. El sistema les agrega después "Entra aquí: <enlace>" y la leyenda de baja (mensaje final de ≈ 150–190 caracteres según los de Vivento; verificar la vista previa del mensaje final y el costo real por SMS en la etapa 1). Sin urgencia, sin promesas de ganar, sin "340%". Los seis textos FRIO_X1–X6 ya cargados (sin la baja) se reemplazarían por estos solo con aprobación.
 Medición por variante: clics por texto (nuestro lado); registros y depósitos por día en el portal; E1 permite atribuir por código.
 
 ### Pendiente antes de configurar
