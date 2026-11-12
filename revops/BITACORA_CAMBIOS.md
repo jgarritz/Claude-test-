@@ -416,3 +416,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck 503: 5.7 s.
 - Rutina vespertina (17:40): no revisé su reporte en detalle hoy (las campañas están pausadas y sus hallazgos repiten los de días previos).
 - Nada que revertir. Sin commits pendientes de push antes de esta entrada. Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras dure la pausa.
+
+## 2026-11-12 (jueves) 10:48 CDMX — Despertador de la mañana (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada`; 1xBet en `borrador`. 0 despachos hoy (último: Jubilee 9-nov 15:04, Vivento 9-nov 14:15). Gasto $0. Frío: 0. 0 SMS a clientes pagables.
+- Regla de liberación: 5 leads reactivados (Vivento 4 interesado, Jubilee 1 interesado). No envía nada mientras las campañas estén pausadas.
+- ADQUISICIÓN PAGABLE NUEVA: Jubilee, cliente 570433, 11-nov 22:07 CDMX, depósitos de $100 + $100 (acumulado $200 al cruzar los $180; había un depósito previo desde el 1-oct). NO es de la carga nueva: es de la base anterior (lead creado 2-oct, primer contacto 2-oct, 9 SMS recibidos). Atribución: base anterior, no tanda 1. Pendiente de validación del programa. Total desde el 1-oct: Jubilee 7, Vivento 5 (12). Depósitos del 11 y 12-nov: 2.
+- Informe diario: los del 10 y 11-nov quedaron `parcial` (0 campañas analizadas, correo omitido "sin campañas activas que reportar"), efecto de la pausa.
+- Healthcheck 503: 6.9 s.
+- Rutina matutina (10:31): no revisé su reporte en detalle hoy (las campañas están pausadas y sus hallazgos repiten los de días previos). Pendiente verificar que no atribuya la adquisición nueva a la tanda 1.
+- Nada que revertir (solo la regla de liberación). Pendientes del CAIO: datos de las campañas nuevas (los 8 puntos); respuesta de Wintown y del proveedor sobre las ambiguas; decidir qué hacer con el informe diario mientras dure la pausa.
