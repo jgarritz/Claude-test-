@@ -521,3 +521,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - El CAIO ejecutó (en su terminal, con su token) el curl de prueba con `click_id=PRUEBA000&event=deposit&amount=10&currency=USD`. En `channel_errors` aparecen 2 filas del origen `postback-1xbet` (11:16:09 y 11:18:18 CDMX): "Enlace desconocido: PRUEBA000", entidad `PRUEBA000_deposit_10`, severidad baja. Es el resultado esperado: el token fue aceptado, el aviso se leyó y, al no existir el código de clic, no se escribió ningún evento.
 - Verificado: 0 filas de 1xbet en `eventos_comerciales` y 0 en `conversiones_externas`; Jubilee y Vivento `pausada`, 1xBet `borrador`; 0 despachos en la última hora.
 - Pendiente: que el CAIO envíe la URL (con el token, por canal seguro) al ejecutivo de 1xBet con el formato de parámetros; prueba de extremo a extremo con un código de clic real (requiere crear una campaña/enlace de prueba o esperar la etapa 1; se pide aprobación aparte).
+
+## 2026-11-13 (viernes) 17:58 CDMX — Despertador de la tarde (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada`; 1xBet en `borrador` (0 leads, 0 despachos). 0 despachos hoy (último: Jubilee 9-nov 15:04, Vivento 9-nov 14:15). Gasto del día $0. Frío: 0. Aún no son las 20:00.
+- Regla de liberación: 0 leads.
+- Adquisiciones pagables: 0 hoy (1 depósito). Total desde el 1-oct: Jubilee 7, Vivento 5 (12); la última, Jubilee 11-nov 22:07.
+- Postback de 1xBet (publicado a las 17:12 UTC): receptor vivo, 401 sin token; 0 eventos de 1xBet en `eventos_comerciales` y `conversiones_externas`; sin errores nuevos de `postback-1xbet` desde la prueba del CAIO (11:16 y 11:18 CDMX). Aún no hay avisos reales: falta que el CAIO envíe la URL con el token a 1xBet.
+- Informe diario: los del 11 y 12-nov `parcial` (0 campañas, correo omitido) por la pausa.
+- Healthcheck 503: 13.7 s.
+- Rutinas de claude.ai: no revisé sus reportes hoy (campañas pausadas).
+- Nada que revertir hoy aparte de lo ya registrado. Pendientes del CAIO: enviar la URL y el token a 1xBet (mensajes redactados); prueba de la baja con teléfono propio; archivo de la lista de 100,000; paso 1 del plan de `srte.io`; qué ve al abrir el enlace; aprobación final y fecha de arranque; código de prueba cuando 1xBet confirme su configuración.
