@@ -484,3 +484,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - URL final (con marcadores): `https://credc.io/api/public/conversion/postback/1xbet?token=<SECRETO>&click_id={click_id}&event={event}&amount={amount}&currency={currency}` (+ `&transaction_id={transaction_id}` si existe). Se usa `credc.io` y no `srte.io` porque `srte.io` responde 302 y el portal podría no seguir el redirect.
 - Pasos propuestos (cada uno se aprueba aparte): 1 código sin publicar, 2 secreto, 3 publicar con autorización explícita, 4 prueba en campaña de borrador hacia example.com (sin clics al afiliado), 5 el CAIO pega la URL en el portal, 6 comparar 7 días contra el reporte del portal. Mover etapas con postbacks requiere nueva aprobación.
 - Pendiente del CAIO: pantalla del postback del portal (macros exactas, eventos, método, si manda id de transacción); aprobar el paso 1; aprobar el paso 1 del plan de `srte.io`.
+
+## 2026-11-13 (viernes) 10:48 CDMX — Despertador de la mañana (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada`; 1xBet en `borrador` (0 leads, 0 despachos). 0 despachos hoy (último: Jubilee 9-nov 15:04, Vivento 9-nov 14:15). Gasto $0. Frío: 0.
+- Regla de liberación: 2 leads reactivados (Jubilee, interesado). No envía nada mientras las campañas estén pausadas.
+- Adquisiciones pagables: 0 nuevas (2 depósitos del 12 y 13-nov). Total desde el 1-oct: Jubilee 7, Vivento 5 (12); la última, Jubilee 11-nov 22:07.
+- Informe diario: los del 11 y 12-nov `parcial` (0 campañas, correo omitido) por la pausa.
+- Healthcheck 503: 9.5 s.
+- Rutinas de claude.ai: no revisé sus reportes hoy (campañas pausadas).
+- Nada que revertir (solo la regla de liberación). Pendientes del CAIO: pantalla del postback del portal de 1xBet y aprobar el paso 1; aprobar el paso 1 del plan de `srte.io`; prueba de baja; archivo de la lista; qué ve al abrir el enlace; aprobación final y fecha de arranque.
