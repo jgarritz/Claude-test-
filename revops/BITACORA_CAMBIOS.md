@@ -471,3 +471,7 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck 503: 12.1 s.
 - Rutinas matutina y vespertina de claude.ai: no revisé sus reportes hoy (campañas pausadas; repiten lo de días previos).
 - Nada que revertir hoy. Sin commits pendientes antes de esta entrada. Pendientes del CAIO: aprobar el paso 1 del plan de `srte.io`; prueba de la baja con teléfono propio y respuesta del proveedor sobre dónde llegan las respuestas; archivo de la lista (no subir a GitHub); qué ve al abrir el enlace; aprobación final y fecha de arranque de 1xBet; respuesta de Wintown.
+
+## 2026-11-13 (viernes) — Herramientas de Lovable no disponibles en esta sesión (solo documentación)
+- El conector de Lovable aparece conectado y habilitado, pero las herramientas no se cargaron en esta sesión tras la reautorización del CAIO (los conectores se leen al arrancar la sesión). Solución: iniciar una sesión nueva. No se hizo ningún cambio en producción.
+- Dejé `revops/CONTINUAR_AQUI.md` con el estado, las reglas, los pendientes y cómo recrear las revisiones programadas en la sesión nueva.
