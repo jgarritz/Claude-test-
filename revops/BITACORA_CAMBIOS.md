@@ -623,3 +623,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Rutinas de claude.ai: no revisé sus reportes hoy (campañas pausadas).
 - Textos FRIO_R6_1 y FRIO_R6_6: no aplica mientras el frío siga pausado.
 - Pendientes del CAIO: enviar la URL y el token a 1xBet; prueba de la baja con teléfono propio; archivo de la lista de 100,000; paso 1 del plan de `srte.io`; qué ve al abrir el enlace; aprobación final y fecha de arranque; respuesta de Wintown y del proveedor (ambiguas); informe diario del 26 y 27-oct.
+
+## 2026-11-18 (miércoles) ~11:00 CDMX — Rotación del token del postback de 1xBet (hecha por el CAIO)
+- Motivo: 1xBet pidió un token sin `+` (su plataforma no acepta caracteres con porcentaje y el `+` se lee como espacio en el query string).
+- Qué se hizo: el CAIO generó un token nuevo solo con letras y números (`openssl rand -hex 32`, 64 caracteres), lo guardó en el secreto `XBET_POSTBACK_TOKEN` de Lovable y volvió a publicar el mismo código (commit `3dd1c9d`, sin cambios). El token nunca pasó por el chat, el repositorio ni los registros.
+- Comprobación: con el token nuevo la ruta responde 200 (prueba `PRUEBA000`, queda un "Enlace desconocido" en `channel_errors`, esperado); sin token y con token falso responde 401. Antes de publicar daba 401 porque el servidor aún tenía el valor anterior.
+- El token anterior (con `+`) quedó invalidado.
+- Cómo revertir: guardar otro valor en `XBET_POSTBACK_TOKEN` y publicar de nuevo. El código no cambió.
+- Pendiente del CAIO: enviar a 1xBet el token nuevo por el canal seguro, aparte de la URL, avisando que el anterior ya no sirve.
