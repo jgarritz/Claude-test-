@@ -631,3 +631,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - El token anterior (con `+`) quedó invalidado.
 - Cómo revertir: guardar otro valor en `XBET_POSTBACK_TOKEN` y publicar de nuevo. El código no cambió.
 - Pendiente del CAIO: enviar a 1xBet el token nuevo por el canal seguro, aparte de la URL, avisando que el anterior ya no sirve.
+
+## 2026-11-18 (miércoles) 17:58 CDMX — Despertador de la tarde (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada`; 1xBet en `borrador` (0 leads, 0 despachos). 0 despachos hoy (último: Jubilee 9-nov 15:04, Vivento 9-nov 14:15). Gasto del día $0. Frío: 0. Aún no son las 20:00.
+- Regla de liberación: 0 leads.
+- Adquisiciones pagables: 0 hoy (5 depósitos, ninguno cruzó $180 acumulados). Total desde el 1-oct: Jubilee 8, Vivento 5 (13); la última, Jubilee 13-nov 22:08.
+- Postback de 1xBet: receptor vivo (401 sin token, 1.4 s) con el token rotado esta mañana; 0 eventos de 1xBet en `eventos_comerciales` y `conversiones_externas`; sin errores nuevos desde la prueba `PRUEBA000` de las 11:00. Aún no llegan avisos reales: falta que el CAIO envíe el token nuevo a 1xBet y que ellos configuren el postback.
+- Informe diario: los del 16 y 17-nov `parcial` (0 campañas, correo omitido) por la pausa.
+- Healthcheck 503: 3.4 s.
+- Rutinas de claude.ai: no revisé sus reportes hoy (campañas pausadas).
+- Pendientes del CAIO: enviar a 1xBet la URL y el token nuevo (mensajes redactados); prueba de la baja con teléfono propio; archivo de la lista de 100,000; paso 1 del plan de `srte.io`; qué ve al abrir el enlace; aprobación final y fecha de arranque; respuesta de Wintown y del proveedor (ambiguas); informe diario del 26 y 27-oct.
