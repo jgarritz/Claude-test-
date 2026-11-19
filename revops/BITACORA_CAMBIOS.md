@@ -641,3 +641,14 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Healthcheck 503: 3.4 s.
 - Rutinas de claude.ai: no revisé sus reportes hoy (campañas pausadas).
 - Pendientes del CAIO: enviar a 1xBet la URL y el token nuevo (mensajes redactados); prueba de la baja con teléfono propio; archivo de la lista de 100,000; paso 1 del plan de `srte.io`; qué ve al abrir el enlace; aprobación final y fecha de arranque; respuesta de Wintown y del proveedor (ambiguas); informe diario del 26 y 27-oct.
+
+## 2026-11-19 (jueves) 10:48 CDMX — Despertador de la mañana (campañas pausadas por orden del CAIO)
+- Estado: Jubilee y Vivento en `pausada`; 1xBet en `borrador` (0 leads, 0 despachos). 0 despachos hoy (último: Jubilee 9-nov 15:04, Vivento 9-nov 14:15). Gasto $0. Frío: 0.
+- Regla de liberación: 1 lead reactivado (Vivento, `interesado`). No se envía nada mientras las campañas estén pausadas.
+- Adquisiciones pagables: 0 nuevas (7 depósitos desde el 18-nov, ninguno cruzó $180 acumulados). Total desde el 1-oct: Jubilee 8, Vivento 5 (13); la última, Jubilee 13-nov 22:08.
+- Postback de 1xBet: receptor vivo (401 sin token, 1.4 s) con el token rotado el 18-nov; 0 eventos de 1xBet en `eventos_comerciales` y `conversiones_externas`; sin errores nuevos. Aún no llegan avisos reales.
+- Informe diario: los del 17 y 18-nov `parcial` (0 campañas, correo omitido) por la pausa.
+- Healthcheck 503: 9.5 s.
+- Rutinas de claude.ai: no revisé sus reportes hoy (campañas pausadas).
+- Textos FRIO_R6_1 y FRIO_R6_6: no aplica mientras el frío siga pausado.
+- Pendientes del CAIO: enviar a 1xBet la URL y el token nuevo (mensajes redactados) y esperar su configuración; prueba de la baja con teléfono propio; archivo de la lista de 100,000; paso 1 del plan de `srte.io`; qué ve al abrir el enlace; aprobación final y fecha de arranque; respuesta de Wintown y del proveedor (ambiguas); informe diario del 26 y 27-oct.
