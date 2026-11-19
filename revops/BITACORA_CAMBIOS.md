@@ -671,3 +671,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Cómo revertir (borra también los eventos y conversiones de prueba por cascada): `delete from personas where workspace_id='22222222-2222-4222-8222-222222222222' and id='P-PRUEBA-1XBET';` — si hiciera falta solo el enlace: `delete from enlaces_rastreo where codigo='PRUEBA1X';`
 - Pendiente: 1xBet manda postbacks de prueba con `click_id=PRUEBA1X` (registration, deposit, cpa; `currency=USD`; `transaction_id` distinto en cada uno); se verifica que quedaron en `conversiones_externas` y, registro y depósito, también en `eventos_comerciales`. Después se borra la persona de prueba.
 - Observación: el redireccionador tardó 13 s en responder. Revisar la latencia antes de enviar a personas reales (puede relacionarse con el healthcheck lento).
+
+## 2026-11-19 (jueves) 16:11 CDMX — 1xBet: carga de la lista y ETAPA 0 (autorizada por el CAIO: "apruebo la etapa 0", "haz la prueba")
+- Carga de la lista (la hizo el CAIO con el importador de la consola, trabajo `da5ff40f-dcc3-4660-8405-acfeea0dc596`, archivo `PL_TEL_part_01.csv`): 100,000 filas procesadas (99,878 personas nuevas y 122 ya existentes), 0 inválidas, 0 fallidas. Los 100,000 leads quedaron en la campaña `1xbet` en etapa `elegible` y RETENIDOS (`pendiente_activacion=true`). Teléfonos distintos: 100,000; 0 con baja de SMS; origen genérico "Importación CSV". 122 también están en Jubilee o Vivento: se dejan retenidos (no contactar dos marcas).
+- Etapa 0: el teléfono interno del CAIO ya existía como persona `P-JULEN-TEST` ("Julen (prueba real)", 10 campañas de prueba anteriores, canal preferido WhatsApp, un bloqueo de voz del 19-sep sin relación). Se le dio de alta en la campaña `1xbet` con `alta_personas_lote(..., pendiente_activacion=false)` (lead `P-JULEN-TEST:1xbet`, `elegible`, liberado). Es el ÚNICO lead liberado: 1 liberado, 100,000 retenidos.
+- 16:11 CDMX: campaña `1xbet` pasada de `borrador` a `activa` para la prueba. Jubilee y Vivento siguen `pausadas`; no había otras campañas activas.
+- Cómo revertir:
+  - Campaña: `update campanas set estado='borrador' where workspace_id='22222222-2222-4222-8222-222222222222' and id='1xbet';`
+  - Lead de prueba: `delete from campana_leads where campana_id='1xbet' and persona_id='P-JULEN-TEST';` (no borrar la persona: tiene historial de otras pruebas).
+  - Si hiciera falta retener de nuevo a todos: `update campana_leads set pendiente_activacion=true where campana_id='1xbet';`
+- Pendiente de la prueba: ver el SMS recibido, su costo por segmento, el enlace, y responder `BAJA` y `ALTO` para comprobar que quedan registradas y que no llega otro mensaje. Al terminar, volver la campaña a `borrador`.
