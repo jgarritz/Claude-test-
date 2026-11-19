@@ -714,3 +714,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Riesgos conocidos (Lovable): con solo 4 trabajadores, `monitor_atascos` (alerta si no hay fila `sms-continuo` en 5 min) puede dar falsa alarma porque el latido es cada 10 min; mitigación: subir trabajadores (paso 2, con aprobación) o subir el umbral con otra migración. En modo diferido los clics de centros de datos reciben 302 a la oferta antes de clasificarse.
 - Para revertir: volver a publicar el commit anterior (`b771f75`-era de Lovable: el despliegue previo fue `23775bd8-...`, código `c1de43a`); no hay migraciones. Nada de lo publicado cambia datos.
 - Siguiente (pendiente de aprobación del CAIO): (2) reactivar trabajadores de 4 a ~10–20 y medir; (3) activar `ENLACE_REGISTRO_DIFERIDO=1` y cronometrar un clic humano; (4) decidir migración de lotes según medición.
+
+## 2026-11-19 (jueves) 17:58 CDMX — Despertador de la tarde
+- Estado: Jubilee y Vivento en `pausada` (último envío 9-nov); 1xBet en `borrador` con 100,001 leads, 1 liberado (el teléfono interno del CAIO) y 100,000 retenidos. Despachos de hoy: 1xBet 1 (la prueba de las 16:12); Jubilee 0, Vivento 0. Gasto del día: 1 SMS (costo real aún sin dato del proveedor). Frío: 0. Aún no son las 20:00.
+- Regla de liberación: 2 leads reactivados (Vivento, `interesado`).
+- Adquisiciones pagables: 0 hoy (2 depósitos). Total desde el 1-oct: Jubilee 8, Vivento 5 (13); la última, Jubilee 13-nov 22:08.
+- Postback de 1xBet: receptor vivo (401 sin token); 0 eventos de 1xBet en `eventos_comerciales` y `conversiones_externas`; sin errores nuevos. Siguen pendientes los postbacks de prueba de 1xBet con `PRUEBA1X`.
+- Salud: healthcheck 200 (311 ms de la base; último tick del cron hace 0 min). WhatsApp "degradado" con 154 errores y 0 mensajes en 6 h: los errores son de consultas de sincronización a `api-messages` con tiempo agotado (origen `directo-whatsapp/api-messages:sent|received`, últimos a las 17:36), no envíos fallidos; sale como advertencia y no da 503. Enlace corto `credc.io/l/PRUEBA1X` 1.3–1.8 s (clic automático); postback 401 en 0.9 s. Trabajadores de SMS activos: 4 (87, 88, 93, 94).
+- Informe diario: 17 y 18-nov `parcial` (0 campañas, correo omitido) por la pausa.
+- Rutinas de claude.ai: no revisé sus reportes hoy (campañas pausadas).
+- Pendientes del CAIO: paso 2 (reactivar trabajadores a ~12, reversible) y paso 3 (activar `ENLACE_REGISTRO_DIFERIDO=1` y cronometrar un clic real); postbacks de prueba de 1xBet; archivo de lista ya cargado (100,000, retenidos); decisión sobre BAJA/ALTO antes de la etapa 1 (fuera del alcance de hoy); aprobación final y fecha de la etapa 1; respuesta de Wintown y del proveedor (ambiguas, acuse de entrega); informe diario del 26 y 27-oct.
