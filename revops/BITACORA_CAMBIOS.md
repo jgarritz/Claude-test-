@@ -661,3 +661,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Pendiente con 1xBet: confirmar que el postback ya quedó configurado con el token nuevo; que agreguen `&currency=USD` fijo (sin moneda no se asume ninguna); si `cpa` llega al calificar o después de los 7 días de retención, si manda monto y `transaction_id`, y si pueden avisar cancelaciones.
 - Pendiente de decisión (cambio de código, requiere publicar y aprobación): hoy `deposit` se guarda como `convertida` ("CPA confirmado") en `eventos_comerciales`; conviene mapear registration → solicitud_iniciada, deposit → aprobada y cpa → convertida, y no mezclar USD con MXN. No afecta las revisiones (filtran solo Wintown). Desde ahora las revisiones contarán los `cpa` de 1xBet como adquisiciones pagables, con consulta aparte.
 - Prueba real: requiere crear un enlace de prueba en `borrador` y se pide aprobación aparte cuando 1xBet confirme su configuración.
+
+## 2026-11-19 (jueves) — 1xBet: enlace de prueba del postback (autorizado por el CAIO, "sí al paso 1")
+- Motivo: 1xBet necesita un código de clic válido para mandar un postback de prueba que quede guardado. Sin código válido solo se registra "Enlace desconocido".
+- Qué se creó (campaña `1xbet` sigue en `borrador`, 0 leads, 0 envíos):
+  - Persona de prueba `P-PRUEBA-1XBET` ("PRUEBA 1xBet (no contactar)"): sin teléfono ni correo, con `opt_out` en sms, voz, whatsapp y email. No es un lead de ninguna campaña.
+  - Enlace de rastreo `PRUEBA1X` (campaña `1xbet`, propósito `destino_final`, metadata `prueba: true`) con el destino actual de la campaña. Enlace corto: `https://credc.io/l/PRUEBA1X`.
+- Comprobación: el enlace existe y responde (200, 13 s; tardó). Mi consulta quedó contada como clic automático (1 clic, 0 humanos); no se siguió la redirección, así que no se generó ningún clic en el portal de 1xBet.
+- Cómo revertir (borra también los eventos y conversiones de prueba por cascada): `delete from personas where workspace_id='22222222-2222-4222-8222-222222222222' and id='P-PRUEBA-1XBET';` — si hiciera falta solo el enlace: `delete from enlaces_rastreo where codigo='PRUEBA1X';`
+- Pendiente: 1xBet manda postbacks de prueba con `click_id=PRUEBA1X` (registration, deposit, cpa; `currency=USD`; `transaction_id` distinto en cada uno); se verifica que quedaron en `conversiones_externas` y, registro y depósito, también en `eventos_comerciales`. Después se borra la persona de prueba.
+- Observación: el redireccionador tardó 13 s en responder. Revisar la latencia antes de enviar a personas reales (puede relacionarse con el healthcheck lento).
