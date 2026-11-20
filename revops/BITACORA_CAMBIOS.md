@@ -914,3 +914,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Resultado de la reanudación (15:53–16:15): 1xBet 1,564 enviados y 79 fallidos (4.8%); Platacard 2,382 enviados y 118 fallidos (4.7%); colas en 0; ambas campañas devueltas a `borrador` a las 16:15; 81,500 retenidos en Platacard y el resto de 1xBet retenido.
 - Evidencia del arreglo: en ese periodo nuestro registro tiene 980 aperturas automáticas de 1xBet (escáneres) y 19 clics humanos, y el panel de 1xBet solo subió +2 (5,445 → 5,447). Antes del arreglo, ~5,370 aperturas automáticas se reflejaron como ~4,850–5,445 "Direct links". Conclusión: los robots ya no llegan al afiliado.
 - Pendiente: pedir al proveedor el reporte de entrega de 10:00 a 13:00 (≈17,000 SMS dudosos) y crédito por lo no entregado; avisar a 1xBet de los ~5,450 clics automáticos de hoy; postback de 1xBet (0 eventos); Platacard sin conversaciones visibles; los CTR de hoy 10:00–13:00 no son confiables.
+
+## 2026-11-20 (viernes) 17:24 CDMX — Aprobado por el CAIO: tanda de 5,000 en 1xBet y 5,000 en Platacard
+- Acción: se liberaron 5,000 contactos retenidos en cada campaña (los más antiguos primero, sin tocar el contacto de prueba interno) y se pusieron ambas campañas en `activa`. Ritmo, horario y trabajadores sin cambios (12 trabajadores, ventana 10:00–20:00).
+- Estado previo: 1xBet 13,501 contactados y 86,500 retenidos; Platacard 8,507 contactados y 81,500 retenidos.
+- Criterios de revisión: tasa de fallos (<6%), contador de "Direct links" de 1xBet frente a los clics humanos, tiempos del enlace corto y clics humanos.
+- Revert (detener): `update campanas set estado='borrador' where id in ('1xbet','platacard-sms-whastsapp');`
+- Revert (re-retener lo no enviado): `update campana_leads set pendiente_activacion=true where campana_id in ('1xbet','platacard-sms-whastsapp') and primer_contacto_en is null and persona_id<>'P-JULEN-TEST' and pendiente_activacion=false;`
