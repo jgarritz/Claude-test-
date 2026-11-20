@@ -731,3 +731,15 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Aún por medir: el clic humano real desde el teléfono del CAIO (antes ~4–5 s con el registro inline).
 - Revertir: publicar el despliegue anterior (`fb18e550-ec65-40be-946b-1378b5f73bc6`, sin diferido por defecto) o definir `ENLACE_REGISTRO_DIFERIDO=0` en los secretos de Lovable y publicar. Sin migraciones.
 - Nota: los clics repetidos de un mismo código, IP y día se registran en `clics_enlace` pero no suman a los contadores de `enlaces_rastreo` (por eso 5 peticiones no suman 5 clics en el contador).
+
+## 2026-11-19 (jueves) ~19:00 CDMX — 1xBet: nuevas variantes de texto cargadas y 4 activas para la etapa 1 (autorizado por el CAIO: "sí")
+- Contexto: el CAIO pidió mensajes más fuertes y medibles. Referencia de octubre (hechos): en frío, 0.6–1.8% de clics humanos; seguimientos a interesados, 2–3.4%; entre variantes de una misma campaña hay ~25% de diferencia.
+- Se cargaron 6 textos nuevos en `campana_plantillas_sms` de la campaña `1xbet` (el validador de plantillas los aceptó; 102–113 caracteres antes de la leyenda del sistema):
+  - FRIO_X15 (duplica) ACTIVA; FRIO_X17 (fútbol) ACTIVA; FRIO_X18 (responsable, con "juega con responsabilidad") ACTIVA.
+  - FRIO_X16 (pregunta), FRIO_X19 (pasos), FRIO_X20 (cuatro depósitos): INACTIVOS, de reserva para la etapa 2.
+  - Pendiente, sin cargar: variante con nombre (requiere confirmar que el sistema inserta el nombre y que los nombres de la lista son fiables).
+- Se desactivaron FRIO_X9, FRIO_X10, FRIO_X11, FRIO_X12 y FRIO_X13. Quedan activos para la etapa 1 (4 variantes, ~250 SMS cada una): FRIO_X8 (control), FRIO_X15, FRIO_X17 y FRIO_X18.
+- Cómo revertir: `update campana_plantillas_sms set activa=true where campana_id='1xbet' and codigo in ('FRIO_X9','FRIO_X10','FRIO_X11','FRIO_X12','FRIO_X13');` y, para quitar los nuevos, `delete from campana_plantillas_sms where campana_id='1xbet' and codigo in ('FRIO_X15','FRIO_X16','FRIO_X17','FRIO_X18','FRIO_X19','FRIO_X20');`
+- Regla de selección acordada (se aplica a mano con aprobación del CAIO tras cada etapa): quitar las 2 peores, dar más volumen al resto y dejar siempre 1 variante nueva con ~10%. Orden de métricas: entrega, clics humanos, registros (postback), primer depósito, CPA. Con 1,000 SMS no hay señal estadística; solo detecta fallas graves.
+- Costo real confirmado por el CAIO: $0.03 pesos por mensaje confirmado enviado (se cobra por mensaje, no por segmento).
+- Pendiente: textos por etapa (clic sin registro, registrado sin depósito, depositó) y el cambio de código que conecte los avisos de 1xBet con las etapas; reconfirmar la oferta oficial antes del envío.
