@@ -830,3 +830,14 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Conclusión: la hipótesis del CAIO se cumple con 8 trabajadores: el clic se mantiene por debajo de 500 ms de servidor. No se probó con más de 8.
 - Cómo revertir a 4: `select cron.alter_job(jobid, active := false) from cron.job where jobname like 'revops-sms-continuo-%' and jobid in (95,96,97,98);`
 - Criterio para detener o bajar: servidor del enlace sobre 500 ms sostenido o total sobre 3 s, o fallos sobre 10%.
+
+## 2026-11-20 (viernes) 10:46 CDMX — Despertador de la mañana (con 1xBet etapa 2 y Platacard en curso)
+- Estado: Jubilee y Vivento `pausadas` (0 despachos hoy). 1xBet y Platacard `activas` (envío en curso, ver entradas de las 10:29 y 10:37). 8 trabajadores de SMS activos.
+- Regla de liberación (solo Jubilee y Vivento): 1 lead reactivado (Jubilee, `interesado`).
+- Adquisiciones pagables (Jubilee/Vivento): 0 hoy (0 depósitos). Total desde el 1-oct: Jubilee 8, Vivento 5 (13); la última, Jubilee 13-nov 22:08. 0 SMS a clientes ya pagables (las campañas están pausadas).
+- 1xBet lote 1 (10:45): 1,854 enviados, 83 fallidos (4.3%), 544 en cola; 0 eventos de postback; 0 mensajes entrantes. Platacard: 990 en cola, 0 enviados (despacha por antigüedad: primero 1xBet).
+- Frío: 0 SMS fríos de Jubilee/Vivento (pausa vigente). Ningún retenido contactado desde las 10:29.
+- Healthcheck 200: base 233 ms, cron al día (último tick hace 1 min); SMS "ok" (4.0% de error en 6 h con 2,931 mensajes); WhatsApp degradado como advertencia (387 errores / 8 mensajes en 6 h: tiempos agotados al sincronizar `api-messages`, no envíos). Enlace corto: servidor 57–200 ms con picos puntuales de 586 y 984 ms; total 0.5–1.7 s.
+- Informe diario: el del 19-nov salió `completada` (2 campañas analizadas, correo enviado); el del 18-nov `parcial`.
+- Rutinas de claude.ai: no revisé sus reportes hoy.
+- Pendientes del CAIO: postbacks de prueba de 1xBet con `PRUEBA1X`; mensaje al proveedor (entrega de Platacard, red 334334, acuse de entrega); lotes 2–4 de 2,500 de 1xBet tras la revisión del lote 1; respuesta de Wintown y del proveedor (ambiguas); informe diario del 26 y 27-oct; textos FRIO_R6_1 y FRIO_R6_6 no aplican con el frío pausado.
