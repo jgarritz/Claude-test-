@@ -822,3 +822,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Vigilar y reportar: clics humanos por texto (1xBet y Platacard), eventos del postback de 1xBet (0 hasta ahora; el CAIO debe pedir a 1xBet los eventos de prueba con `PRUEBA1X`), entrega por red, costo.
 - Cómo revertir/detener: `update campanas set estado='borrador' where workspace_id='22222222-2222-4222-8222-222222222222' and id in ('1xbet','platacard-sms-whastsapp');` y para retener lo no enviado: `update campana_leads set pendiente_activacion=true where campana_id in ('1xbet','platacard-sms-whastsapp') and primer_contacto_en is null and persona_id<>'P-JULEN-TEST' and pendiente_activacion=false;`
 - Pendiente: lotes 2 a 4 de 2,500 para 1xBet (cada uno con revisión y aprobación implícita del CAIO para los 10,000 acordados); confirmar entrega de Platacard.
+
+## 2026-11-20 (viernes) 10:37 CDMX — Trabajadores de SMS subidos de 4 a 8 (autorizado por el CAIO: "sí, sube a 8 y mide")
+- Motivo: con 4 trabajadores el envío iba a ~50–75 SMS/min (10,000 SMS tardarían 3 h o más). Hipótesis del CAIO: con el registro diferido del clic, más trabajadores no deberían alargar el clic.
+- Qué se hizo: se reactivaron los despachadores jobid 95, 96, 97 y 98 (`revops-sms-continuo-8` a `-11`); activos ahora: 87, 88 (preparación) y 93, 94, 95, 96, 97, 98 (despacho).
+- Medición (hechos), con 8 trabajadores y ~200 SMS/min saliendo de 1xBet: enlace corto `Server-Timing respuesta` 58–312 ms (8 mediciones, modo `diferido`), tiempo total visto desde fuera 0.40–1.30 s; healthcheck 200 en 1.27 s; postback sin token 401 en 0.35 s. Rendimiento: de ~47 SMS/min (4 trabajadores, 10:36–10:38) a ~216 SMS/min (10:38–10:39). Fallos 4.8%.
+- Conclusión: la hipótesis del CAIO se cumple con 8 trabajadores: el clic se mantiene por debajo de 500 ms de servidor. No se probó con más de 8.
+- Cómo revertir a 4: `select cron.alter_job(jobid, active := false) from cron.job where jobname like 'revops-sms-continuo-%' and jobid in (95,96,97,98);`
+- Criterio para detener o bajar: servidor del enlace sobre 500 ms sostenido o total sobre 3 s, o fallos sobre 10%.
