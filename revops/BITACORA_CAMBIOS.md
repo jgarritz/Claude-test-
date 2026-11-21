@@ -953,3 +953,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Revertir (detener): `update campanas set estado='borrador' where id='1xbet';`
 - Revertir (liberar seguimientos): `update campana_leads set pendiente_activacion=false where campana_id='1xbet' and primer_contacto_en is not null and salientes_sms=1 and pendiente_activacion=true and archivado_en is null and motivo_salida is null;` (ojo: esto libera además ~696 que ya estaban retenidos antes; liberarlos todos llevaría el total de 1xBet a unos 35,000 SMS, por encima del tope de 30,000 que requiere aprobación del CAIO).
 - Postback de 1xBet: ya hay 1 evento `registration` (click_id de un enlace real, no de prueba; recibido 2026-11-20 19:17 CDMX), asociado a una persona y a su decisión; sin monto ni moneda (normal en registro). Es la primera confirmación de que el enlace en uso dispara el postback.
+
+## 2026-11-21 (sábado) 13:14 CDMX — Platacard: liberados 25,000 contactos (orden del CAIO: "llibera 25,000 de platacard")
+- Se liberaron 25,000 contactos retenidos de Platacard (los más antiguos primero, sin tocar el contacto de prueba interno); quedan 51,500 retenidos. Campaña `activa`; ritmo, horario (10:00–20:00) y 12 trabajadores sin cambios. Estado previo: 13,507 contactados. 1xBet seguía terminando sus 2,001 en cola (reparto por turnos en la preparación vigente).
+- Costo esperado: unos 25,000 × $0.03 ≈ $750 MXN. A ~300 SMS/min la tanda tarda unas 1.5 h; la ventana cierra a las 20:00.
+- Aviso: en Platacard no salen seguimientos hoy (39 contactos con 2 SMS); no es seguro que mañana no salgan, como pasó en 1xBet, pues la campaña seguirá `activa`.
+- Revertir (detener): `update campanas set estado='borrador' where id='platacard-sms-whastsapp';`
+- Revertir (re-retener lo no enviado): `update campana_leads set pendiente_activacion=true where campana_id='platacard-sms-whastsapp' and primer_contacto_en is null and persona_id<>'P-JULEN-TEST' and pendiente_activacion=false;`
