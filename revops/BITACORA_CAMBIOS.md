@@ -938,3 +938,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Fallos de hoy en 1xBet: 611 de ~9,800 (~6.2%), 162+ por "NO ROUTES" (incluye números de EE. UU.) y el resto por tarifas no encontradas de la red 334334.
 - Revertir (reanudar): `update campanas set estado='activa' where id='1xbet';` (saldrán los 2,001 en cola y seguirán los seguimientos hasta el tope de 2 SMS por persona). Requiere decisión del CAIO sobre el tope de 30,000.
 - Platacard sigue `activa` sin cola ni seguimientos; Jubilee y Vivento `pausadas`. Regla de liberación: 0 contactos que liberar.
+
+## 2026-11-21 (sábado) ~13:10 CDMX — Publicados los cambios menores hechos por el CAIO en Lovable (commit ede139b), autorizado por el CAIO
+- Contenido revisado: (1) enlace corto: en modo diferido, red de nube + navegador móvil recibe la página con redirección JS (antes, neutra); nube + escritorio y robots (p. ej. curl con firma móvil) siguen neutros; el clic se registra siempre; (2) informe diario: si el correo a un destinatario falla, se intenta con los demás y se conserva el primer error, con reintento idempotente. Pruebas: 1,149 pasan, mismas 8 fallas previas, sin nuevas.
+- Publicación: solicitada a las ~13:10 (deployment 97e22bb2-6d21-4dff-97e2-adcd93b78d5e); la finalización no se confirmó desde aquí. Tras publicar: healthcheck 200 en 1.9–2.4 s; enlace de prueba responde con `puerta` js (navegadores, red desconocida) y neutra (curl), como antes.
+- Pendiente de verificación: contador de "Direct links" de 1xBet (solo lo ve el CAIO en su panel); sin envíos activos no se puede medir hoy.
+- Revertir: `git revert ede139b` en el proyecto de Lovable y publicar de nuevo; el apagado de emergencia del registro diferido (`ENLACE_REGISTRO_DIFERIDO=0`) no cambia.
