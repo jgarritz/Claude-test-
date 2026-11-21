@@ -944,3 +944,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Publicación: solicitada a las ~13:10 (deployment 97e22bb2-6d21-4dff-97e2-adcd93b78d5e); la finalización no se confirmó desde aquí. Tras publicar: healthcheck 200 en 1.9–2.4 s; enlace de prueba responde con `puerta` js (navegadores, red desconocida) y neutra (curl), como antes.
 - Pendiente de verificación: contador de "Direct links" de 1xBet (solo lo ve el CAIO en su panel); sin envíos activos no se puede medir hoy.
 - Revertir: `git revert ede139b` en el proyecto de Lovable y publicar de nuevo; el apagado de emergencia del registro diferido (`ENLACE_REGISTRO_DIFERIDO=0`) no cambia.
+
+## 2026-11-21 (sábado) 13:07 CDMX — 1xBet reanudada solo con los 2,001 ya preparados (autorizado por el CAIO); resto de seguimientos retenido
+- Orden del CAIO: "Reanuda 1xBet con los 2,001 y deja Platacard activa".
+- Para que salgan SOLO esos 2,001 y no se preparen más seguimientos (límite del piloto: 30,000 SMS), se retuvieron con `pendiente_activacion=true` los contactos de 1xBet con un solo SMS, ya contactados y sin despacho en cola: 5,253 (los seguimientos pendientes totales eran 7,232). Antes ya había 1,000 contactados retenidos (696 con 1 SMS y 251 con 2) por decisiones previas. Comprobado: hoy ningún despacho salió a contactos retenidos, así que la retención sí frena los seguimientos.
+- 13:06 `update campanas set estado='activa' where id='1xbet';`. A las 13:07 salían ~68 por 90 s con 1,954 en cola.
+- Platacard sigue `activa` sin cola; Jubilee y Vivento pausadas.
+- Revertir (detener): `update campanas set estado='borrador' where id='1xbet';`
+- Revertir (liberar seguimientos): `update campana_leads set pendiente_activacion=false where campana_id='1xbet' and primer_contacto_en is not null and salientes_sms=1 and pendiente_activacion=true and archivado_en is null and motivo_salida is null;` (ojo: esto libera además ~696 que ya estaban retenidos antes; liberarlos todos llevaría el total de 1xBet a unos 35,000 SMS, por encima del tope de 30,000 que requiere aprobación del CAIO).
+- Postback de 1xBet: ya hay 1 evento `registration` (click_id de un enlace real, no de prueba; recibido 2026-11-20 19:17 CDMX), asociado a una persona y a su decisión; sin monto ni moneda (normal en registro). Es la primera confirmación de que el enlace en uso dispara el postback.
