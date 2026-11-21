@@ -930,3 +930,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Aviso de Lovable: el escáner de seguridad mantiene 2 hallazgos críticos previos sin relación con esta migración; pendiente revisarlos en la vista de Seguridad.
 - Estado de la tanda de 5,000+5,000 a las 17:49: 1xBet 6,416 procesados en la ventana de 2 h (6,119 enviados, 297 fallidos, 228 en cola); Platacard 4,835 procesados (4,596 enviados, 239 fallidos, 1,776 en cola).
 - Revertir: ejecutar la definición anterior que está en el comentario del archivo de migración (equivale a restaurar `ORDER BY x.creado_en,x.campana_id LIMIT lim`).
+
+## 2026-11-21 (sábado) 10:47 CDMX — 1xBet devuelta a `borrador`: se estaban enviando segundos SMS (seguimientos) no previstos en mis informes
+- Hallazgo (hechos): las dos campañas quedaron en `activa` toda la noche. Desde las 10:00 de hoy 1xBet envió unos 9,200 segundos SMS a contactos del 20-nov (los candidatos con 1 SMS enviado ayer; límite configurado de la campaña: máximo 2 SMS por persona en 7 días) y tenía 2,001 en cola. Total de SMS enviados por 1xBet: 26,851; piloto con tope de 30,000 SMS y saltos con aprobación del CAIO. Quedaban unos 6,000 contactos con un solo SMS que habrían llevado el total a ~35,000, por encima del tope. Textos usados: FRIO_X15, X16, X17, X19, X20 (los vigentes). Platacard no envió seguimientos (39 contactos con 2 SMS).
+- Error mío: ayer 18:20 dije al CAIO que dejar la campaña `activa` no enviaba nada porque no había contactos liberados; no consideré que los seguimientos a contactos ya enviados salen solos al día siguiente.
+- Acción (10:47): `update campanas set estado='borrador' where id='1xbet';`. Verificado: 0 envíos en los 40 s siguientes; quedan 2,001 despachos en `lista` sin enviar (no se cancelaron).
+- Fallos de hoy en 1xBet: 611 de ~9,800 (~6.2%), 162+ por "NO ROUTES" (incluye números de EE. UU.) y el resto por tarifas no encontradas de la red 334334.
+- Revertir (reanudar): `update campanas set estado='activa' where id='1xbet';` (saldrán los 2,001 en cola y seguirán los seguimientos hasta el tope de 2 SMS por persona). Requiere decisión del CAIO sobre el tope de 30,000.
+- Platacard sigue `activa` sin cola ni seguimientos; Jubilee y Vivento `pausadas`. Regla de liberación: 0 contactos que liberar.
