@@ -1025,3 +1025,8 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Salud: healthcheck 200 en 2 de 3 mediciones; una respondió 503 tras ~4.1 s, intermitente (ya no por `afiliados`; posible tiempo de espera del propio chequeo bajo carga). Pendiente de diagnóstico; se propone análisis solo-lectura con Lovable.
 - Estado de campañas: 1xBet `activa` (sin elegibles), Platacard `activa` (liberación de 25,000 programada mañana 9:40 CDMX), Jubilee y Vivento `pausadas`.
 - Revertir (liberar seguimientos de 1xBet): `update campana_leads set pendiente_activacion=false where campana_id='1xbet' and primer_contacto_en is not null and salientes_sms>=1 and pendiente_activacion=true and archivado_en is null and motivo_salida is null and persona_id<>'P-JULEN-TEST';` (permitiría segundos y terceros SMS; el tope de 2 en 7 días sigue en sombra).
+
+## 2026-11-22 (domingo) 14:35 CDMX — 1xBet devuelta a `borrador` para mañana (orden del CAIO: "Déjala en borrador para mañana")
+- `update campanas set estado='borrador' where id='1xbet';` Sin cola, sin contactos liberados y con todos los seguimientos retenidos; evita envíos inesperados mañana a las 10:00. El generador de textos deportivos del día de 1xBet sigue funcionando en `borrador` (modo `solo_generar`): mañana 08:00 CDMX crea 3 textos inactivos.
+- Postbacks de 1xBet hasta ahora: 2 registros (20-nov 19:17 y 21-nov 14:10), 0 depósitos, 0 CPA.
+- Revertir (reanudar): `update campanas set estado='activa' where id='1xbet';` (no saldría nada mientras sigan retenidos todos los contactos).
