@@ -1003,3 +1003,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Acción: `update campana_plantillas_sms set activa=false where campana_id='1xbet' and codigo='FRIO_X19';`
 - Revertir: `update campana_plantillas_sms set activa=true where campana_id='1xbet' and codigo='FRIO_X19';`
 - Siguiente: el CAIO pidió "variaciones del día con los partidos del día" para 1xBet, como en Jubilee y Vivento (job `revops-sms-deportes-diarios`, 14:00 UTC, genera 3 textos DEP_* con el partido del día; última generación 9-nov). Se pidió a Lovable un análisis solo-plan; no se cambió código ni cron.
+
+## 2026-11-22 (domingo) 12:18 CDMX — 1xBet reanudada con 30,000 contactos nuevos (orden del CAIO: "1xBet sí, 30,000"); Platacard hoy no
+- Se liberaron 30,000 contactos sin contactar de 1xBet (más antiguos primero, sin tocar el contacto de prueba interno); quedan 26,500 retenidos. Campaña `activa`; ritmo, horario (10:00–20:00) y 12 trabajadores sin cambios; textos activos X15, X16, X17 y X20 (X19 desactivado). Costo esperado ≈ 30,000 × $0.03 = $900 MXN; a ~300 SMS/min, unas 1.7 h.
+- Los seguimientos (≈31,250 de 1 SMS y ≈11,205 de 2+) siguen retenidos para no enviar terceros SMS; el tope de 2 en 7 días sigue en modo sombra (no bloquea). Programada la retención de los nuevos contactados al terminar la cola (mañana serían elegibles para un segundo SMS) y una revisión de fallos y terceros SMS.
+- Platacard sigue `activa` sin cola; su liberación de 25,000 sigue programada para el lunes 23-nov a las 9:40 CDMX (orden del CAIO: "Liberemos platacard mañana").
+- Revertir (detener): `update campanas set estado='borrador' where id='1xbet';`
+- Revertir (re-retener lo no enviado): `update campana_leads set pendiente_activacion=true where campana_id='1xbet' and primer_contacto_en is null and persona_id<>'P-JULEN-TEST' and pendiente_activacion=false and import_job_id is not null;`
