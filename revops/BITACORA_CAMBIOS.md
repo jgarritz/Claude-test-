@@ -1018,3 +1018,10 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Salud: healthcheck 200 en 8 de 9 mediciones; una dio 503 (3.8 s) mientras 1xBet enviaba; intermitente, sin causa identificada aún.
 - Revertir: quitar `1xbet` de la lista de la ruta/`MARCAS_SMS_DEPORTES`, o dejar apagados sus textos DEP_ (`update campana_plantillas_sms set activa=false where campana_id='1xbet' and codigo like 'DEP\_%';`).
 - Estado del envío de 1xBet (12:21): 637 enviados de la tanda de 30,000 y 2,017 en cola.
+
+## 2026-11-22 (domingo) 14:22 CDMX — Cierre de la tanda de 30,000 de 1xBet y retención final de seguimientos
+- Resultado (hechos): de las 12:18 a las 14:21 salieron 28,599 SMS enviados y 1,397 fallidos (4.7%) a 29,997 contactos nuevos; cola en 0. Costo ≈ $858 MXN (28,599 × $0.03; SMS aceptados por el proveedor, no entregados). Ningún contacto recibió más de 1 SMS en esta tanda (0 terceros SMS).
+- Retención: se retuvieron (`pendiente_activacion=true`) 26,543 contactados a las 13:50 y 4,496 más a las 14:21; todos los contactados de 1xBet quedan retenidos salvo el contacto de prueba interno (73,494 contactados retenidos; 26,500 sin contactar retenidos). Mañana a las 10:00 1xBet, aunque siga `activa`, no tiene nada elegible para enviar.
+- Salud: healthcheck 200 en 2 de 3 mediciones; una respondió 503 tras ~4.1 s, intermitente (ya no por `afiliados`; posible tiempo de espera del propio chequeo bajo carga). Pendiente de diagnóstico; se propone análisis solo-lectura con Lovable.
+- Estado de campañas: 1xBet `activa` (sin elegibles), Platacard `activa` (liberación de 25,000 programada mañana 9:40 CDMX), Jubilee y Vivento `pausadas`.
+- Revertir (liberar seguimientos de 1xBet): `update campana_leads set pendiente_activacion=false where campana_id='1xbet' and primer_contacto_en is not null and salientes_sms>=1 and pendiente_activacion=true and archivado_en is null and motivo_salida is null and persona_id<>'P-JULEN-TEST';` (permitiría segundos y terceros SMS; el tope de 2 en 7 días sigue en sombra).
