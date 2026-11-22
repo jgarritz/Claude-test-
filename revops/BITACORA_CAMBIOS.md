@@ -997,3 +997,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Eran terceros SMS (contactos con 2 SMS ya recibidos) que rebasaban el máximo de 2 SMS por persona en 7 días. `update sms_despachos set estado='cancelada', error='Cancelado por el CAIO 2026-11-22: tercer SMS...'` sobre los 1,042 despachos `lista` de 1xBet de las 10:38 a las 10:43. No se envió ninguno. 1xBet sigue en `borrador`; los contactos con 2+ SMS siguen retenidos.
 - Revertir (si el CAIO lo pidiera): `update sms_despachos set estado='lista', error=null where campana_id='1xbet' and estado='cancelada' and error like 'Cancelado por el CAIO 2026-11-22%';` (enviaría terceros SMS si la campaña se activa).
 - BAJA/STOP: el CAIO pidió explicación del "callback" y dejó los textos para después; no se cambió ningún texto ni se contactó al proveedor.
+
+## 2026-11-22 (domingo) 12:40 CDMX — Desactivado el texto FRIO_X19 de 1xBet (orden del CAIO: "saca x19")
+- Motivo (hechos): FRIO_X19 tuvo 2 clics humanos de 3,106 envíos (0.06%) frente a 1.4–1.55% de X15, X16, X17 y X20; la causa no se identificó (no se explica por la ventana de la falla del proveedor del 20-nov). Los otros 4 textos activos quedan sin cambios (CTR 1.42–1.55%, empatados dentro del margen de error).
+- Acción: `update campana_plantillas_sms set activa=false where campana_id='1xbet' and codigo='FRIO_X19';`
+- Revertir: `update campana_plantillas_sms set activa=true where campana_id='1xbet' and codigo='FRIO_X19';`
+- Siguiente: el CAIO pidió "variaciones del día con los partidos del día" para 1xBet, como en Jubilee y Vivento (job `revops-sms-deportes-diarios`, 14:00 UTC, genera 3 textos DEP_* con el partido del día; última generación 9-nov). Se pidió a Lovable un análisis solo-plan; no se cambió código ni cron.
