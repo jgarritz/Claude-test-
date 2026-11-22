@@ -1010,3 +1010,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Platacard sigue `activa` sin cola; su liberación de 25,000 sigue programada para el lunes 23-nov a las 9:40 CDMX (orden del CAIO: "Liberemos platacard mañana").
 - Revertir (detener): `update campanas set estado='borrador' where id='1xbet';`
 - Revertir (re-retener lo no enviado): `update campana_leads set pendiente_activacion=true where campana_id='1xbet' and primer_contacto_en is null and persona_id<>'P-JULEN-TEST' and pendiente_activacion=false and import_job_id is not null;`
+
+## 2026-11-22 (domingo) 12:25 CDMX — Publicados los SMS deportivos del día para 1xBet en modo `solo_generar` (autorizado por el CAIO: "adelante con el plan")
+- Commits en Lovable: 7b551d0 (configuración por marca; 1xBet con oferta fija "bono 100% hasta $8,000 en tu 1er deposito deportivo", +18 y TyC obligatorios, sin otras cifras, sin casino/gratis/gana seguro/garantiz/urgencia; elección de partido: Liga MX y NFL primero y solo desde las 12:00 CDMX), 989b896 (la ruta incluye 1xbet y lo procesa al final, aislado; migración que permite a `reclamar_sms_deportes` aceptar 1xbet también en `borrador`) y f4ea0fe (roadmap). Jubilee y Vivento no cambian.
+- Pruebas: 32 de 32 de deportivos; suite completa 1,177 pasan y las mismas 8 fallas previas. Verificado en base: `reclamar_sms_deportes` incluye 1xbet; 0 plantillas DEP_ de 1xbet (aún no se genera ninguna); campañas sin cambios de estado.
+- Efecto: mañana lunes 23-nov a las 08:00 CDMX el job diario (14:00 UTC) generará 3 textos DEP_ de 1xBet con `activa=false`, a revisar por el CAIO; no se activan solos. Primera ejecución real pendiente de verificar.
+- Salud: healthcheck 200 en 8 de 9 mediciones; una dio 503 (3.8 s) mientras 1xBet enviaba; intermitente, sin causa identificada aún.
+- Revertir: quitar `1xbet` de la lista de la ruta/`MARCAS_SMS_DEPORTES`, o dejar apagados sus textos DEP_ (`update campana_plantillas_sms set activa=false where campana_id='1xbet' and codigo like 'DEP\_%';`).
+- Estado del envío de 1xBet (12:21): 637 enviados de la tanda de 30,000 y 2,017 en cola.
