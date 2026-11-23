@@ -1045,3 +1045,12 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Frío de Jubilee/Vivento: sin envíos; pausa vigente.
 - Salud: healthcheck 200 en 2 de 3 (una dio 503 en ~4.4 s; intermitente, ya documentado).
 - Pendientes para el CAIO: callback de BAJA/entrega en el proveedor; reputación del número remitente (marcado "Fraude" en un teléfono Android); análisis del healthcheck intermitente; revisión de los 3 textos deportivos de 1xBet (lunes 8:20); liberación de Platacard (lunes 9:40, con retención previa de seguimientos).
+
+## 2026-11-23 (lunes) 09:42 CDMX — Platacard: liberados 25,000 contactos nuevos y retenidos los seguimientos (orden del CAIO del 22-nov: "Liberemos platacard mañana")
+- Textos deportivos de 1xBet (08:00): el generador funcionó; 3 textos de Commanders vs Bengals (NFL, 19:15 CDMX), inactivos, ≤140 caracteres, con la oferta exacta y +18/TyC; el CAIO decide si los activa (1xBet sigue `borrador`).
+- Antes de liberar: healthcheck responde 503 de forma sostenida porque el canal SMS figura "degradado" (6 errores de reconciliación con tiempo agotado y 0 mensajes en 6 h): falso positivo por inactividad (nada se envió en las últimas horas); `cron` al día. 1xBet `borrador` sin envíos; sin falla general del proveedor (4 tiempos agotados de reconciliación).
+- Retención de seguimientos de Platacard: 38,492 contactados con `pendiente_activacion=true` (excluye el contacto de prueba interno, que no se puede retener y recibirá seguimientos).
+- Liberación: 25,000 contactos sin contactar (más antiguos primero); quedan 26,500 retenidos. 09:41:56 campaña `activa`; la ventana abre a las 10:00. Costo esperado ≈ 25,000 × $0.03 = $750 MXN.
+- Revertir (detener): `update campanas set estado='borrador' where id='platacard-sms-whastsapp';`
+- Revertir (re-retener lo no enviado): `update campana_leads set pendiente_activacion=true where campana_id='platacard-sms-whastsapp' and primer_contacto_en is null and persona_id<>'P-JULEN-TEST' and import_job_id is not null and pendiente_activacion=false;`
+- Revertir (liberar seguimientos): `update campana_leads set pendiente_activacion=false where campana_id='platacard-sms-whastsapp' and primer_contacto_en is not null and pendiente_activacion=true and archivado_en is null and motivo_salida is null and persona_id<>'P-JULEN-TEST';`
