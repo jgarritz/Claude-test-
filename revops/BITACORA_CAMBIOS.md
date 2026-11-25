@@ -1140,3 +1140,8 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Verificación: sin token la ruta responde 401 (primer intento 404 mientras se propagaba el despliegue, 401 al tercero). Falta probar con token real y un clic real: se hará con el CAIO al pegar las 3 URLs (registro, depósito, payout) en el panel del anunciante; profit no se configura.
 - La campaña `brazino777` sigue en `borrador`, sin textos ni lista: no envía nada.
 - Revertir (si hiciera falta): quitar el secreto en Ajustes (la ruta vuelve a responder 401 a todo) o revertir la publicación en Lovable; no hay cambios de datos aparte de la campaña en borrador.
+
+## 2026-11-25 (miércoles) 10:22 CDMX — Enlace de rastreo de PRUEBA para `brazino777` (acuerdo con el CAIO: "déjalo listo para cuando confirmen")
+- `insert into enlaces_rastreo` con código `BzTest77`, persona de prueba del CAIO (`P-JULEN-TEST`), campaña `brazino777`, `metadata {"prueba":true}`. Sirve para probar de punta a punta el postback (registro y depósito de prueba): el postback debe traer ese código como `click_id`. No es un SMS, no hay lista ni textos, la campaña sigue en `borrador`. Enlace corto: `https://credc.io/l/BzTest77`. No se usa hasta que el anunciante confirme que guardó las 3 URLs de postback (su panel las tiene bloqueadas; se pidió a su soporte).
+- Verificado: `brazino777` sin contactos ni importaciones (0).
+- Revertir/limpiar al terminar la prueba: `delete from conversiones_externas where enlace_codigo='BzTest77'; delete from clics_enlace where codigo='BzTest77'; delete from enlaces_rastreo where codigo='BzTest77';` (y los eventos de prueba en `eventos_comerciales` con ese código, si los hubiera).
