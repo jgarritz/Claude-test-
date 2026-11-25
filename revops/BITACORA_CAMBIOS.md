@@ -1134,3 +1134,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Código: plan aprobado en modo plan (receptor propio `/api/public/conversion/postback/brazino777` con secreto propio `BRAZINO_POSTBACK_TOKEN`, sin tocar el de 1xBet, sin migraciones). El código se escribe pero NO se publica hasta orden expresa del CAIO. El CAIO crea el secreto en Lovable (yo no lo veo ni lo guardo).
 - Pendiente con el anunciante: términos de la bienvenida (depósito mínimo, requisitos de apuesta, vigencia), confirmar que la promo aplica al tráfico de este enlace, si exigen aprobar los textos, y configurar las URLs de postback cuando el receptor esté publicado.
 - Revertir: `delete from campanas where id='brazino777' and estado='borrador';` (solo si aún no tiene leads, textos ni mensajes).
+
+## 2026-11-25 (miércoles) 10:12 CDMX — Receptor de postback `brazino777` publicado (orden del CAIO: secreto creado y "listo")
+- Publicado en Lovable (despliegue `cec98c6a`): ruta `/api/public/conversion/postback/brazino777` (secreto propio `BRAZINO_POSTBACK_TOKEN`, creado por el CAIO), lector de eventos y receptor genérico por proveedor. El receptor de 1xBet no cambió. Sin migraciones.
+- Verificación: sin token la ruta responde 401 (primer intento 404 mientras se propagaba el despliegue, 401 al tercero). Falta probar con token real y un clic real: se hará con el CAIO al pegar las 3 URLs (registro, depósito, payout) en el panel del anunciante; profit no se configura.
+- La campaña `brazino777` sigue en `borrador`, sin textos ni lista: no envía nada.
+- Revertir (si hiciera falta): quitar el secreto en Ajustes (la ruta vuelve a responder 401 a todo) o revertir la publicación en Lovable; no hay cambios de datos aparte de la campaña en borrador.
