@@ -1172,3 +1172,9 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Limpieza posterior: 9 decisiones viejas del motor de 1xBet marcadas `pausada` con `ultimo_error='reemplazada_por_cola'` (misma limpieza A autorizada; no se borró nada).
 - Revertir el código: revertir el commit `b37ba18` en Lovable y publicar de nuevo. Revertir la limpieza: `update decisiones set estado='aprobada', ultimo_error=null where campana_id='1xbet' and ultimo_error='reemplazada_por_cola';` (no recomendado).
 - Pendiente aparte: decisión del CAIO sobre `sms_por_dia` de Platacard (para pasarla a la cola rápida).
+
+## 2026-11-25 (miércoles) 11:46 CDMX — Verificación de la corrección B (24 min después de publicar): sin cambios
+- Motor: 0 decisiones SMS nuevas de `motor:nba` en 1xBet desde la publicación (11:21) y 0 pendientes del motor; la limpieza A no hizo falta de nuevo.
+- Envío de 1xBet (10:00–11:45, SMS aceptados por el proveedor, no entregados): 29,974 mensajes salientes, 1,336 fallidos (4.5%); últimos 10 min: 2,941 (≈294/min) con 143 fallidos (4.9%); costo acumulado ≈ $859 MXN (28,638 aceptados × $0.03). Cola viva 1,968.
+- 0 mensajes a contactos retenidos; 0 personas con 2 o más SMS hoy (0 terceros).
+- Sin cambios en datos, campañas ni código en esta verificación.
