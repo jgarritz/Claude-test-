@@ -1152,3 +1152,11 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Quedan 26,501 contactos liberados con 1 SMS esperando su segundo (reparto por franjas de 14:00–19:59 y por minuto asignado).
 - Salud: healthcheck 503 en 2 de 2 mediciones (3.7–4.1 s); el falso positivo intermitente del canal SMS sigue pendiente de arreglo.
 - Revertir A (no recomendado): `update decisiones set estado='aprobada', ultimo_error=null where campana_id='1xbet' and ultimo_error='reemplazada_por_cola';`
+
+## 2026-11-25 (miércoles) 10:50 CDMX — Revisión de la mañana (despertador 10:45): sin cambios
+- 1xBet (10:00–10:46, SMS aceptados por el proveedor, no entregados): 13,071 mensajes salientes, 556 fallidos (4.3%, bajo el umbral de 6%); costo ≈ $375 MXN (12,515 aceptados × $0.03). 0 mensajes a contactos retenidos; 0 personas con 2 o más SMS hoy (0 terceros). Cola viva 1,945. El motor creó solo 3 decisiones aprobadas nuevas desde la limpieza de las 10:18 (no bloquean a escala); no se repitió A. B sigue pendiente de aprobación.
+- Causa de los fallos de 1xBet (primeras 5 causas, dato observado): "NO ROUTES" (153) y "Rates not found" para varios prefijos de una misma operadora (142, 24, 24, 21): faltan rutas o tarifas en el proveedor. Para llevarlo al proveedor se necesita autorización del CAIO.
+- Jubilee y Vivento: 0 envíos en la última hora (ambas en `borrador` por orden del CAIO). Regla de liberación ejecutada: 0 contactos liberados. Pagables: 1 persona con depósito registrado (1xBet), 0 SMS enviados después de su depósito.
+- Reporte de la rutina de revisión matutina (solo lectura): siguió el formato y no escribió nada; sus cifras de 1xBet coinciden con las mías a su hora. Marca ROJO a Jubilee/Vivento por no enviar y pide confirmar si la pausa fue intencional: lo fue (orden del CAIO), así que ese ROJO es un falso positivo de alcance. Señala alertas viejas abiertas ("14 días sin actividad" de 1xBet y Platacard, falsas; "Confirmaciones de entrega SMS atrasadas" desde el 13-nov, real y ligada al webhook del proveedor pendiente).
+- Healthcheck: 503, 503, 200 (3.0–4.1 s); el falso positivo intermitente del canal SMS sigue.
+- Sin cambios en datos, campañas ni código en esta revisión.
