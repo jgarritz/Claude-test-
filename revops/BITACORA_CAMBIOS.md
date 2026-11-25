@@ -1111,3 +1111,7 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Adquisiciones pagables: no medibles; postbacks de 1xBet: ninguno nuevo desde el 22-nov (3 registros y 1 depósito sin monto). Jubilee y Vivento `pausadas` y detenidas por orden del CAIO; regla de liberación: 0.
 - Salud: healthcheck 503 en 2 de 3 mediciones (3.8–4.5 s) y 200 en la otra; intermitente (falso positivo de canal SMS cuando hay pocos mensajes).
 - Pendientes del CAIO: (1) aprobar la limpieza A de decisiones viejas de 1xBet (+ B y C opcionales) para escalar los seguimientos; (2) 1xBet/Platacard `activa` o `borrador` para mañana (recomendado: Platacard `borrador`); (3) configuración del webhook de respuestas/acuses en el proveedor; (4) mensaje a 1xBet para que el postback incluya el monto del depósito; (5) arreglo del healthcheck intermitente.
+
+## 2026-11-24 (martes) 18:44 CDMX — Platacard a `borrador` (orden del CAIO: "deten platacard")
+- `update campanas set estado='borrador' where id='platacard-sms-whastsapp';` Sin cola, con todos los contactados retenidos y sin contactos nuevos por enviar (22 liberados sin preparar y 6 contactados sin retener). 1xBet sigue `activa` con 2,265 segundos SMS liberados.
+- Revertir (reanudar): `update campanas set estado='activa' where id='platacard-sms-whastsapp';`
