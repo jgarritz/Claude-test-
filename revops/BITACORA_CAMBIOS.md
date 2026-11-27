@@ -1291,3 +1291,13 @@ Hallazgos del 26-oct (matutina, 10:30 CDMX): economía en rojo (8 adquisiciones 
 - Hipótesis "URL gnta.io" (planteada por el CAIO) PROBADA y DESCARTADA como causa: a las 11:52 se quitó `dominioEnlace` de Brazino777 (enlaces con `credc.io`) para comparar. Resultado: los mensajes con `gnta.io` de 11:45 a 11:53 fallaron 2–7% y los con `credc.io` (11:54–11:56) 1–5%; es decir, la oleada terminó a las 11:45, ANTES del cambio de dominio. A las 11:57 las tres campañas tienen 4–5% de fallos.
 - Qué coincide con el fin de la oleada: los trabajadores se subieron de 18 a 24 a las 11:44 (el primer minuto con 24 fue el 11:45). Con 18 trabajadores ayer de 18:00 a 20:00 el fallo fue 5%, así que no se puede atribuir a la cantidad de trabajadores; causa NO identificada. El texto de los errores es del proveedor (rutas/tarifas), por lo que lo más probable es una degradación temporal de rutas del proveedor que terminó a las 11:44; para confirmarlo hay que preguntarle al proveedor (requiere autorización del CAIO).
 - Acción: se restauró `dominioEnlace=https://gnta.io` en Brazino777 a las 12:00 para seguir con el experimento de dominio que pidió el CAIO. Revertir: `update campanas set destino = destino - 'dominioEnlace' where id='brazino777';`
+
+## 2026-11-27 17:55–18:05 CDMX — Revisión de la tarde (retención final y regla de liberación)
+
+- Medición con 24 trabajadores (12:14 CDMX): enlace corto 2.4–3.5 s (prom. 2.9 s, no sostenido >3 s), healthcheck 503 intermitente (falso positivo conocido). Se mantienen 24 trabajadores; sin cambios. Velocidad ~180/min por preparación en ráfagas (cola de despacho casi vacía), no por trabajadores de envío.
+- Retención final del día: 1xbet 17,335 y platacard-sms-whastsapp 31,765 leads con salientes_sms>=2 marcados pendiente_activacion=true (se excluye P-JULEN-TEST; solo import_job_id no nulo). Evita un tercer SMS.
+  - Revertir (solo si se autoriza una tercera ronda): `update campana_leads set pendiente_activacion=false where workspace_id='22222222-2222-4222-8222-222222222222' and campana_id in ('1xbet','platacard-sms-whastsapp') and salientes_sms>=2 and pendiente_activacion=true;`
+- Regla de liberación (Jubilee/Vivento): 1 lead de vivento liberado (etapa avanzada); jubilee-v2 0. El frío sigue pausado.
+  - Revertir: sin acción necesaria (liberación individual de un lead ya avanzado).
+- Cierre del día (hasta 17:56 CDMX): SMS aceptados 1xBet 16,205; Brazino 51,565; Platacard 29,969 (total 97,739, ≈ $2,932 MXN). Fallidos 1,130 / 5,074 / 1,798. Envíos después de las 20:00: 0. Terceros SMS: 0.
+- Conversiones del día: 2 registros de Brazino; 0 depósitos.
